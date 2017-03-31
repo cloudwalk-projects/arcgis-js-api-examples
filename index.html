@@ -1,338 +1,164 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
-
-    <!--此处为我们配置好的离线服务,若出不来地图，仔细检查下你的文件路径是不是对的-->
-    <link rel="stylesheet" href="http://localhost/arcgis/v3.19/library/3.19/3.19/dijit/themes/claro/claro.css" />
-    <link rel="stylesheet" href="http://localhost/arcgis/v3.19/library/3.19/3.19/esri/css/esri.css" />
-    <style>
+    <title>项目</title>
+    <link rel="stylesheet" type="text/css" href="http://map.x3platform.com/dijit/themes/x3platform/x3platform.css">
+    <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
+    <style type="text/css">
         html,
         body,
         #map {
+            width: 100%;
             height: 100%;
             margin: 0;
-            padding: 0;
+            padding: 0
+        }
+        
+        #borderContainer {
+            width: 100%;
+            height: 100%
         }
     </style>
-
-    <script>
-        // 设置 dojo 本地语言为中文
-        dojoConfig = { locale: "zh-cn" };
-    </script>
-
-    <script src="http://localhost/arcgis/v3.19/library/3.19/3.19/init.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-        var map, draw;
-
-        // 经纬度转墨卡托 
-        function lonlat2mercator(lonlat) {
-            var mercator = { x: 0, y: 0, "spatialReference": { "wkid": 102100 } };
-            var x = lonlat.x * 20037508.34 / 180;
-            var y = Math.log(Math.tan((90 + lonlat.y) * Math.PI / 360)) / (Math.PI / 180);
-            y = y * 20037508.34 / 180;
-            mercator.x = x;
-            mercator.y = y;
-            return mercator;
-        }
-
-        console.log('{ "x": "106.49776567612075", "y": "29.603754781387273", }=>' + lonlat2mercator({ "x": "106.49776567612075", "y": "29.603754781387273", }));
-
-        // 墨卡托转经纬度
-        function mercator2lonlat(mercator) {
-            var lonlat = { x: 0, y: 0, "spatialReference": { "wkid": 4326 } };
-            var x = mercator.x / 20037508.34 * 180;
-            var y = mercator.y / 20037508.34 * 180;
-
-            y = 180 / Math.PI * (2 * Math.atan(Math.exp(y * Math.PI / 180)) - Math.PI / 2);
-            lonlat.x = x;
-            lonlat.y = y;
-
-            return lonlat;
-        }
-
-        require([
-            "esri/map",
-            "esri/Color",
-            "esri/graphic",
-            "esri/geometry/Point", "esri/layers/FeatureLayer",
-            "esri/layers/ArcGISDynamicMapServiceLayer",
-            "esri/symbols/SimpleFillSymbol",
-            "esri/symbols/SimpleLineSymbol",
-            "esri/symbols/SimpleMarkerSymbol",
-            "esri/symbols/PictureMarkerSymbol",
-            "esri/symbols/PictureFillSymbol",
-            "esri/symbols/CartographicLineSymbol",
-            "esri/toolbars/draw",
-            "dojo/_base/array",
-            "dojo/query",
-            "dojo/dom",
-            "dojo/on",
-            "dojo/request/xhr",
-            "dojo/domReady!"],
-            function (
-                Map,
-                Color,
-                Graphic,
-                Point, FeatureLayer,
-                ArcGISDynamicMapServiceLayer,
-                SimpleFillSymbol,
-                SimpleLineSymbol,
-                SimpleMarkerSymbol,
-                PictureMarkerSymbol,
-                PictureFillSymbol,
-                CartographicLineSymbol,
-                Draw,
-                array,
-                query,
-                dom,
-                on,
-                xhr) {
-
-                // 定义符号
-                var symbols = {
-                    'video-blue': new PictureMarkerSymbol({
-                        //"angle": 0,
-                        //"xoffset": 0,
-                        //"yoffset": 0,
-                        "type": "esriPMS",
-                        "url": 'images/ico_video_blue.png',
-                        "contentType": "image/png",
-                        // 图片原始大小为 20x28
-                        "width": 15,
-                        "height": 21
-                    }),
-                    'video-red': new PictureMarkerSymbol({
-                        "angle": 0,
-                        "xoffset": 0,
-                        "yoffset": 0,
-                        "type": "esriPMS",
-                        "url": 'images/ico_video_red.png',
-                        "contentType": "image/png",
-                        "width": 15,
-                        "height": 21
-                    }),
-                    'default-fill': new PictureFillSymbol(
-                        "images/sand.png",
-                        new SimpleLineSymbol(
-                            SimpleLineSymbol.STYLE_SOLID,
-                            new Color('#000'),
-                            1
-                        ), 42, 42)
-                }
-
-                map = new Map("map", {
-                    basemap: "streets", //显示的地图样式 此处为地图，basemap: "satellite", //实景图
-                    center: [106.48902795844141, 29.623800368070633], //地图加载后，初始位置
-                    zoom: 14,        //放大级别，值越大放大的比例就越大
-                    maxZoom: 18,     // 地图最大缩放级别
-                    minZoom: 1,      // 地图最小缩放级别
-                    slider: false,   // 设置显示地图缩放按钮
-                    logo: false      // 不显示Esri的logo
-                });
-
-                // var features = new FeatureLayer();
-                // 添加到地图中
-                // map.addLayer(features);
-
-                // 加载地图服务
-                var arcGISDynamicMapServiceLayer = new ArcGISDynamicMapServiceLayer("http://192.168.10.35:6080/arcgis/rest/services/MapService_jb/MapServer");
-                // 添加到地图中
-                map.addLayer(arcGISDynamicMapServiceLayer);
-
-                // 设置图片符号
-                var symbol = new PictureMarkerSymbol({
-                    "angle": 0,
-                    "xoffset": 0,
-                    "yoffset": 0,
-                    "type": "esriPMS",
-                    "url": 'images/location.png',
-                    "contentType": "image/png",
-                    "width": 24,
-                    "height": 24
-                });
-
-                // 初始化工具条
-                function initToolBar() {
-
-                    draw = new Draw(map);
-
-                    // 初始化工具条点击事件
-                    on(query(".window-toolbar-button"), "click", function (evt) {
-                        if (evt.target.id === "window-toolbar-button") {
-                            return;
-                        }
-                        var tool = evt.target.id.toLowerCase();
-                        map.disableMapNavigation();
-                        draw.activate(tool);
-
-                        array.forEach(map.graphics.graphics, function (node, index) {
-                            if (!!node.symbol) {
-
-                                if (node.symbol.type == 'picturemarkersymbol' && node.symbol.url == 'images/ico_video_red.png') {
-
-                                    node.setSymbol(symbols["video-blue"]);
-                                }
-                            }
-                        });
-                    });
-
-                    draw.on("draw-end", function (evt) {
-                        //deactivate the toolbar and clear existing graphics 
-                        draw.deactivate();
-                        map.enableMapNavigation();
-
-                        // figure out which symbol to use
-                        var symbol;
-                        if (evt.geometry.type === "point" || evt.geometry.type === "multipoint") {
-                            symbol = markerSymbol;
-                        } else if (evt.geometry.type === "line" || evt.geometry.type === "polyline") {
-                            symbol = lineSymbol;
-                        }
-                        else {
-                            symbol = symbols['default-fill'];
-                        }
-
-                        // 长方形
-                        if (evt.geometry.type == 'extent') {
-                            console.log(evt.geometry);
-
-                            array.forEach(map.graphics.graphics, function (node, index) {
-                                if (!!node.symbol) {
-
-                                    if (evt.geometry.contains(node.geometry)) {
-                                        if (node.symbol.type == 'picturemarkersymbol' && node.symbol.url == 'images/ico_video_blue.png') {
-
-                                            node.setSymbol(symbols["video-red"]);
-                                            // graphic.draw();
-
-                                            // map.infoWindow.setTitle("坐标");
-
-                                            // var graphicLonlat = mercator2lonlat(graphic.geometry);
-                                            // var screenPoint = map.toScreen(graphic.geometry);
-
-                                            // map.infoWindow.setContent("lat/lon : " + graphicLonlat.y + ", " + graphicLonlat.x);
-                                            // map.infoWindow.show(screenPoint, map.getInfoWindowAnchor(screenPoint));
-                                        }
-                                    }
-                                }
-                            });
-
-                            // xmax : 11857667.596648712
-                            // xmin : 11853100.484208679
-                            // ymax : 3456392.305299729
-                            // ymin : 3451528.999375091
-                        }
-
-                        // map.graphics.add(new Graphic(evt.geometry, symbol));
-                    });
-
-                }
-
-                // 图片加载的事件
-                on.once(map, "load", function () {
-
-                    var geometry = map.extent.getCenter();
-
-                    var graphic = new Graphic(geometry);
-
-                    // graphic.setAttributes(attr);
-                    // features.push(graphic);
-
-                    map.graphics.add(graphic);
-
-                    graphic.setSymbol(symbol);
-                    graphic.draw();
-
-                    xhr('data/points.json', { handleAs: "json" }).then(function (response) {
-                        console.log(response);
-
-                        array.forEach(response.data, function (node, index) {
-                            console.debug(node, "at index", index);
-
-                            var graphic = new Graphic(new Point(node));
-
-                            graphic.setAttributes(node);
-
-                            // features.graphics.add(graphic);
-                            map.graphics.add(graphic);
-
-                            graphic.setSymbol(symbols["video-blue"]);
-                            graphic.draw();
-                        });
-
-                        // 图形启用 鼠标事件
-                        map.graphics.enableMouseEvents();
-                        map.graphics.on("mouse-over", function (evt) {
-                            // console.log(evt.mapPoint);
-                            // evt.fromElement.style.cursor = 'pointer';
-                        });
-
-                    }, function (err) {
-                        console.error(err);
-                    });
-
-                    // 初始化工具条
-                    initToolBar();
-                });
-
-                // 地图点击事件
-                map.on("click", function (evt) {
-
-                    var graphic = evt.graphic;
-
-                    if (!!graphic) {
-                        if (graphic.symbol.type == 'picturemarkersymbol' && graphic.symbol.url == 'images/ico_video_blue.png') {
-
-                            graphic.setSymbol(symbols["video-red"]);
-                            // graphic.draw();
-
-                            // map.infoWindow.setTitle("坐标");
-
-                            // var graphicLonlat = mercator2lonlat(graphic.geometry);
-                            // var screenPoint = map.toScreen(graphic.geometry);
-
-                            // map.infoWindow.setContent("lat/lon : " + graphicLonlat.y + ", " + graphicLonlat.x);
-                            // map.infoWindow.show(screenPoint, map.getInfoWindowAnchor(screenPoint));
-                        }
-                        else if (graphic.symbol.type == 'picturemarkersymbol' && graphic.symbol.url == 'images/ico_video_red.png') {
-
-                            graphic.setSymbol(symbols["video-blue"]);
-                            // graphic.draw();
-
-                        }
-                    }
-                    else {
-                        map.infoWindow.hide();
-                    }
-
-                    var point = evt.mapPoint;
-
-                    var lonlat = mercator2lonlat(point);
-
-                    var point2 = lonlat2mercator(lonlat);
-
-                    console.log('lonlat("x":"' + lonlat.x + '", "y":"' + lonlat.y + '"), mercator("x":"' + point.x + '", "y":"' + point.y + '"), mercator2("x":"' + point2.x + '", "y":"' + point2.y + '")');
-
-                    // map.infoWindow.setTitle("Coordinates");
-                    // map.infoWindow.setContent("lat/lon : " + evt.mapPoint.y + ", " + evt.mapPoint.x +
-                    //  "<br />screen x/y : " + evt.screenPoint.x + ", " + evt.screenPoint.y);
-                    // map.infoWindow.show(evt.screenPoint, map.getInfoWindowAnchor(evt.screenPoint));
-                });
-            });
-    </script>
 </head>
+<script type="text/javascript" src="http://map.x3platform.com/dojo/dojo.js" djConfig="parseOnLoad: true">
 
-<body class="claro">
-    <div>
-        <!--定义一个div来放地图-->
-        <div id="map"></div>
-        <div id="window-toolbar-panel" style="position: absolute; z-index: 10; text-size-adjust: none; bottom: auto; right: auto; top: 5px; left: 8px;">
-            <a class="window-toolbar-button" href="javascript:void(0);"><img id="Point" src='images/ico_dianxuan_click.png' /></a>
-            <a class="window-toolbar-button" href="javascript:void(0);"><img id="Extent" src='images/ico_kuangxuan_click.png' /></a>
+</script>
+<script type="text/javascript">
+    var map;
+
+    require([
+        "cw/basemap",
+        "esri/map",
+        "dojo/parser",
+        "dojo/store/Memory",
+        "dijit/Tree",
+        "dijit/tree/ObjectStoreModel",
+        "dijit/layout/BorderContainer",
+        "dijit/layout/ContentPane", "dijit/layout/AccordionContainer",
+        "dojo/domReady!"
+    ], function (
+        basemap,
+        Map,
+        parser,
+        Memory,
+        Tree,
+        ObjectStoreModel
+    ) {
+            parser.parse();
+
+            // Create test store, adding the getChildren() method required by ObjectStoreModel
+            var myStore = new Memory({
+                data: [
+                    { id: 'world', name: '演示示例', type: 'planet', population: '6 billion' },
+                    {
+                        id: 'AF', name: 'Africa', type: 'continent', population: '900 million', area: '30,221,532 sq km',
+                        timezone: '-1 UTC to +4 UTC', parent: 'world'
+                    },
+                    { id: 'EG', name: 'Egypt', type: 'country', parent: 'AF' },
+                    { id: 'KE', name: 'Kenya', type: 'country', parent: 'AF' },
+                    { id: 'Nairobi', name: 'Nairobi', type: 'city', parent: 'KE' },
+                    { id: 'Mombasa', name: 'Mombasa', type: 'city', parent: 'KE' },
+                    { id: 'SD', name: 'Sudan', type: 'country', parent: 'AF' },
+                    { id: 'Khartoum', name: 'Khartoum', type: 'city', parent: 'SD' },
+                    { id: 'AS', name: 'Asia', type: 'continent', parent: 'world' },
+                    { id: 'CN', name: 'China', type: 'country', parent: 'AS' },
+                    { id: 'IN', name: 'India', type: 'country', parent: 'AS' },
+                    { id: 'RU', name: 'Russia', type: 'country', parent: 'AS' },
+                    { id: 'MN', name: 'Mongolia', type: 'country', parent: 'AS' },
+                    { id: 'OC', name: 'Oceania', type: 'continent', population: '21 million', parent: 'world' },
+                    { id: 'EU', name: 'Europe', type: 'continent', parent: 'world' },
+                    { id: 'DE', name: 'Germany', type: 'country', parent: 'EU' },
+                    { id: 'FR', name: 'France', type: 'country', parent: 'EU' },
+                    { id: 'ES', name: 'Spain', type: 'country', parent: 'EU' },
+                    { id: 'IT', name: 'Italy', type: 'country', parent: 'EU' },
+                    { id: 'NA', name: 'North America', type: 'continent', parent: 'world' },
+                    { id: 'SA', name: '全城布控', type: 'continent', parent: 'world' }
+                ],
+                getChildren: function (object) {
+                    return this.query({ parent: object.id });
+                }
+            });
+
+            // Create the model
+            var myModel = new ObjectStoreModel({
+                store: myStore,
+                query: { id: 'world' }
+            });
+
+            // Create the Tree.
+            var tree = new Tree({
+                model: myModel
+            }, 'treeView');
+
+            tree.on('click', clickTreeNode);
+
+            /**
+             * item /*点中节点对应的数据项
+             * node 点中的对象，这里node.item就是的第一个参数
+             * evt  事件
+             */
+            function clickTreeNode(item, node, evt) {
+                console.log(item);
+            }
+
+            // tree.placeAt('treeView');
+            tree.startup();
+
+            map = basemap.create({ divId: 'map' });
+
+            map = new Map("map", {
+                basemap: "topo",
+                center: [106.48902795844141, 29.623800368070633], //地图加载后，初始位置
+                zoom: 14,        //放大级别，值越大放大的比例就越大
+                maxZoom: 18,     // 地图最大缩放级别
+                minZoom: 1,      // 地图最小缩放级别
+                slider: false   // 设置显示地图缩放按钮
+            });
+
+        });
+
+</script>
+
+<body class="x3platform">
+    <div data-dojo-type="dijit/layout/BorderContainer" design="sidebar" gutters="true" liveSplitters="true" id="borderContainer"
+        style="width: 100%; height: 100%; padding:0;">
+        <div data-dojo-type="dijit/layout/ContentPane" splitter="true" region="leading" style="width: 200px; padding:4px 4px 2px 4px; border-top:none; border-left:none; border-bottom:none;">
+            <div data-dojo-type="dijit/layout/AccordionContainer" splitter="true" region="leading">
+                <div data-dojo-type="dijit/layout/ContentPane" title="菜单 1" style="padding:0;">
+                    <div id="treeView"></div>
+                </div>
+                <div data-dojo-type="dijit/layout/ContentPane" title="菜单 2">
+                    This is the content in blade 2.
+                </div>
+                <div data-dojo-type="dijit/layout/ContentPane" title="菜单 3">
+                    This is the content in blade 3.
+                </div>
+            </div>
         </div>
+        <!-- 右侧
+        <div data-dojo-type="dijit.layout.ContentPane" splitter="true" region="trailing" style="width: 100px;">
+            Tailing Region
+        </div> -->
+        <div data-dojo-type="dijit/layout/ContentPane" splitter="true" region="center" style="padding:4px; border-top:none; border-right:none; border-bottom:none;">
+            <div data-dojo-type="dijit/layout/TabContainer" style="width: 100%; height: 100%;">
+                <div data-dojo-type="dijit/layout/ContentPane" title="My first tab" data-dojo-props="selected:true">
+                    <div id="map"></div>
+                </div>
+                <div data-dojo-type="dijit/layout/ContentPane" title="My second tab">
+                    Lorem ipsum and all around - second...
+                </div>
+                <div data-dojo-type="dijit/layout/ContentPane" title="My last tab" data-dojo-props="closable:true">
+                </div>
+            </div>
+        </div>
+        <!-- 
+        <div data-dojo-type="dijit.layout.ContentPane" splitter="true" liveSplitters="true" region="top">
+            Top Region
+        </div>-->
+        <!-- 
+        <div data-dojo-type="dijit.layout.ContentPane" splitter="true" region="bottom">
+            Bottom Region
+        </div>-->
     </div>
 </body>
 

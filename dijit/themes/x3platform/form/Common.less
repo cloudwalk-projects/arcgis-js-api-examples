@@ -1,0 +1,243 @@
+/* claro/form/Common.css */
+
+/*========================= common css =========================*/
+
+@import "../variables";
+
+/* 'dijitTextBox' refers to 'dijit(TextBox|DateTextBox|CurrencyTextBox|...)' */
+
+.x3platform .dijitTextBox,
+.x3platform .dijitInputInner {
+    // .dijitInputInner selector needed for ValidationTextBox on IE6 because <input> doesn't inherit
+    // the color setting from the ancestor div.dijitTextBox
+	color: @text-color;
+}
+
+.x3platform .dijitValidationTextBoxError .dijitValidationContainer {
+	background-color: @erroricon-background-color;
+	background-image: url("../@{image-form-error}");
+	background-position: top center;
+	border: solid @erroricon-background-color 0;
+	width: 9px;
+}
+
+.x3platform .dijitTextBoxError .dijitValidationContainer {
+	border-left-width: 1px;
+}
+
+.x3platform .dijitValidationTextBoxError .dijitValidationIcon {
+	width: 0;
+	background-color: transparent; /* so the INPUT doesn't obscure the border in rtl+a11y */
+}
+
+/* Padding for the input area of TextBox based widgets, and corresponding padding for the
+ * down arrow button and the placeholder.   placeholder is explicitly listed  because
+ * dijitPlaceHolder is absolutely positioned, so padding set on dijitInputField
+ * won't affect it
+ */
+.x3platform .dijitTextArea,
+.x3platform .dijitInputField .dijitPlaceHolder {
+	padding: @textbox-padding;
+}
+
+.x3platform .dijitSelect .dijitInputField,
+.x3platform .dijitTextBox .dijitInputField {
+	// Subtract 1px from top/bottom because we add 1px to other nodes, see rules below.
+	// Although we are theoretically only adding 1px to top/bottom browsers seem to pad inputs by 1px on left/right,
+	// although that varies by so compensate for that too.
+	padding: @textbox-padding - 1px  @textbox-padding;
+}
+
+.dj_gecko .x3platform .dijitTextBox .dijitInputInner,
+.dj_webkit .x3platform .dijitTextBox .dijitInputInner {
+	// Although we are theoretically only adding 1px to top/bottom, some browsers seem to pad inputs by 1px on left/right,
+	// so compensate for that too.
+	padding-left: @textbox-padding - 1px;
+	padding-right: @textbox-padding - 1px;
+}
+
+.x3platform .dijitSelect,
+.x3platform .dijitSelect .dijitButtonContents,
+.x3platform .dijitTextBox,
+.x3platform .dijitTextBox .dijitButtonNode {
+	/* color for (outer) border on *TextBox widgets, and border between input and buttons on ComboBox and Spinner */
+	border-color: @border-color;
+	.transition-property(background-color, border);
+ 	.transition-duration(.35s);
+}
+
+.x3platform .dijitSelect,
+.x3platform .dijitTextBox {
+	background-color: @textbox-background-color;
+}
+
+/* hover */
+.x3platform .dijitSelectHover,
+.x3platform .dijitSelectHover .dijitButtonContents,
+.x3platform .dijitTextBoxHover,
+.x3platform .dijitTextBoxHover .dijitButtonNode {
+	border-color: @hovered-border-color;
+ 	.transition-duration(.25s);
+}
+
+.x3platform .dijitTextBoxHover {
+	background-color: @textbox-hovered-background-color;
+	.textbox-background-image;
+}
+
+/* error state */
+.x3platform .dijitSelectError,
+.x3platform .dijitSelectError .dijitButtonContents,
+.x3platform .dijitTextBoxError,
+.x3platform .dijitTextBoxError .dijitButtonNode {
+	border-color: @error-border-color;
+}
+
+/* focused state */
+.x3platform .dijitSelectFocused,
+.x3platform .dijitSelectFocused .dijitButtonContents,
+.x3platform .dijitTextBoxFocused,
+.x3platform .dijitTextBoxFocused .dijitButtonNode {
+	border-color:@focused-border-color;
+ 	.transition-duration(.1s);
+}
+
+.x3platform .dijitTextBoxFocused {
+	background-color: @textbox-focused-background-color;
+	.textbox-background-image;
+}
+.x3platform .dijitTextBoxFocused .dijitInputContainer {
+	background: @textbox-focused-background-color;
+}
+
+.x3platform .dijitSelectErrorFocused,
+.x3platform .dijitSelectErrorFocused .dijitButtonContents,
+.x3platform .dijitTextBoxErrorFocused,
+.x3platform .dijitTextBoxErrorFocused .dijitButtonNode {
+	border-color: @error-focused-border-color;
+}
+
+/* disabled state */
+.x3platform .dijitSelectDisabled,
+.x3platform .dijitSelectDisabled .dijitButtonContents,
+.x3platform .dijitTextBoxDisabled,
+.x3platform .dijitTextBoxDisabled .dijitButtonNode {
+	border-color: @disabled-border-color;
+}
+
+.x3platform .dijitSelectDisabled,
+.x3platform .dijitTextBoxDisabled,
+.x3platform .dijitTextBoxDisabled .dijitInputContainer {
+	background-color: @textbox-disabled-background-color;
+	background-image: none;
+}
+
+.x3platform .dijitSelectDisabled,
+.x3platform .dijitTextBoxDisabled,
+.x3platform .dijitTextBoxDisabled .dijitInputInner {
+	color: @disabled-text-color;
+}
+
+.dj_webkit .x3platform .dijitDisabled input {
+    /* because WebKit lightens disabled input/textarea no matter what color you specify */
+	color: darken(@disabled-text-color, 5%)
+}
+
+.dj_webkit .x3platform textarea.dijitTextAreaDisabled {
+    /* because WebKit lightens disabled input/textarea no matter what color you specify */
+	color: darken(@disabled-text-color, 40%)
+}
+
+/*========================= for special widgets =========================*/
+
+/* Input boxes with an arrow (for a drop down) */
+
+.x3platform .dijitSelect .dijitArrowButtonInner,
+.x3platform .dijitComboBox .dijitArrowButtonInner {
+	background-image: url("../@{image-form-common-arrows}");
+	background-position:-35px 53%;
+	background-repeat: no-repeat;
+	margin: 0;
+	width:16px;
+}
+
+.x3platform .dijitComboBox .dijitArrowButtonInner {
+	border: 1px solid @arrowbutton-inner-border-color;	// white gutter around the arrow button
+}
+
+.x3platform .dijitToolbar .dijitComboBox .dijitArrowButtonInner {
+	border: none;
+}
+
+.x3platform .dijitToolbar .dijitComboBox .dijitArrowButtonInner {
+	border: none;
+}
+
+/* Add 1px vertical padding to the <input> where user types and the validation icon,
+   to match the 1px border on arrow button */
+.x3platform .dijitSelectLabel,
+.x3platform .dijitTextBox .dijitInputInner,
+.x3platform .dijitValidationTextBox .dijitValidationContainer {
+	padding: 1px 0;
+}
+
+.x3platform .dijitComboBox .dijitButtonNode {
+	background-color: @arrowbutton-background-color;
+	.standard-gradient("../");
+}
+
+/* Arrow "hover" effect:
+ * The arrow button should change color whenever the mouse is in a position such that clicking it
+ * will toggle the drop down.   That's either (1) anywhere over the ComboBox or (2) over the arrow
+ * button, depending on the openOnClick setting for the widget.
+ */
+.x3platform .dijitComboBoxOpenOnClickHover .dijitButtonNode,
+.x3platform .dijitComboBox .dijitDownArrowButtonHover,
+.x3platform .dijitComboBoxFocused .dijitArrowButton {
+	background-color:@arrowbutton-hovered-background-color;
+}
+
+.x3platform .dijitComboBoxOpenOnClickHover .dijitArrowButtonInner,
+.x3platform .dijitComboBox .dijitDownArrowButtonHover .dijitArrowButtonInner {
+	background-position:-70px 53%;
+}
+
+/* Arrow Button change when drop down is open */
+.x3platform .dijitComboBox .dijitHasDropDownOpen {	// .dijitHasDropDown is on dijitArrowButton node
+	background-color: @pressed-background-color;
+	.active-gradient("../");
+	padding: 1px;		// Since no border on arrow button (see rule below)
+}	
+
+.dj_iequirks .x3platform .dijitComboBox .dijitHasDropDownOpen {
+	padding: 1px 0;
+}
+
+.x3platform .dijitComboBox .dijitHasDropDownOpen .dijitArrowButtonInner {
+	background-position:-70px 53%;
+	border: 0 none;
+}
+
+/* disabled state */
+.x3platform div.dijitComboBoxDisabled .dijitArrowButtonInner {
+	/* specific selector set to override background-position setting from Button.js
+	 * (.x3platform .dijitComboBoxDisabled .dijitArrowButtonInner) */
+	background-position:0 50%;
+	background-color:@disabled-background-color;
+}
+
+/*========================= hacks for browsers =========================*/
+/* it seems the input[type="hidden"] has a height (16px) too... this may cause the widget's height calculate error */
+.dj_ff3 .x3platform .dijitInputField input[type="hidden"] {
+	display: none;
+	height: 0;
+	width: 0;
+}
+
+.dj_borderbox .x3platform .dijitComboBox .dijitHasDropDownOpen .dijitArrowButtonInner {
+	width:18px;				// quirks mode means border-box sizing, so 18px with the border (same as 16px without border)
+}
+
+.dj_borderbox .x3platform .dijitComboBoxFocused .dijitHasDropDownOpen .dijitArrowButtonInner {
+	width:16px;				// when no border, then back to 16px just like content-box sizing
+}
