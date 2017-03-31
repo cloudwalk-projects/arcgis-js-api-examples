@@ -22,8 +22,8 @@ define([], function () {
     },
     // 静态资源服务器  
     staticFileServer: 'http://192.168.10.222:8080/static/',
-    // 瓦片地图显示类型
-    tiledMapType:'',
+    // 瓦片地图显示类型 tiled | dynamic
+    tiledMapType:'dynamic',
     // 瓦片地图服务器
     // 重庆地图 'http://192.168.10.35:6080/arcgis/rest/services/重庆地图/MapServer'    
     // 重庆地图 'http://192.168.10.35:6080/arcgis/rest/services/Baidu_ChongQing/MapServer'

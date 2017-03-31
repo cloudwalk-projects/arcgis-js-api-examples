@@ -24,7 +24,14 @@ define(["cw/config",
                 map = new Map(options.divId, options.map);
 
                 // 加载地图服务
-                var layer = new ArcGISDynamicMapServiceLayer(options.tiledMapServer);
+                var layer = null;
+
+                if (config.tiledMapType == 'tiled') {
+                    layer = new ArcGISTiledMapServiceLayer(options.tiledMapServer);
+                }
+                else {
+                    layer = new ArcGISDynamicMapServiceLayer(options.tiledMapServer);
+                }
 
                 map.addLayer(layer);
 
