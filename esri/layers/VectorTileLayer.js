@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/3.19/esri/copyright.txt for details.
+//>>built
+(function(){var h=function(){var b;try{b=window.WebGLRenderingContext}catch(h){b=!1}var d;try{for(var f=document.createElement("canvas"),a=["webgl","experimental-webgl","webkit-3d","moz-webgl"],c=null,g=0;g<a.length;++g){try{c=f.getContext(a[g])}catch(e){}if(c)break}d=c}catch(k){d=!1}return!b||!d?!1:!0}(),e=["dojo/_base/lang","dojo/has","dojo/Deferred","../sniff","./layer"];h&&e.push("./VectorTileLayerImpl");define("esri/layers/VectorTileLayer",e,function(b,e,d,f,a,c){a=c?c:a.createSubclass({declaredClass:"esri.layers.VectorTileLayer",
+constructor:function(){var a=new d;a.reject(Error("esri.layers.VectorTileLayer is not supported"));a.promise.otherwise(b.hitch(this,function(a){this._errorHandler(a)}))}});a.ACCESS_TOKEN=null;a.supported=function(){return h};e("extend-esri")&&b.setObject("layers.VectorTileLayer",a,f);return a})})();
