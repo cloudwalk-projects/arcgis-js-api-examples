@@ -17,9 +17,9 @@ define(["cw/config",
              */
             create: function (options) {
 
-                self.util.ext(options, { tiledMapServer: config.tiledMapServer });
+               options = self.util.ext(options, { tiledMapServer: config.tiledMapServer });
 
-                self.util.ext(options.map, config.map);
+               options.map = self.util.ext(options.map, config.map);
 
                 map = new Map(options.divId, options.map);
 
