@@ -4,8 +4,8 @@ These are "less" files that compile into the CSS of claro.
 	
 2. To compile all the files:
 
-  $ cd dijit/themes/claro
+  $ cd dijit/themes/x3platform
   $ node compile.js
 
 
-See http://lesscss.org/ and https://github.com/cloudhead/less.js/ for more information.
+See http://lesscss.org/ and https://github.com/less/less.js for more information.

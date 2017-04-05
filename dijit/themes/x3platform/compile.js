@@ -5,7 +5,8 @@
 
 var fs = require('fs'),		// file system access
 	path = require('path'),	// get directory from file name
-	less = require('../../../util/less/lib/less');	// less processor
+    // less = require('less');	// less processor
+    less = require('../../../util/less/lib/less');	// less processor
 
 var options = {
 	compress: false,
