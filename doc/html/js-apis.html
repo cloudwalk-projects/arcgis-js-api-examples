@@ -439,11 +439,28 @@
 <div class="section" id="lonat">
 <h4>lonat - 获取地图经纬度<a class="headerlink" href="#lonat" title="永久链接至标题">¶</a></h4>
 <p><strong>输入参数</strong></p>
-<p>地图上的点击事件
-evt</p>
+<p>evt 地图上的点击事件</p>
 <p><strong>输出参数</strong></p>
-<p>经纬度信息
-{x:x,y:x}</p>
+<p>经纬度信息</p>
+<p>{x:29.35, y:106.33}</p>
+<p><strong>示例代码</strong></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">require</span><span class="p">([</span>
+    <span class="s2">&quot;cw/basemap&quot;</span><span class="p">,</span> <span class="s2">&quot;cw/util&quot;</span><span class="p">,</span> <span class="p">...</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">basemap</span><span class="p">,</span> <span class="nx">util</span><span class="p">,</span> <span class="p">...</span> <span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">basemap</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="nx">divId</span><span class="o">:</span><span class="s1">&#39;map&#39;</span> <span class="p">});</span>
+
+    <span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evt</span><span class="p">){</span>
+
+        <span class="kd">var</span> <span class="nx">lonlat</span> <span class="o">=</span> <span class="nx">util</span><span class="p">.</span><span class="nx">lonlat</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
+
+        <span class="c1">// 输出经纬度信息</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;lonlat(x:&#39;</span> <span class="o">+</span> <span class="nx">lonlat</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="s1">&#39;, y=&#39;</span> <span class="o">+</span> <span class="nx">lonlat</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">...</span>
+<span class="p">});</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>

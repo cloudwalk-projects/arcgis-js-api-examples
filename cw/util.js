@@ -2,7 +2,7 @@
  * 定义默认符号信息
  */
 define([], function () {
-    return {
+    var self = {
         /**
         * 将原始对象的属性和方法扩展至目标对象
         * @method ext
@@ -74,9 +74,11 @@ define([], function () {
 
             var point = evt.mapPoint;
 
-            var lonlat = mercator2lonlat(point);
+            var lonlat = self.mercator2lonlat(point);
 
             return lonlat;
         }
     }
+
+    return self;
 });

@@ -13,34 +13,31 @@ define(["cw/config",
     ArcGISTiledMapServiceLayer,
     ArcGISDynamicMapServiceLayer) {
 
+        // 默认设置
+        var defaults = {};
+
         var self = {
             /**
-             * 初始化地图
+             * 初始化摄像头数据
              */
-            create: function (options) {
+            initLayer: function (options) {
 
-                options = self.util.ext(options, { tiledMapServer: config.tiledMapServer });
-
-                options.map = self.util.ext(options.map, config.map);
-
-                var map = new Map(options.divId, options.map);
-
-                // 加载地图服务
-                var layer = null;
-
-                if (config.tiledMapType == 'tiled') {
-                    layer = new ArcGISTiledMapServiceLayer(options.tiledMapServer);
-                }
-                else {
-                    layer = new ArcGISDynamicMapServiceLayer(options.tiledMapServer);
-                }
-
-                map.addLayer(layer);
-
-                return map;
             },
 
-            util: util
+            getLayer: function (options) {
+
+            },
+            select: function (options) {
+
+            },
+
+            setStatus: function (options) {
+
+            },
+
+            setData: function (options) {
+
+            }
         }
 
         return self;
