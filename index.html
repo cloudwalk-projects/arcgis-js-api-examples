@@ -64,12 +64,12 @@ local - packages:[{name: 'cw',location: '/arcgis/examples/cw'},{name: 'views',lo
                 data: [
                     { id: 'root', name: '地图演示', type: 'planet', population: '6 billion' },
                     { id: 'quanzhou', name: '泉州', parent: 'root' },
-                    { id: 'quanzhou-1', name: '摄像头信息', parent: 'quanzhou', href: 'cw/_examples/cw-quanzhou-camera.html', iframe: true },
-                    { id: 'quanzhou-2', name: '区域信息', parent: 'quanzhou', href: 'cw/_examples/cw-quanzhou-regions.html', iframe: true },
-                    { id: 'quanzhou-3', name: '路径信息', parent: 'quanzhou', href: 'cw/_examples/cw-quanzhou-directions.html', iframe: true },
-                    { id: 'NAc', name: '表单信息', parent: 'root', href: 'cw/_examples/cw-form.html', iframe: true },
+                    { id: 'quanzhou-1', name: '摄像头信息', parent: 'quanzhou', href: 'cw/examples/cw-quanzhou-camera.html', iframe: true },
+                    { id: 'quanzhou-2', name: '区域信息', parent: 'quanzhou', href: 'cw/examples/cw-quanzhou-regions.html', iframe: true },
+                    { id: 'quanzhou-3', name: '路径信息', parent: 'quanzhou', href: 'cw/examples/cw-quanzhou-directions.html', iframe: true },
+                    { id: 'NAc', name: '表单信息', parent: 'root', href: 'cw/examples/cw-form.html', iframe: true },
                     { id: 'NAc', name: '百度', parent: 'root', href: 'http://www.baidu.com', iframe: true },
-                    { id: 'SA', name: '全城布控', parent: 'root', contentPane: 'views/map/CityControlMap', options: { cameraXhrUrl: 'cw/_examples/data/camera.json' } }
+                    { id: 'SA', name: '全城布控', parent: 'root', contentPane: 'views/map/CityControlMap', options: { cameraXhrUrl: 'cw/examples/data/cameras.json' } }
                 ],
                 getChildren: function (object) {
                     return this.query({ parent: object.id });
