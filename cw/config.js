@@ -25,10 +25,11 @@ define([], function () {
     // 瓦片地图显示类型 tiled | dynamic
     tiledMapType:'dynamic',
     // 瓦片地图服务器
+    // 中国彩色地图服务器
     // 重庆地图 'http://192.168.10.35:6080/arcgis/rest/services/重庆地图/MapServer'    
     // 重庆地图 'http://192.168.10.35:6080/arcgis/rest/services/Baidu_ChongQing/MapServer'
     // 泉州地图 'http://192.168.10.35:6080/arcgis/rest/services/qz/QZMapService/MapServer'
-    tiledMapServer: 'http://192.168.10.35:6080/arcgis/rest/services/Baidu_ChongQing/MapServer',
+    tiledMapServer: 'http://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetColor/MapServer',
     // 路径
     // 重庆地图 'http://192.168.10.35:6080/arcgis/rest/services/重庆地图/NAServer/路径'
     naServer: 'http://192.168.10.35:6080/arcgis/rest/services/重庆地图/NAServer/路径',

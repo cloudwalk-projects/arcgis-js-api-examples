@@ -1,7 +1,9 @@
 /**
  * 定义默认符号信息
  */
-define(["cw/config", "esri/symbols/PictureMarkerSymbol"], function (config, PictureMarkerSymbol) {
+define([
+    "cw/config", "esri/symbols/PictureMarkerSymbol"
+], function (config, PictureMarkerSymbol) {
     return {
         // 视频(蓝)
         'video-blue': new PictureMarkerSymbol({
