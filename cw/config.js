@@ -5,8 +5,8 @@ define([], function () {
   return {
     // 地图默认配置
     map: {
-      // 地图的底图样式 "satellite", //实景图
-      basemap: '',
+      // 地图的底图样式  "satellite", //实景图
+      basemap: 'streets',
       // 地图中心坐标经纬度信息, 经度(longitude), 维度(latitude)
       center: [106.49990342832321, 29.460281009528018],
       // 地图默认放大级别
