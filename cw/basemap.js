@@ -33,7 +33,7 @@ define(["cw/config",
                 }
                 else {
                     layer = new ArcGISDynamicMapServiceLayer(options.tiledMapServer);
-                }
+                } 
 
                 map.addLayer(layer);
 
