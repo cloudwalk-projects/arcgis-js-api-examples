@@ -22,24 +22,34 @@
       var map = basemap.create({ divId: "map" });
 
       xhr('data/cameras.json', { handleAs: "json" }).then(function (respone) {
-        cameras.initLayer({
+        var layer = cameras.initLayer({
           // 显示地图的容器标识
           map: map,
           // 摄像头信息
           cameras: respone.data
         });
+
+        layer.on('click', function (evt) {
+          var graphic = evt.graphic;
+
+          if (!!graphic) {
+            console.log(graphic);
+            // DeActive
+            var status = cameras.status({ map: map, cameraId: graphic.attributes.id });
+            cameras.status({ map: map, cameraId: graphic.attributes.id, status: (status != 'active' ? 'active' : 'deactive') });
+          }
+        });
       }, function (err) {
         // Handle the error condition
+        console.error(err);
       }, function (evt) {
         // Handle a progress event from the request if the
         // browser supports XHR2
       });
 
       map.on('click', function (evt) {
-
         // 输出经纬度信息
         var lonlat = util.lonlat(evt);
-        
         console.log('lonlat(x:' + lonlat.x + ', y:' + lonlat.y + ')');
       });
     });

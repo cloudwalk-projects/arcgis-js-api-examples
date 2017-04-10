@@ -3,44 +3,28 @@
  */
 define(["cw/config",
     "cw/util",
-    "esri/map",
-    "esri/layers/ArcGISTiledMapServiceLayer",
-    "esri/layers/ArcGISDynamicMapServiceLayer"
+    "esri/graphic",
+    "esri/geometry/Point",
+    "esri/layers/FeatureLayer",
+    "esri/symbols/PictureMarkerSymbol",
+    "dojo/_base/array"
 ], function (
     config,
     util,
-    Map,
-    ArcGISTiledMapServiceLayer,
-    ArcGISDynamicMapServiceLayer) {
+    Graphic,
+    Point,
+    FeatureLayer,
+    PictureMarkerSymbol,
+    array) {
 
         var self = {
             /**
-             * 初始化地图
+             * 查询路径信息
              */
-            create: function (options) {
+            query: function (options) {
 
-                options = self.util.ext(options, { tiledMapServer: config.tiledMapServer });
-
-                options.map = self.util.ext(options.map, config.map);
-
-                var map = new Map(options.divId, options.map);
-
-                // 加载地图服务
-                var layer = null;
-
-                if (config.tiledMapType == 'tiled') {
-                    layer = new ArcGISTiledMapServiceLayer(options.tiledMapServer);
-                }
-                else {
-                    layer = new ArcGISDynamicMapServiceLayer(options.tiledMapServer);
-                }
-
-                map.addLayer(layer);
-
-                return map;
-            },
-
-            util: util
+                var routes = options;
+            }
         }
 
         return self;

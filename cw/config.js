@@ -23,7 +23,7 @@ define([], function () {
       logo: false
     },
     // 静态资源服务器  
-    staticFileServer: 'http://192.168.10.222:8080/static/',
+    staticFileServer: 'http://ditu.fuwu.io:7020/arcgis/',
     // 瓦片地图显示类型 tiled | dynamic
     tiledMapType:'dynamic',
     // 瓦片地图服务器
