@@ -105,8 +105,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#id4">initLayer - 初始化摄像头图层</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#getlayer">getLayer - 获取摄像头图层</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#select">select - 选择摄像头数据</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#setstatus">setStatus - 设置摄像头状态数据</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#setdata">setData - 设置摄像头状态数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#status">status - 设置摄像头状态数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data">data - 设置摄像头状态数据</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#directions">directions</a><ul>
@@ -333,22 +333,41 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="setstatus">
-<h4>setStatus - 设置摄像头状态数据<a class="headerlink" href="#setstatus" title="永久链接至标题">¶</a></h4>
+<div class="section" id="status">
+<h4>status - 设置摄像头状态数据<a class="headerlink" href="#status" title="永久链接至标题">¶</a></h4>
 <p><strong>输入参数</strong></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="c1">// (必填)地图对象</span>
      <span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span>
-     <span class="c1">// 选择方式</span>
-     <span class="nx">type</span><span class="o">:</span><span class="s1">&#39;extent&#39;</span><span class="p">,</span>
-     <span class="c1">// 回调函数, 参数 graphics 为摄像头信息</span>
-     <span class="nx">callback</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">graphics</span><span class="p">){</span> <span class="p">}</span>
+     <span class="c1">// (必填)摄像头标识</span>
+     <span class="nx">ca</span><span class="o">:</span><span class="s1">&#39;extent&#39;</span><span class="p">,</span>
+     <span class="c1">// 摄像头状态</span>
+     <span class="nx">status</span><span class="o">:</span><span class="s1">&#39;active&#39;</span>
  <span class="p">}</span>
 </pre></div>
 </div>
+<p><strong>输出参数</strong></p>
+<p>摄像头状态</p>
+<p><strong>示例代码</strong></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">require</span><span class="p">([</span>
+    <span class="s2">&quot;cw/basemap&quot;</span><span class="p">,</span><span class="s2">&quot;cw/directions&quot;</span><span class="p">,</span> <span class="p">...</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">basemap</span><span class="p">,</span> <span class="nx">directions</span><span class="p">,</span> <span class="p">...</span> <span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">basemap</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="nx">divId</span><span class="o">:</span><span class="s1">&#39;map&#39;</span><span class="p">});</span>
+
+    <span class="nx">directions</span><span class="p">.</span><span class="nx">query</span><span class="p">({</span>
+        <span class="c1">// 显示地图的容器标识</span>
+        <span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span>
+        <span class="c1">// 摄像头信息</span>
+        <span class="nx">cameras</span><span class="o">:</span><span class="p">[]</span>
+    <span class="p">});</span>
+<span class="p">...</span>
+<span class="p">});</span>
+</pre></div>
 </div>
-<div class="section" id="setdata">
-<h4>setData - 设置摄像头状态数据<a class="headerlink" href="#setdata" title="永久链接至标题">¶</a></h4>
+</div>
+<div class="section" id="data">
+<h4>data - 设置摄像头状态数据<a class="headerlink" href="#data" title="永久链接至标题">¶</a></h4>
 <p><strong>输入参数</strong></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="c1">// (必填)地图对象</span>
@@ -512,10 +531,10 @@
             HAS_SOURCE:  true
         };
     </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="_static/translations.js"></script>
+      <script type="text/javascript" src="static/jquery.js"></script>
+      <script type="text/javascript" src="static/underscore.js"></script>
+      <script type="text/javascript" src="static/doctools.js"></script>
+      <script type="text/javascript" src="static/translations.js"></script>
 
   
 

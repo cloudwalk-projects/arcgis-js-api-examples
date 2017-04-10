@@ -7,6 +7,7 @@ define(["cw/config",
     "esri/geometry/Point",
     "esri/layers/FeatureLayer",
     "esri/symbols/PictureMarkerSymbol",
+    "esri/toolbars/draw",
     "dojo/_base/array"
 ], function (
     config,
@@ -15,6 +16,7 @@ define(["cw/config",
     Point,
     FeatureLayer,
     PictureMarkerSymbol,
+    Draw,
     array) {
 
         // 默认设置
@@ -103,6 +105,9 @@ define(["cw/config",
 
         var draw = null;
 
+        // 由于 layer-add-result 事件会执行多次，所以设置标识符号只加载一次
+        var initialized = false;
+
         var self = {
             /**
              * 初始化摄像头要素层
@@ -117,8 +122,11 @@ define(["cw/config",
                     layer = new FeatureLayer(featureCollection, { id: defaults.layerId });
 
                     map.on("layer-add-result", function (results) {
-                        console.log('init cameras:layer-add-result');
-                        self.initCameras({ layer: layer, cameras: cameras });
+                        if (!initialized) {
+                            initialized = true;
+                            console.log('init cameras:layer-add-result');
+                            self.initCameras({ layer: layer, cameras: cameras });
+                        }
                     });
 
                     map.addLayer(layer, defaults.layerIndex);
@@ -192,7 +200,7 @@ define(["cw/config",
                 }
 
                 map.disableMapNavigation();
-                draw.activate(tool);
+                draw.activate(type);
 
                 draw.on("draw-end", function (evt) {
 
@@ -217,7 +225,7 @@ define(["cw/config",
                         if (!!node.symbol) {
                             if (evt.geometry.contains(node.geometry)) {
                                 if (node.symbol.type == 'picturemarkersymbol' && node.symbol.url.indexOf('images/ico_video_blue.png') > -1) {
-                                    results[results.length] = node;
+                                    results[results.length] = node.attributes;
                                 }
                             }
                         }
