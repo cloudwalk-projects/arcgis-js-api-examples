@@ -7,7 +7,7 @@ define([], function () {
     map: {
       // 地图的底图样式  "satellite", //实景图
       basemap: 'streets',
-      // 地图中心坐标经纬度信息, 经度(longitude), 维度(latitude)
+      // 地图中心坐标经纬度信息, 经度(longitude), 纬度(latitude)
       // 106.49990342832321, 29.460281009528018
       // 106.55118727951862, y:29.56397532484192
       center: [106.55118727951862, 29.56397532484192],
@@ -22,10 +22,12 @@ define([], function () {
       // 是否显示 Esri 的标识
       logo: false
     },
+    // 默认的 WKID
+    wkid: 4326,
     // 静态资源服务器  
     staticFileServer: 'http://ditu.fuwu.io:7020/arcgis/',
     // 瓦片地图显示类型 tiled | dynamic
-    tiledMapType:'dynamic',
+    tiledMapType: 'tiled',
     // 瓦片地图服务器
     // 中国彩色地图服务器
     // 重庆地图 'http://192.168.10.35:6080/arcgis/rest/services/重庆地图/MapServer'    

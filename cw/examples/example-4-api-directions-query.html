@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>获取地图坐标</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
+  <style>
+    html,
+    body,
+    #map {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad:true, isDebug:true, locale:'zh-cn'"></script>
+  <script>
+    // 演示的路径数据信息    
+    var routes = [
+      {
+        "name": "A",
+        "x": "106.55101563297185",
+        "y": "29.563546055738094",
+        "createdDate": "2017-03-15 12:00:00"
+      },
+      {
+        "name": "2",
+        "x": "106.54717470966243",
+        "y": "29.560709076232932",
+        "createdDate": "2017-03-15 12:00:00"
+      },
+      {
+        "name": "3",
+        "x": "106.55934120975547",
+        "y": "29.56350872757768",
+        "createdDate": "2017-03-15 12:00:00"
+      },
+      {
+        "name": "4",
+        "x": "106.55908371769002",
+        "y": "29.556024152770487",
+        "createdDate": "2017-03-15 12:00:00"
+      }
+    ];
+
+    require([
+      "cw/basemap",
+      "cw/cameras",
+      "cw/directions",
+      "cw/util",
+      "dojo/_base/array",
+      "dojo/query",
+      "dojo/on",
+      "dojo/request/xhr",
+      "dojo/domReady!"
+    ], function (
+      basemap, cameras, directions, util,
+      array, query, on, xhr) {
+
+        var map = basemap.create({ divId: "map" });
+
+        directions.query({
+          map: map,
+          routes: routes
+        });
+
+        //--------------------------------
+        // 绑定事件
+        //--------------------------------
+
+        on(query("#btnSolve"), "click", function (evt) {
+
+          // naServer:"http://192.168.10.35:6080/arcgis/rest/services/qz/QZNetworkService/NAServer/%E8%B7%AF%E5%BE%84"
+
+          directions.query({
+            type: 'road',
+            naServer: "http://192.168.10.35:6080/arcgis/rest/services/重庆地图/NAServer/路径",
+            map: map,
+            routes: routes
+          });
+        });
+
+      });
+  </script>
+</head>
+
+<body>
+  <div id="windowLonlatContainer" style="display: block; position: absolute; z-index: 10; background: #fff; padding: 8px; border-radius: 4px; top: 10px;left: 10px;">
+    <button id="btnSolve">运算轨迹</button>
+    <div id="results" style="margin:10px 0 0 0;">点击【选择】按钮，然后选择摄像头。</div>
+  </div>
+  <div id="map"></div>
+</body>
+
+</html>

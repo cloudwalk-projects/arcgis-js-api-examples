@@ -21,7 +21,7 @@ define(["cw/config",
 
         // 默认设置
         var defaults = {
-            layerId: 'cameras-layer',
+            layerId: 'map-cameras-layer',
             layerIndex: 10,
             cameraName: '',
             cameraStatus: 'unkown',
@@ -132,7 +132,7 @@ define(["cw/config",
                     map.addLayer(layer, defaults.layerIndex);
                 }
                 else {
-                    console.log('init cameras:added');
+                    console.log('init cameras:initialized');
                     self.initCameras({ layer: layer, cameras: cameras });
                 }
 

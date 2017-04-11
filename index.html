@@ -63,9 +63,11 @@ local - packages:[{name: 'cw',location: '/arcgis/examples/cw'},{name: 'views',lo
             var myStore = new Memory({
                 data: [
                     { id: 'root', name: '地图示例', type: 'planet', population: '6 billion' },
-                    { id: 'examples', name: '默认示例', parent: 'root' },
+                    { id: 'arcgis', name: 'ArcGIS 示例', parent: 'root' },
+                    { id: 'examples', name: '通用示例', parent: 'root' },
                     { id: 'example-1', name: '初始化地图', parent: 'examples', href: 'cw/examples/example-1-api-basemap-create.html', iframe: true },
                     { id: 'example-2', name: '初始化摄像头数据', parent: 'examples', href: 'cw/examples/example-2-api-cameras-init.html', iframe: true },
+                    { id: 'example-4', name: '查询轨迹数据', parent: 'examples', href: 'cw/examples/example-4-api-directions-query.html', iframe: true },
                     { id: 'example-5', name: '选择摄像头数据', parent: 'examples', href: 'cw/examples/example-5-api-cameras-select.html', iframe: true },
                     { id: 'example-6', name: '设置摄像头状态', parent: 'examples', href: 'cw/examples/example-6-api-cameras-status.html', iframe: true },
                     { id: 'example-9', name: '获取经纬度坐标', parent: 'examples', href: 'cw/examples/example-9-api-util-lonat.html', iframe: true },
@@ -170,7 +172,7 @@ local - packages:[{name: 'cw',location: '/arcgis/examples/cw'},{name: 'views',lo
                             minZoom: 1,      // 地图最小缩放级别
                             slider: false   // 设置显示地图缩放按钮
                         });
-            */
+            
 
             // 测试打开一个对话窗口
             var btn = dojo.byId('b');
@@ -268,7 +270,7 @@ local - packages:[{name: 'cw',location: '/arcgis/examples/cw'},{name: 'views',lo
                 tabs.selectChild(pane);
             }
 
-            on(btnc, 'click', showContentPane);
+            on(btnc, 'click', showContentPane);*/
         });
 
 </script>
@@ -282,8 +284,8 @@ local - packages:[{name: 'cw',location: '/arcgis/examples/cw'},{name: 'views',lo
                     <div id="treeView"></div>
                 </div>
                 <div data-dojo-type="dijit/layout/ContentPane" title="测试面板">
-                    <button id="b">打开新窗口</button>
-                    <button id="c">加载脚本</button>
+                    <!--<button id="b">打开新窗口</button>
+                    <button id="c">加载脚本</button>-->
                 </div>
             </div>
         </div>

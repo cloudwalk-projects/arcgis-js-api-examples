@@ -95,13 +95,12 @@
                 //arcGISNetworkServiceLayer.setVisibleLayers(arcGISMapServiceLayer);
                 //map.addLayer(arcGISNetworkServiceLayer);
 
-
-
                 var featureLayer = new esri.layers.FeatureLayer("http://192.168.10.35:6080/arcgis/rest/services/qz/QZFeatureService/FeatureServer/0", {
                     mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
                     outFields: ["TITLE", "TITLE1", "LINK"]
                     //infoTemplate: popupTemplate
                 });
+
                 map.addLayer(featureLayer);
 
                 //routeTask = new RouteTask("http://192.168.10.35:6080/arcgis/rest/services/yckj1f2/NAServer/%E8%B7%AF%E5%BE%84");
@@ -283,8 +282,6 @@
             function errorHandler(err) {
                 alert("An error occured\n" + err.message + "\n" + err.details.join("\n"));
             }
-
-
         });
     </script>
 

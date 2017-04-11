@@ -38,7 +38,7 @@ define([
 			showScreenPoint = null;
 
 		// 默认窗口样式
-		var defaultWindowClassName = 'cw-info-window';
+		var defaultWindowClassName = 'cw-dialogs-info-window';
 
 		return declare([InfoWindowBase, Evented],
 			{

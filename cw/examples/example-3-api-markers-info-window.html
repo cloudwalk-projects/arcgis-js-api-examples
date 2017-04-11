@@ -15,7 +15,7 @@
       padding: 0;
     }
   </style>
-  <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad: true"></script>
+  <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
   <script>
     require([
       "cw/basemap",
@@ -29,6 +29,25 @@
     ], function (
       basemap, cameras, util,
       array, query, on, xhr) {
+
+        // 绑定选择按钮事件
+        on(query("#btnSelect"), "click", function (evt) {
+          cameras.select({
+            map: map, type: 'extent', callback: function (results) {
+              console.log(results);
+
+              var outString = '';
+
+              array.forEach(results, function (result, index) {
+                outString += '<div>' + result.id + ' - ' + result.name + '</div>';
+              });
+
+              dojo.byId("results").innerHTML = outString;
+            }
+          });
+
+        });
+
         var map = basemap.create({ divId: "map" });
 
         xhr('data/cameras.json', { handleAs: "json" }).then(function (respone) {
@@ -62,27 +81,6 @@
           var lonlat = util.lonlat(evt);
           console.log('lonlat(x:' + lonlat.x + ', y:' + lonlat.y + ')');
         });
-
-        //--------------------------------
-        // 绑定事件
-        //--------------------------------
-
-        on(query("#btnSelect"), "click", function (evt) {
-          cameras.select({
-            map: map, type: 'extent', callback: function (results) {
-              console.log(results);
-
-              var outString = '';
-
-              array.forEach(results, function (result, index) {
-                outString += '<div>' + result.id + ' - ' + result.name + '</div>';
-              });
-
-              dojo.byId("results").innerHTML = outString;
-            }
-          });
-        });
-        
       });
   </script>
 </head>
@@ -90,7 +88,7 @@
 <body>
   <div id="windowLonlatContainer" style="display: block; position: absolute; z-index: 10; background: #fff; padding: 8px; border-radius: 4px; top: 10px;left: 10px;">
     <button id="btnSelect">选择</button>
-    <div id="results" style="margin:10px 0 0 0;">点击【选择】按钮，然后选择摄像头。</div>
+    <div id="results" style="margin:10px 0 0 0;" >点击【选择】按钮，然后选择摄像头。</div>
   </div>
   <div id="map"></div>
 </body>
