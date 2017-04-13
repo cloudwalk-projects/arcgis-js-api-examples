@@ -154,7 +154,7 @@ define(["cw/config",
                         'x': node.x,
                         'y': node.y,
                         'spatialReference': {
-                            "wkid": 4326
+                            "wkid": config.wkid
                         }
                     }));
 

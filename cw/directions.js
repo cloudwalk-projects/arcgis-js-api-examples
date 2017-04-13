@@ -132,6 +132,8 @@ define(["cw/config",
 
         var initialized = false;
 
+        var originalRoutes = [];
+
         var self = {
             /**
              * 初始化摄像头要素层
@@ -230,8 +232,11 @@ define(["cw/config",
                     });
 
                     var polyline = new Polyline({ "paths": [paths], "spatialReference": { "wkid": wkid } });
+                    graphics = [new Graphic(polyline, symbols['line'])];
 
-                    layer.applyEdits([new Graphic(polyline, symbols['line'])], null, null);
+                    layer.applyEdits(graphics, null, null);
+
+                    originalRoutes = graphics;
                 }
                 else {
                     // type == road
@@ -242,7 +247,9 @@ define(["cw/config",
                         routeParams.barriers = new FeatureSet();
                         routeParams.outSpatialReference = { wkid: 102100 };
 
-                        routeTask.on("solve-complete", self.solveComplete);
+                        routeTask.on("solve-complete", function (evt) {
+                            self.solveComplete(layer, evt.result)
+                        });
                         routeTask.on("error", self.error);
 
                         graphics = [];
@@ -329,30 +336,30 @@ define(["cw/config",
             },
 
             //Clears all routes
-            clearRoutes: function () {
-                for (var i = routes.length - 1; i >= 0; i--) {
-                    map.graphics.remove(routes.splice(i, 1)[0]);
-                }
-
-                routes = [];
+            clearRoutes: function (layer) {
+                layer.applyEdits(null, null, originalRoutes);
+                originalRoutes = [];
             },
 
             // Draws the resulting routes on the map
-            solveComplete: function (evt) {
+            solveComplete: function (layer, result) {
                 // 清理路径信息
-                self.clearRoutes();
+                self.clearRoutes(layer);
 
-                array.forEach(evt.result.routeResults, function (routeResult, i) {
-                    routes.push(
-                        map.graphics.add(
-                            routeResult.route.setSymbol(routeSymbols[routeResult.routeName])
-                        )
-                    );
+                var graphics = [];
+
+                array.forEach(result.routeResults, function (routeResult, i) {
+                    var graphic = routeResult.route.setSymbol(symbols['line']);
+                    graphics.push(graphic)
                 });
+
+                layer.applyEdits(graphics, null, null);
+
+                originalRoutes = graphics;
 
                 var messages = [];
 
-                array.forEach(evt.result.messages, function (message) {
+                array.forEach(result.messages, function (message) {
                     messages.push(message.type + " : " + message.description);
                 });
 
