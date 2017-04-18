@@ -13,7 +13,8 @@ define([
 	"dojo/fx",
 	"dojo/Deferred",
 	"esri/domUtils",
-	"esri/InfoWindowBase"
+	"esri/InfoWindowBase",
+	"xstyle/css!./InfoWindow.css"
 ],
 	function (
 		Evented,
@@ -22,7 +23,7 @@ define([
 		declare,
 		array,
 		lang,
-        dom,
+		dom,
 		domConstruct,
 		domStyle,
 		domGeom,
@@ -55,6 +56,9 @@ define([
 						this.domNode = domConstruct.create("div", null, dom.byId(this.divId));
 					}
 
+					this.xoffset = this.xoffset || -15;
+					this.yoffset = this.yoffset || 55;
+
 					domClass.add(this.domNode, defaultWindowClassName);
 
 					this._closeButton = domConstruct.create("div", { "class": "close", "title": "关闭" }, this.domNode);
@@ -66,6 +70,7 @@ define([
 						//hide the content when the info window is toggled close.
 						this.hide();
 					}));
+
 					//hide initial display 
 					domUtils.hide(this.domNode);
 					this.isShowing = false;
@@ -108,11 +113,15 @@ define([
 					this.place(content, this._content);
 				},
 				_showInfoWindow: function (x, y) {
-					//Position 10x10 pixels away from the specified location
+					// Position 10x10 pixels away from the specified location
 					domStyle.set(this.domNode, {
-						"left": x - infoWidth / 2 + 15 + "px",
-						"top": y - infoHeight - 55 + "px"
+						"left": x - infoWidth / 2 + this.xoffset + "px",
+						"top": y - infoHeight + this.yoffset + "px"
 					});
+
+					console.log('left:' + (x - infoWidth / 2 + this.xoffset) + "px");
+					console.log('top:' + (y - infoHeight + this.yoffset) + "px");
+
 					//display the info window
 					domUtils.show(this.domNode);
 				},
@@ -135,10 +144,11 @@ define([
 						location = this.map.toScreen(location);
 					}
 
-					var left = location.x - infoWidth / 2 - 5;
-					var top = location.y - infoHeight - 55;
+					var left = location.x - infoWidth / 2 + this.xoffset;
+					var top = location.y - infoHeight + this.yoffset;
 					// var top = location.y ;
 					showScreenPoint = location;
+					this._showInfoWindow(showScreenPoint.x, showScreenPoint.y);
 
 					if (top < 5) {
 						initScreenCenter.y = initScreenCenter.y + top - 5;
@@ -146,7 +156,7 @@ define([
 					if (left < 5) {
 						initScreenCenter.x = initScreenCenter.x + left - 5;
 					}
-					this._showInfoWindow(showScreenPoint.x, showScreenPoint.y);
+
 					initMapCenter = this.map.toMap(initScreenCenter);
 					this.map.centerAt(initMapCenter);
 					this.isShowing = true;
@@ -171,6 +181,4 @@ define([
 					this._closeButton = this._title = this._content = null;
 				}
 			});
-
-		// return InfoWindow;
 	});

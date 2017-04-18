@@ -63,7 +63,7 @@ define([
 
 					domClass.add(this.domNode, defaultWindowClassName);
 
-					this._closeButton = domConstruct.create("div", { "class": "close", "title": "关闭" }, this.domNode);
+					this.closeButtonNode = domConstruct.create("div", { "class": "close", "title": "关闭" }, this.domNode);
 					this.titleNode = domConstruct.create("div", { "class": "title" }, this.domNode);
 					this.contentNode = domConstruct.create("div", { "class": "content" }, this.domNode);
 					this.arrowNode = domConstruct.create("div", { "class": "arrow" }, this.domNode);
@@ -81,7 +81,7 @@ define([
 					// 启动定时器
 					timer.start();
 
-					on(this._closeButton, "click", lang.hitch(this, function () {
+					on(this.closeButtonNode, "click", lang.hitch(this, function () {
 						//hide the content when the info window is toggled close.
 						this.hide();
 					}));
@@ -225,7 +225,7 @@ define([
 				},
 				destroy: function () {
 					domConstruct.destroy(this.domNode);
-					this._closeButton = this.titleNode = this.contentNode = null;
+					this.closeButtonNode = this.titleNode = this.contentNode = null;
 				}
 			});
 
