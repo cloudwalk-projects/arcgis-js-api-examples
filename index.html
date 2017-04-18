@@ -62,7 +62,7 @@ local - packages:[{name: 'cw',location: '/arcgis/examples/cw'},{name: 'views',lo
             // Create test store, adding the getChildren() method required by ObjectStoreModel
             var myStore = new Memory({
                 data: [
-                    { id: 'root', name: '地图示例', type: 'planet', population: '6 billion' },
+                    { id: 'root', name: '地图组件' },
                     { id: 'arcgis', name: 'ArcGIS 示例', parent: 'root' },
                     { id: 'arcgis-1', name: '上下文菜单', parent: 'arcgis', href: 'cw/examples/arcgis-1-contextmenu.html', iframe: true },
                     { id: 'examples', name: '通用示例', parent: 'root' },
@@ -79,7 +79,7 @@ local - packages:[{name: 'cw',location: '/arcgis/examples/cw'},{name: 'views',lo
                     { id: 'quanzhou-3', name: '路径信息', parent: 'quanzhou', href: 'cw/examples/cw-quanzhou-directions.html', iframe: true },
                     //{ id: 'NAc', name: '表单信息', parent: 'root', href: 'cw/examples/cw-form.html', iframe: true },
                     //{ id: 'ex', name: '通用窗口', parent: 'root', contentPane: 'views/map/CityControlMap', options: { cameraXhrUrl: 'cw/examples/data/cameras.json' } },
-                    { id: 'docs', name: '帮助文档', parent: 'root', href: 'http://map.x3platform.com/docs/', iframe: true },
+                    { id: 'docs', name: '帮助文档', parent: 'root', href: 'http://map.x3platform.com/docs/html', iframe: true },
                     { id: 'cw', name: '云从科技', parent: 'root', href: 'http://www.cloudwalk.cn', iframe: true }
                 ],
                 getChildren: function (object) {

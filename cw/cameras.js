@@ -274,6 +274,15 @@ define(["cw/config",
                 var cameraId = options.cameraId;
                 var data = options.data || [];
                 var override = options.override || 1;
+
+                var layer = map.getLayer(defaults.layerId);
+
+                // 设置图形信息的数据
+                array.forEach(layer.graphics, function (graphic, index) {
+                    if (graphic.attributes.id == cameraId) {
+                        graphic.setAttributes(util.ext(graphic.attributes, data));
+                    }
+                });
             }
         }
 

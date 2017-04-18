@@ -17,48 +17,68 @@
   </style>
   <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad: true"></script>
   <script>
-    require(["cw/basemap", "cw/cameras", "cw/util", "dojo/request/xhr", "dojo/domReady!"], function (basemap, cameras, util, xhr) {
+    require(["x", "cw/basemap", "cw/cameras", "cw/util", "cw/dialogs/AlarmDialog",
+      "dojo/dom", "dojo/dom-construct", "dojo/request/xhr", "dojo/domReady!"],
+      function (x, basemap, cameras, util, AlarmDialog,
+        dom, domConstruct, xhr) {
 
-      var map = basemap.create({ divId: "map" });
+        // 创建自定义消息窗口  
+        var dialog = new AlarmDialog({ divId: 'map' });
 
-      xhr('data/cameras.json', { handleAs: "json" }).then(function (respone) {
-        var layer = cameras.initLayer({
-          // 显示地图的容器标识
-          map: map,
-          // 摄像头信息
-          cameras: respone.data
+        var map = basemap.create({
+          divId: "map",
+          map: { infoWindow: dialog }
         });
 
-        layer.on('click', function (evt) {
-          var graphic = evt.graphic;
+        xhr('data/cameras.json', { handleAs: "json" }).then(function (respone) {
+          var layer = cameras.initLayer({
+            // 显示地图的容器标识
+            map: map,
+            // 摄像头信息
+            cameras: respone.data
+          });
 
-          if (!!graphic) {
-            console.log(graphic);
-            // DeActive
-            var status = cameras.status({ map: map, cameraId: graphic.attributes.id });
-            cameras.status({ map: map, cameraId: graphic.attributes.id, status: (status != 'active' ? 'active' : 'deactive') });
-          }
+          // 模拟实时收到的数据
+          var count = 0;
+
+          // 设置一个定时器
+          var timer = x.newTimer(2, function () {
+            cameras.data({
+              map: map,
+              cameraId: respone.data[0].id,
+              data: x.ext(respone.data[0], { count: count++ })
+            });
+            console.log(count);
+          });
+
+          // 启动定时器
+          timer.start();
+
+          // 坐标提示框事件绑定
+          layer.on("mouse-over", function (evt) {
+            var graphic = evt.graphic;
+
+            if (!!graphic) { 
+              dialog.show(graphic.geometry, graphic);
+            }
+          });
+
+        }, function (err) {
+          // Handle the error condition
+          console.error(err);
+        }, function (evt) {
+          // Handle a progress event from the request if the
+          // browser supports XHR2
         });
-      }, function (err) {
-        // Handle the error condition
-        console.error(err);
-      }, function (evt) {
-        // Handle a progress event from the request if the
-        // browser supports XHR2
       });
-
-      map.on('click', function (evt) {
-        // 输出经纬度信息
-        var lonlat = util.lonlat(evt);
-        console.log('lonlat(x:' + lonlat.x + ', y:' + lonlat.y + ')');
-      });
-    });
   </script>
 </head>
 
 <body>
   <div id="map"></div>
-  <a href="https://github.com/yoshow/arcgis-js-api-examples/blob/master/cw/examples/example-7-api-cameras-data.html"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+  <!--
+  <a href="https://github.com/yoshow/arcgis-js-api-examples/blob/master/cw/examples/example-7-api-cameras-data.html" target="_blank">源码</a>
+  -->
 </body>
 
 </html>
