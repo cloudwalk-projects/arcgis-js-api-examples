@@ -175,10 +175,10 @@
 <div class="section" id="id4">
 <h3>模块加载规则<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <p>所有模块加载方式基于 AMD 规则， 具体代码如下：</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">require</span><span class="p">([</span>
-    <span class="s2">&quot;cw/basemap&quot;</span><span class="p">,</span><span class="s2">&quot;cw/cameras&quot;</span><span class="p">,</span> <span class="p">...</span>
-<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">basemap</span><span class="p">,</span> <span class="nx">cameras</span><span class="p">,</span> <span class="p">...</span> <span class="p">)</span> <span class="p">{</span>
-
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">require</span><span class="p">([</span>
+</span><span class="hll">    <span class="s2">&quot;cw/basemap&quot;</span><span class="p">,</span><span class="s2">&quot;cw/cameras&quot;</span><span class="p">,</span> <span class="p">...</span>
+</span><span class="hll"><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">basemap</span><span class="p">,</span> <span class="nx">cameras</span><span class="p">,</span> <span class="p">...</span> <span class="p">)</span> <span class="p">{</span>
+</span>
     <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">basemap</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="nx">divId</span><span class="o">:</span><span class="s1">&#39;map&#39;</span> <span class="p">});</span>
 
     <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">[...];</span>
@@ -206,14 +206,19 @@
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="c1">// (必填)显示地图的容器标识</span>
      <span class="nx">divId</span><span class="o">:</span><span class="s1">&#39;map&#39;</span><span class="p">,</span>
-     <span class="c1">// 中心点坐标</span>
-     <span class="nx">center</span><span class="o">:</span><span class="p">[</span><span class="mf">106.551187</span><span class="p">,</span> <span class="mf">29.563975</span><span class="p">],</span>
-     <span class="c1">// 默认缩放比例</span>
-     <span class="nx">zoom</span><span class="o">:</span><span class="mi">16</span><span class="p">,</span>
-     <span class="c1">// 最小缩放比例</span>
-     <span class="nx">minZoom</span><span class="o">:</span><span class="mi">15</span><span class="p">,</span>
-     <span class="c1">// 最大缩放比例</span>
-     <span class="nx">maxZoom</span><span class="o">:</span><span class="mi">19</span>
+     <span class="c1">// 自定义地图瓦片服务地址</span>
+     <span class="nx">tiledMapServer</span><span class="o">:</span><span class="s1">&#39;http://localhost:6080/arcgis/rest/services/ChinaMap/MapServer&#39;</span><span class="p">,</span>
+     <span class="c1">// 地图选项</span>
+     <span class="nx">map</span><span class="o">:</span><span class="p">{</span>
+         <span class="c1">// 中心点坐标</span>
+         <span class="nx">center</span><span class="o">:</span><span class="p">[</span><span class="mf">106.551187</span><span class="p">,</span> <span class="mf">29.563975</span><span class="p">],</span>
+         <span class="c1">// 默认缩放比例</span>
+         <span class="nx">zoom</span><span class="o">:</span><span class="mi">16</span><span class="p">,</span>
+         <span class="c1">// 最小缩放比例</span>
+         <span class="nx">minZoom</span><span class="o">:</span><span class="mi">15</span><span class="p">,</span>
+         <span class="c1">// 最大缩放比例</span>
+         <span class="nx">maxZoom</span><span class="o">:</span><span class="mi">19</span>
+     <span class="p">}</span>
  <span class="p">}</span>
 </pre></div>
 </div>
@@ -227,14 +232,17 @@
     <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">basemap</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
         <span class="c1">// 显示地图的容器标识</span>
         <span class="nx">divId</span><span class="o">:</span><span class="s1">&#39;map&#39;</span><span class="p">,</span>
-        <span class="c1">// 中心点坐标</span>
-        <span class="nx">center</span><span class="o">:</span><span class="p">[</span><span class="mf">106.551187</span><span class="p">,</span> <span class="mf">29.563975</span><span class="p">],</span>
-        <span class="c1">// 默认缩放比例</span>
-        <span class="nx">zoom</span><span class="o">:</span><span class="mi">16</span><span class="p">,</span>
-        <span class="c1">// 最小缩放比例</span>
-        <span class="nx">minZoom</span><span class="o">:</span><span class="mi">15</span><span class="p">,</span>
-        <span class="c1">// 最大缩放比例</span>
-        <span class="nx">maxZoom</span><span class="o">:</span><span class="mi">19</span>
+        <span class="c1">// 地图选项</span>
+        <span class="nx">map</span><span class="o">:</span><span class="p">{</span>
+            <span class="c1">// 中心点坐标</span>
+            <span class="nx">center</span><span class="o">:</span><span class="p">[</span><span class="mf">106.551187</span><span class="p">,</span> <span class="mf">29.563975</span><span class="p">],</span>
+            <span class="c1">// 默认缩放比例</span>
+            <span class="nx">zoom</span><span class="o">:</span><span class="mi">16</span><span class="p">,</span>
+            <span class="c1">// 最小缩放比例</span>
+            <span class="nx">minZoom</span><span class="o">:</span><span class="mi">15</span><span class="p">,</span>
+            <span class="c1">// 最大缩放比例</span>
+            <span class="nx">maxZoom</span><span class="o">:</span><span class="mi">19</span>
+        <span class="p">}</span>
     <span class="p">});</span>
 <span class="p">...</span>
 <span class="p">});</span>
@@ -284,8 +292,31 @@
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="c1">// 地图对象</span>
      <span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span>
-     <span class="c1">// 摄像头信息</span>
-     <span class="nx">cameras</span><span class="o">:</span><span class="p">[]</span>
+     <span class="c1">// 摄像头数据信息</span>
+     <span class="nx">cameras</span><span class="o">:</span><span class="p">[{</span>
+         <span class="c1">// 唯一标识</span>
+         <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;0001&quot;</span><span class="p">,</span>
+         <span class="c1">// 名称</span>
+         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;摄像头 1&quot;</span><span class="p">,</span>
+         <span class="c1">// 描述</span>
+         <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+         <span class="c1">// IP</span>
+         <span class="s2">&quot;ip&quot;</span><span class="o">:</span> <span class="s2">&quot;192.168.0.1&quot;</span><span class="p">,</span>
+         <span class="c1">// 经度</span>
+         <span class="s2">&quot;x&quot;</span><span class="o">:</span> <span class="s2">&quot;106.55097271762801&quot;</span><span class="p">,</span>
+         <span class="c1">// 纬度</span>
+         <span class="s2">&quot;y&quot;</span><span class="o">:</span> <span class="s2">&quot;29.563900672574004&quot;</span>
+     <span class="p">},</span>
+     <span class="p">{</span>
+         <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;0002&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;摄像头 2&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;ip&quot;</span><span class="o">:</span> <span class="s2">&quot;192.168.0.2&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;x&quot;</span><span class="o">:</span> <span class="s2">&quot;106.54717470966243&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;y&quot;</span><span class="o">:</span> <span class="s2">&quot;29.560709076232932&quot;</span>
+     <span class="p">}</span>
+     <span class="p">...</span>
+     <span class="p">]</span>
  <span class="p">}</span>
 </pre></div>
 </div>
@@ -390,11 +421,34 @@
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="c1">// (必填)地图对象</span>
      <span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span>
-     <span class="c1">// 选择方式</span>
-     <span class="nx">type</span><span class="o">:</span><span class="s1">&#39;extent&#39;</span><span class="p">,</span>
-     <span class="c1">// 回调函数, 参数 graphics 为摄像头信息</span>
-     <span class="nx">callback</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">graphics</span><span class="p">){</span> <span class="p">}</span>
+     <span class="c1">// 摄像头唯一标识</span>
+     <span class="nx">cameraId</span><span class="o">:</span><span class="s1">&#39;0001&#39;</span><span class="p">,</span>
+     <span class="c1">// 摄像头相关的数据</span>
+     <span class="nx">data</span><span class="o">:</span><span class="nx">data</span>
  <span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>输出参数</strong></p>
+<p>摄像头数据</p>
+<p><strong>示例代码</strong></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">require</span><span class="p">([</span>
+    <span class="s2">&quot;cw/basemap&quot;</span><span class="p">,</span><span class="s2">&quot;cw/cameras&quot;</span><span class="p">,</span> <span class="p">...</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">basemap</span><span class="p">,</span> <span class="nx">cameras</span><span class="p">,</span> <span class="p">...</span> <span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">basemap</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="nx">divId</span><span class="o">:</span><span class="s1">&#39;map&#39;</span><span class="p">});</span>
+
+    <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">cameras</span><span class="p">.</span><span class="nx">data</span><span class="p">({</span><span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span> <span class="nx">cameraId</span><span class="o">:</span><span class="s1">&#39;001&#39;</span><span class="p">});</span>
+
+    <span class="nx">cameras</span><span class="p">.</span><span class="nx">data</span><span class="p">({</span>
+        <span class="c1">// 地图对象</span>
+        <span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span>
+        <span class="c1">// 摄像头标识</span>
+        <span class="nx">cameraId</span><span class="o">:</span><span class="s1">&#39;001&#39;</span><span class="p">,</span>
+        <span class="c1">// 摄像头状态</span>
+        <span class="nx">data</span><span class="o">:</span><span class="nx">x</span><span class="p">.</span><span class="nx">ext</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span> <span class="nx">count</span><span class="o">:</span><span class="mi">100</span><span class="p">})</span>
+    <span class="p">});</span>
+<span class="p">...</span>
+<span class="p">});</span>
 </pre></div>
 </div>
 </div>
@@ -406,21 +460,41 @@
 <h4>query - 查询<a class="headerlink" href="#query" title="永久链接至标题">¶</a></h4>
 <p><strong>输入参数</strong></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+     <span class="c1">// 类型 polyline(默认) | road</span>
+     <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;road&#39;</span><span class="p">,</span>
+     <span class="c1">// 路径服务器，type=road 必须填写路径服务器地址</span>
+     <span class="nx">naServer</span><span class="o">:</span> <span class="s2">&quot;http://localhost:6080/arcgis/rest/services/ChinaMap/NAServer/路径&quot;</span><span class="p">,</span>
      <span class="c1">// (必填)显示地图的容器标识</span>
-     <span class="nx">divId</span><span class="o">:</span><span class="s1">&#39;map&#39;</span><span class="p">,</span>
-     <span class="c1">// 中心点坐标</span>
-     <span class="nx">center</span><span class="o">:</span><span class="p">[],</span>
-     <span class="c1">// 默认缩放比例</span>
-     <span class="nx">zoom</span><span class="o">:</span><span class="mi">16</span><span class="p">,</span>
-     <span class="c1">// 最小缩放比例</span>
-     <span class="nx">minZoom</span><span class="o">:</span><span class="mi">15</span><span class="p">,</span>
-     <span class="c1">// 最大缩放比例</span>
-     <span class="nx">maxZoom</span><span class="o">:</span><span class="mi">19</span>
+     <span class="nx">map</span><span class="o">:</span><span class="s1">&#39;map&#39;</span><span class="p">,</span>
+     <span class="c1">// (必填)路径信息</span>
+     <span class="nx">routes</span><span class="o">:</span><span class="p">[</span>
+     <span class="p">{</span>
+         <span class="c1">// 节点名称</span>
+         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+         <span class="c1">// X坐标</span>
+         <span class="s2">&quot;x&quot;</span><span class="o">:</span> <span class="s2">&quot;106.55101563297185&quot;</span><span class="p">,</span>
+         <span class="c1">// Y坐标</span>
+         <span class="s2">&quot;y&quot;</span><span class="o">:</span> <span class="s2">&quot;29.563546055738094&quot;</span><span class="p">,</span>
+         <span class="c1">// 创建时间</span>
+         <span class="s2">&quot;createdDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2017-03-15 12:00:00&quot;</span>
+     <span class="p">},</span>
+     <span class="p">{</span>
+         <span class="c1">// 节点名称</span>
+         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+         <span class="c1">// X坐标</span>
+         <span class="s2">&quot;x&quot;</span><span class="o">:</span> <span class="s2">&quot;106.54717470966243&quot;</span><span class="p">,</span>
+         <span class="c1">// Y坐标</span>
+         <span class="s2">&quot;y&quot;</span><span class="o">:</span> <span class="s2">&quot;29.560709076232932&quot;</span><span class="p">,</span>
+         <span class="c1">// 创建时间</span>
+         <span class="s2">&quot;createdDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2017-03-15 12:00:00&quot;</span>
+     <span class="p">}</span>
+     <span class="p">...</span>
+     <span class="p">]</span>
  <span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>输出参数</strong></p>
-<p>esri.Map 对象</p>
+<p>无</p>
 <p><strong>示例代码</strong></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">require</span><span class="p">([</span>
     <span class="s2">&quot;cw/basemap&quot;</span><span class="p">,</span><span class="s2">&quot;cw/directions&quot;</span><span class="p">,</span> <span class="p">...</span>
@@ -429,10 +503,14 @@
     <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">basemap</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="nx">divId</span><span class="o">:</span><span class="s1">&#39;map&#39;</span> <span class="p">});</span>
 
     <span class="nx">directions</span><span class="p">.</span><span class="nx">query</span><span class="p">({</span>
-        <span class="c1">// 显示地图的容器标识</span>
+        <span class="c1">// 类型</span>
+        <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;road&#39;</span><span class="p">,</span>
+        <span class="c1">// 路径服务器</span>
+        <span class="nx">naServer</span><span class="o">:</span> <span class="s2">&quot;http://192.168.10.35:6080/arcgis/rest/services/重庆地图/NAServer/路径&quot;</span><span class="p">,</span>
+        <span class="c1">// 地图对象</span>
         <span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span>
-        <span class="c1">// 摄像头信息</span>
-        <span class="nx">cameras</span><span class="o">:</span><span class="p">[]</span>
+        <span class="c1">// 路径信息</span>
+        <span class="nx">routes</span><span class="o">:</span> <span class="nx">routes</span>
     <span class="p">});</span>
 <span class="p">...</span>
 <span class="p">});</span>
@@ -449,7 +527,7 @@
 <p>evt 地图上的点击事件</p>
 <p><strong>输出参数</strong></p>
 <p>经纬度信息</p>
-<p>{x:29.35, y:106.33}</p>
+<p>{x:106.33, y:29.35}</p>
 <p><strong>示例代码</strong></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">require</span><span class="p">([</span>
     <span class="s2">&quot;cw/basemap&quot;</span><span class="p">,</span> <span class="s2">&quot;cw/util&quot;</span><span class="p">,</span> <span class="p">...</span>
@@ -474,30 +552,40 @@
 <p><strong>输入参数</strong></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="c1">// 纬度</span>
-     <span class="nx">x</span><span class="o">:</span><span class="mf">29.35</span><span class="p">,</span>
+     <span class="nx">x</span><span class="o">:</span><span class="mf">106.33</span><span class="p">,</span>
      <span class="c1">// 经度</span>
-     <span class="nx">y</span><span class="o">:</span><span class="mf">106.33</span>
+     <span class="nx">y</span><span class="o">:</span><span class="mf">29.35</span>
  <span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>输出参数</strong></p>
-<p>经纬度信息</p>
-<p>{x:x,y:x}</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="c1">// 墨卡托投影信息</span>
+<span class="p">{</span>
+    <span class="nx">x</span><span class="o">:</span><span class="mf">11861235.85466021</span><span class="p">,</span>
+    <span class="nx">y</span><span class="o">:</span><span class="mf">3447577.3923047883</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="id6">
 <h4>mercator2lonlat - 墨卡托坐标转经纬度坐标<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
 <p><strong>输入参数</strong></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="c1">// 纬度</span>
-     <span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+     <span class="nx">x</span><span class="o">:</span><span class="mf">11861235.85466021</span><span class="p">,</span>
      <span class="c1">// 经度</span>
-     <span class="nx">y</span><span class="o">:</span><span class="mi">0</span>
+     <span class="nx">y</span><span class="o">:</span><span class="mf">3447577.3923047883</span>
  <span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>输出参数</strong></p>
-<p>经纬度信息</p>
-<p>{x:29.35, y:106.33}</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="c1">// 经纬度信息</span>
+<span class="p">{</span>
+    <span class="nx">x</span><span class="o">:</span><span class="mf">29.35</span><span class="p">,</span>
+    <span class="nx">y</span><span class="o">:</span><span class="mf">106.33</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>

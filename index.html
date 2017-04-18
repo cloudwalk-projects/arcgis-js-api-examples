@@ -166,8 +166,17 @@ local - packages:[{name: 'cw',location: '/arcgis/examples/cw'},{name: 'views',lo
 
             tree.startup();
 
+            // #menu-tab-home
             // 初始化地图
-            map = basemap.create({ divId: 'map' });
+            // map = basemap.create({ divId: 'map' });
+            var outString = '';
+            
+            outString+='<div style="font-size:14px; line-height:150%;">';
+            outString+='<div>项目地址: <a href="http://map.x3platform.com/" target="_blank" >http://map.x3platform.com/</a></div>';
+            outString+='<div>接口文档: <a href="http://map.x3platform.com/docs/html/js-apis.html" target="_blank" >http://map.x3platform.com/docs/html/js-apis.html</a></div>';
+            outString+='</div>';
+
+            dom.byId('menu-tab-home').innerHTML = outString;
 
             /*
                         map = new Map("map", {
@@ -302,7 +311,6 @@ local - packages:[{name: 'cw',location: '/arcgis/examples/cw'},{name: 'views',lo
         <div data-dojo-type="dijit/layout/ContentPane" splitter="true" region="center" style="padding:4px; border-top:none; border-right:none; border-bottom:none;">
             <div id="windowTabContainer" data-dojo-type="dijit/layout/TabContainer" style="width: 100%; height: 100%;">
                 <div id="menu-tab-home" data-dojo-type="dijit/layout/ContentPane" title="主页" data-dojo-props="selected:true">
-                    <div id="map"></div>
                 </div>
             </div>
         </div>

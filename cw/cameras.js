@@ -263,7 +263,7 @@ define(["cw/config",
                     }
                 });
 
-                return cameraStatus;
+                return !options.status ? cameraStatus : self;
             },
 
             /**
@@ -272,17 +272,27 @@ define(["cw/config",
             data: function (options) {
                 var map = options.map;
                 var cameraId = options.cameraId;
-                var data = options.data || [];
-                var override = options.override || 1;
+                var data = options.data;
+                var override = options.override || 0;
 
                 var layer = map.getLayer(defaults.layerId);
+
+                var cameraData = null;
 
                 // 设置图形信息的数据
                 array.forEach(layer.graphics, function (graphic, index) {
                     if (graphic.attributes.id == cameraId) {
-                        graphic.setAttributes(util.ext(graphic.attributes, data));
+                        if (options.data) {
+                            graphic.setAttributes(util.ext(graphic.attributes, data));
+                        }
+                        else
+                        {
+                            cameraData = graphic.attributes;
+                        }
                     }
                 });
+
+                return !options.data ? cameraData : self;
             }
         }
 
