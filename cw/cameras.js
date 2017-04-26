@@ -122,7 +122,7 @@ define(["cw/config",
                     layer = new FeatureLayer(featureCollection, { id: defaults.layerId });
 
                     map.on("layer-add-result", function (results) {
-                        if (!initialized) {
+                        if (!initialized && results.layer.id == defaults.layerId) {
                             initialized = true;
                             console.log('init cameras:layer-add-result');
                             self.initCameras({ layer: layer, cameras: cameras });
@@ -285,8 +285,7 @@ define(["cw/config",
                         if (options.data) {
                             graphic.setAttributes(util.ext(graphic.attributes, data));
                         }
-                        else
-                        {
+                        else {
                             cameraData = graphic.attributes;
                         }
                     }
