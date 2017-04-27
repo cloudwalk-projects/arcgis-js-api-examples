@@ -20,11 +20,15 @@
 ## 3.引用地址 
 
 样式引用  
+```HTML
 <link rel="stylesheet" href="http://<your_server>:8080/arcgis/3.19/dijit/themes/claro/claro.css">  
 <link rel="stylesheet" href="http://<your_server>:8080/arcgis/3.19/esri/css/esri.css">
+```
 
-脚本引用
+脚本引用  
+```HTML
 <script src="http://<your_server>:8080/arcgis/3.19/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
+```
 
 ## 4.演示地址 
 
