@@ -92,7 +92,7 @@ require([
     // get code sample from docs
     esri.request({
       // 'url': 'https://developers.arcgis.com/javascript/3/examples/' + exampleFolder + '/index.html',
-      'url': '../examples/' + exampleFolder + '/index.html',
+      'url': '../../examples/' + exampleFolder + '/index.html',
       'handleAs': 'text'
     }).then(handleSample, handleError);
 
@@ -120,7 +120,7 @@ require([
   // get code from editor and run inside iframe
   function updateSandbox() {
     log('updateSandbox');
-    
+
     $update.attr('disabled', 'disabled');
     $save.attr('disabled', 'disabled');
 
@@ -162,7 +162,7 @@ require([
       relLinks = relLinks.concat(content.match(/src=".+?"/g).filter(function(url){ return url.indexOf("//") === -1 }));
       relLinks.forEach(function(href){
         var path = href.split('"')[1];
-        content = content.replace(path, "../samples/" + exampleFolder + "/" + path);
+        content = content.replace(path, "../examples/" + exampleFolder + "/" + path);
       });
     }
 
@@ -171,16 +171,16 @@ require([
       relLinks = relLinks.filter(function(url){ return url.indexOf("//") === -1 }); // ignore absolute URLs
       relLinks.forEach(function(href){
         var path = href.split("'")[1];
-        content = content.replace(path, "../samples/" + exampleFolder + "/" + path);
+        content = content.replace(path, "../examples/" + exampleFolder + "/" + path);
       });
     };
-    
+
     // fix for graphics_add
     //      "images/mangrove.png",
     relLinks = content.match(/images\/mangrove.png/g);
     if (relLinks) {
       relLinks.forEach(function(href){
-        content = content.replace(href, "../samples/" + exampleFolder + "/" + href);
+        content = content.replace(href, "../examples/" + exampleFolder + "/" + href);
       });
     };
 
@@ -192,7 +192,7 @@ require([
       relLinks = relLinks.filter(function(url){ return url.indexOf("//") === -1 }); // ignore absolute URLs
       relLinks.forEach(function(href){
         var file = href.split('"')[1];
-        content = content.replace(file, "../samples/" + exampleFolder + "/" + file);
+        content = content.replace(file, "../examples/" + exampleFolder + "/" + file);
       });
     };
 
@@ -203,7 +203,7 @@ require([
       relLinks = relLinks.filter(function(url){ return url.indexOf("//") === -1 }); // ignore absolute URLs
       relLinks.forEach(function(href){
         var file = href.split('"')[3]; // more "s than in fix above
-        content = content.replace(file, "../samples/" + exampleFolder + "/" + file);
+        content = content.replace(file, "../examples/" + exampleFolder + "/" + file);
       });
     };
 
@@ -213,7 +213,7 @@ require([
     if (relLinks) {
       relLinks.forEach(function(href){
         var file = href.split('(')[1];
-        content = content.replace(file, "../samples/" + exampleFolder + "/" + file);
+        content = content.replace(file, "../examples/" + exampleFolder + "/" + file);
       });
     };
 
@@ -224,18 +224,18 @@ require([
           relLinks = relLinks.filter(function(url){ return url.indexOf("//") === -1 }); // ignore absolute URLs
           relLinks.forEach(function(href){
             var file = href.split('"')[1];
-            content = content.replace(file, "../samples/" + exampleFolder + "/" + file);
+            content = content.replace(file, "../examples/" + exampleFolder + "/" + file);
           });
     };
 
     var jsLinks = content.match(/location.pathname.+\"/g);
     if (jsLinks) {
       jsLinks.forEach(function(href){
-        content = content.replace(/""\)/, "\"/../samples/" + exampleFolder + "/\")");
-        content = content.replace(/''\)/, "\'/../samples/" + exampleFolder + "/\')");
+        content = content.replace(/""\)/, "\"/../examples/" + exampleFolder + "/\")");
+        content = content.replace(/''\)/, "\'/../examples/" + exampleFolder + "/\')");
       });
     };
-    
+
     if (has('ie')) {
       // http://sparecycles.wordpress.com/2012/03/08/inject-content-into-a-new-iframe/
       // this workaround was causing issues in Firefox - may be able to get it to
@@ -250,7 +250,7 @@ require([
       // otherwise, no referrer is sent when making requests from the iframe
       // which breaks samples which use the /sproxy on developers.arcgis.com
         // TODO temporary fix (Chris), need to go back and check what this is doing
-      //iframe.src = '../samples/' + exampleFolder + '/index.html';
+      //iframe.src = '../examples/' + exampleFolder + '/index.html';
     }
   }
 

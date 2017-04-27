@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>编辑地图中心点和放大缩小</title>
+  <title>basemap.edit</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
   <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
@@ -11,17 +11,13 @@
     require(["cw/basemap", "dojo/domReady!"], function (basemap) {
       var map = basemap.create({ divId: "map" });
 
-      basemap.edit({
-        map: map,
-        center: [106.54917027, 29.56358338],
-        zoom: 14
-      });
+      basemap.edit({map:map, zoom:1});
     });
   </script>
 </head>
 
 <body>
-  <div id="map" class="map"></div>
+  <div id="map"></div>
 </body>
 
 </html>

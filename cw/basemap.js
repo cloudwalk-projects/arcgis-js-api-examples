@@ -4,14 +4,13 @@
 define(["cw/config",
   "cw/util",
   "esri/map",
+  "esri/geometry/Point",
   "esri/layers/ArcGISTiledMapServiceLayer",
   "esri/layers/ArcGISDynamicMapServiceLayer"
 ], function (
-  config,
-  util,
-  Map,
-  ArcGISTiledMapServiceLayer,
-  ArcGISDynamicMapServiceLayer) {
+  config, util,
+  Map, Point,
+  ArcGISTiledMapServiceLayer, ArcGISDynamicMapServiceLayer) {
 
     var self = {
       /**

@@ -111,16 +111,12 @@ local - packages:[{name: 'cw',location: '/arcgis/examples/cw'},{name: 'views',lo
           model: model
         }, 'treeView');
 
-        tree.on('click', clickTreeNode);
-
         /**
-         * item /*点中节点对应的数据项
+         * item 点中节点对应的数据项
          * node 点中的对象，这里node.item就是的第一个参数
          * evt  事件
          */
-        function clickTreeNode(item, node, evt) {
-          console.log(item);
-
+        tree.on('click',  function (item, node, evt) {
           var tabs = registry.byId("windowTabContainer");
 
           var pane = null;
@@ -174,7 +170,7 @@ local - packages:[{name: 'cw',location: '/arcgis/examples/cw'},{name: 'views',lo
           }
 
           tabs.selectChild(pane);
-        }
+        });
 
         tree.startup();
 
