@@ -1,328 +1,238 @@
 <html>
 
 <head>
-    <title>项目</title>
-    <link rel="stylesheet" type="text/css" href="http://map.x3platform.com/dijit/themes/x3platform/x3platform.css">
-    <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
-    <style type="text/css">
-        html,
-        body,
-        #map {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0
-        }
-        
-        #borderContainer {
-            width: 100%;
-            height: 100%
-        }
-    </style>
+  <title>项目</title>
+  <link rel="stylesheet" type="text/css" href="http://map.x3platform.com/dijit/themes/x3platform/x3platform.css">
+  <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
+  <style type="text/css">
+    html,
+    body,
+    #map {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0
+    }
+
+    #borderContainer {
+      width: 100%;
+      height: 100%
+    }
+  </style>
 </head>
-<!-- 根据实际情况 配置 packages 信息 
+<!-- 根据实际情况 配置 packages 信息
 local - packages:[{name: 'cw',location: '/arcgis/examples/cw'},{name: 'views',location: '/arcgis/examples/views'}]
 -->
-<script type="text/javascript" src="http://ditu.fuwu.io:7020/arcgis/3.19/dojo/dojo.js" data-dojo-config="parseOnLoad: true"></script>
+<script type="text/javascript" src="http://ditu.fuwu.io:7020/arcgis/3.19/dojo/dojo.js" data-dojo-config="parseOnLoad:true, isDebug:true"></script>
 <script type="text/javascript">
-    var map;
+  var map;
 
-    require([
-        "cw/basemap",
-        "esri/map",
-        "dojo/parser",
-        "dojo/on",
-        "dojo/dom",
-        "dojo/dom-construct",
-        "dojo/store/Memory",
-        "dijit/registry",
-        "dijit/Dialog",
-        "dijit/Tree",
-        "dijit/tree/ObjectStoreModel",
-        "dijit/layout/ContentPane",
-        "dijit/layout/BorderContainer",
-        "dijit/layout/AccordionContainer",
-        "dojo/domReady!"
-    ], function (
-        basemap,
-        Map,
-        parser,
-        on,
-        dom,
-        domConstruct,
-        Memory,
-        registry,
-        Dialog,
-        Tree,
-        ObjectStoreModel,
-        ContentPane
-    ) {
-            // parser.parse();
+  require([
+    "cw/basemap",
+    "esri/map",
+    "dojo/parser",
+    "dojo/on",
+    "dojo/dom",
+    "dojo/dom-construct",
+    "dojo/request/xhr",
+    "dojo/store/Memory",
+    "dijit/registry",
+    "dijit/Dialog",
+    "dijit/Tree",
+    "dijit/tree/ObjectStoreModel",
+    "dijit/layout/ContentPane",
+    "dijit/layout/BorderContainer",
+    "dijit/layout/AccordionContainer",
+    "dojo/domReady!"
+  ], function (
+    basemap,
+    Map,
+    parser,
+    on,
+    dom,
+    domConstruct,
+    xhr,
+    Memory,
+    registry,
+    Dialog,
+    Tree,
+    ObjectStoreModel,
+    ContentPane
+  ) {
+      xhr("cw/examples/data/tree.json", { handleAs: "json" }).then(function (response) {
 
-            // Create test store, adding the getChildren() method required by ObjectStoreModel
-            var myStore = new Memory({
-                data: [
-                    { id: 'root', name: '地图组件' },
-                    { id: 'examples', name: '通用示例', parent: 'root' },
-                    { id: 'example-1', name: '初始化地图', parent: 'examples', href: 'cw/examples/example-1-api-basemap-create.html', iframe: true },
-                    { id: 'example-2', name: '初始化摄像头数据', parent: 'examples', href: 'cw/examples/example-2-api-cameras-init.html', iframe: true },
-                    { id: 'example-3', name: '消息提示', parent: 'examples', href: 'cw/examples/example-3-api-markers-info-window.html', iframe: true },
-                    { id: 'example-4', name: '查询轨迹数据', parent: 'examples', href: 'cw/examples/example-4-api-directions-query.html', iframe: true },
-                    { id: 'example-5', name: '选择摄像头数据', parent: 'examples', href: 'cw/examples/example-5-api-cameras-select.html', iframe: true },
-                    { id: 'example-6', name: '设置摄像头状态', parent: 'examples', href: 'cw/examples/example-6-api-cameras-status.html', iframe: true },
-                    { id: 'example-7', name: '同步摄像头数据', parent: 'examples', href: 'cw/examples/example-7-api-cameras-data.html', iframe: true },
-                    { id: 'example-9', name: '获取经纬度坐标', parent: 'examples', href: 'cw/examples/example-9-api-util-lonat.html', iframe: true },
-                    { id: 'arcgis', name: 'ArcGIS 示例', parent: 'root' },
-                    { id: 'arcgis-1', name: '上下文菜单', parent: 'arcgis', href: 'cw/examples/arcgis-1-contextmenu.html', iframe: true },
-                    { id: 'quanzhou', name: '泉州', parent: 'root' },
-                    { id: 'quanzhou-1', name: '摄像头信息', parent: 'quanzhou', href: 'cw/examples/cw-quanzhou-camera.html', iframe: true },
-                    { id: 'quanzhou-2', name: '区域信息', parent: 'quanzhou', href: 'cw/examples/cw-quanzhou-regions.html', iframe: true },
-                    { id: 'quanzhou-3', name: '路径信息', parent: 'quanzhou', href: 'cw/examples/cw-quanzhou-directions.html', iframe: true },
-                    //{ id: 'NAc', name: '表单信息', parent: 'root', href: 'cw/examples/cw-form.html', iframe: true },
-                    //{ id: 'ex', name: '通用窗口', parent: 'root', contentPane: 'views/map/CityControlMap', options: { cameraXhrUrl: 'cw/examples/data/cameras.json' } },
-                    { id: 'docs', name: '帮助文档', parent: 'root', href: 'http://map.x3platform.com/docs/html', iframe: true },
-                    { id: 'cw', name: '云从科技', parent: 'root', href: 'http://www.cloudwalk.cn', iframe: true }
-                ],
-                getChildren: function (object) {
-                    return this.query({ parent: object.id });
-                }
-            });
+        console.log(response.data);
 
-            // Create the model
-            var myModel = new ObjectStoreModel({
-                store: myStore,
-                query: { id: 'root' }
-            });
+        // Create test store, adding the getChildren() method required by ObjectStoreModel
+        /* var store = new Memory({
+          data: [
+            { id: 'root', name: '地图组件' },
+            { id: 'examples', name: '通用示例', parent: 'root' },
+            { id: 'example-1', name: '初始化地图', parent: 'examples', href: 'cw/examples/example-1-api-basemap-create.html', iframe: true },
+            { id: 'example-2', name: '初始化摄像头数据', parent: 'examples', href: 'cw/examples/example-2-api-cameras-init.html', iframe: true },
+            { id: 'example-3', name: '消息提示', parent: 'examples', href: 'cw/examples/example-3-api-markers-info-window.html', iframe: true },
+            { id: 'example-4', name: '查询轨迹数据', parent: 'examples', href: 'cw/examples/example-4-api-directions-query.html', iframe: true },
+            { id: 'example-5', name: '选择摄像头数据', parent: 'examples', href: 'cw/examples/example-5-api-cameras-select.html', iframe: true },
+            { id: 'example-6', name: '设置摄像头状态', parent: 'examples', href: 'cw/examples/example-6-api-cameras-status.html', iframe: true },
+            { id: 'example-7', name: '同步摄像头数据', parent: 'examples', href: 'cw/examples/example-7-api-cameras-data.html', iframe: true },
+            { id: 'example-9', name: '获取经纬度坐标', parent: 'examples', href: 'cw/examples/example-9-api-util-lonat.html', iframe: true },
+            { id: 'example-10', name: '重置地图中心点', parent: 'examples', href: 'cw/sandbox/sandbox.html?example=example_basemap_edit', iframe: true },
+            { id: 'arcgis', name: 'ArcGIS 示例', parent: 'root' },
+            { id: 'arcgis-1', name: '上下文菜单', parent: 'arcgis', href: 'cw/examples/arcgis-1-contextmenu.html', iframe: true },
+            { id: 'quanzhou', name: '泉州', parent: 'root' },
+            { id: 'quanzhou-1', name: '摄像头信息', parent: 'quanzhou', href: 'cw/examples/cw-quanzhou-camera.html', iframe: true },
+            { id: 'quanzhou-2', name: '区域信息', parent: 'quanzhou', href: 'cw/examples/cw-quanzhou-regions.html', iframe: true },
+            { id: 'quanzhou-3', name: '路径信息', parent: 'quanzhou', href: 'cw/examples/cw-quanzhou-directions.html', iframe: true },
+            //{ id: 'NAc', name: '表单信息', parent: 'root', href: 'cw/examples/cw-form.html', iframe: true },
+            //{ id: 'ex', name: '通用窗口', parent: 'root', contentPane: 'views/map/CityControlMap', options: { cameraXhrUrl: 'cw/examples/data/cameras.json' } },
+            { id: 'docs', name: '帮助文档', parent: 'root', href: 'http://map.x3platform.com/docs/html', iframe: true },
+            { id: 'cw', name: '云从科技', parent: 'root', href: 'http://www.cloudwalk.cn', iframe: true }
+          ],
+          getChildren: function (object) {
+            return this.query({ parent: object.id });
+          }
+        });*/
 
-            // Create the Tree.
-            var tree = new Tree({
-                model: myModel
-            }, 'treeView');
-
-            tree.on('click', clickTreeNode);
-
-            /**
-             * item /*点中节点对应的数据项
-             * node 点中的对象，这里node.item就是的第一个参数
-             * evt  事件
-             */
-            function clickTreeNode(item, node, evt) {
-                console.log(item);
-
-                var tabs = registry.byId("windowTabContainer");
-
-                var pane = null;
-                var paneId = 'menu-tab-' + item.id;
-
-                tabs.getChildren().forEach(function (tab) {
-                    if (tab.id == paneId) {
-                        pane = tab;
-                    }
-                });
-
-                if (!pane) {
-                    if (item.href) {
-                        if (item.iframe) {
-                            pane = new ContentPane({
-                                id: paneId,
-                                title: item.name,
-                                closable: true,
-                                content: domConstruct.create("iframe", {
-                                    "src": item.href,
-                                    "style": "border: 0; width: 100%; height: 100%"
-                                })
-                            });
-                        }
-                        else {
-                            var requireScripts = !item.scripts ? [] : item.scripts.split(',');
-
-                            pane = new ContentPane({
-                                id: paneId,
-                                title: item.name,
-                                closable: true,
-                                href: item.href
-                            });
-                        }
-
-                        tabs.addChild(pane);
-                    }
-                    else if (item.contentPane) {
-                        require([item.contentPane], function (Pane) {
-                            pane = new Pane({
-                                id: paneId,
-                                title: item.name,
-                                closable: true,
-                                options: item.options || {}
-                            });
-
-                            tabs.addChild(pane);
-                            tabs.selectChild(pane);
-                        });
-                    }
-                }
-
-                tabs.selectChild(pane);
-            }
-
-            tree.startup();
-
-            // #menu-tab-home
-            // 初始化地图
-            // map = basemap.create({ divId: 'map' });
-            var outString = '';
-            
-            outString+='<div style="font-size:14px; line-height:150%;">';
-            outString+='<div>项目地址: <a href="http://map.x3platform.com/" target="_blank" >http://map.x3platform.com/</a></div>';
-            outString+='<div>接口文档: <a href="http://map.x3platform.com/docs/html/js-apis.html" target="_blank" >http://map.x3platform.com/docs/html/js-apis.html</a></div>';
-            outString+='</div>';
-
-            dom.byId('menu-tab-home').innerHTML = outString;
-
-            /*
-                        map = new Map("map", {
-                            basemap: "topo",
-                            center: [106.48902795844141, 29.623800368070633], //地图加载后，初始位置
-                            zoom: 14,        //放大级别，值越大放大的比例就越大
-                            maxZoom: 18,     // 地图最大缩放级别
-                            minZoom: 1,      // 地图最小缩放级别
-                            slider: false   // 设置显示地图缩放按钮
-                        });
-            
-
-            // 测试打开一个对话窗口
-            var btn = dojo.byId('b');
-
-            console.log(btn);
-
-            function showDialog() {
-
-                var dialog = registry.byId('diaDiv');
-
-                if (!dialog) {
-                    var pane = document.createElement("div");
-
-                    pane.setAttribute("id", "diaDiv");
-
-                    document.body.appendChild(pane);
-
-                    dialog = new Dialog({ title: "dojo dialog", style: "width: 600px;height:400px;" }, pane);
-                }
-
-                dialog.show();
-            }
-
-            on(btn, 'click', showDialog);
-
-            // 测试打开一个对话窗口
-            var btnc = dojo.byId('c');
-
-            console.log(btn);
-
-            function showContentPane() {
-                // cw/menu/commands/a.js
-                var item = {
-                    id: 'test',
-                    name: 'test',
-                    pane: 'views/demo/a'
-                };
-
-                var tabs = registry.byId("windowTabContainer");
-
-                var pane = null;
-                var paneId = 'menu-tab-' + item.id;
-
-                tabs.getChildren().forEach(function (tab) {
-                    if (tab.id == paneId) {
-                        pane = tab;
-                    }
-                });
-
-                if (!pane) {
-                    if (item.pane) {
-                        require([item.pane], function (Pane) {
-
-                            pane = new Pane({
-                                id: paneId,
-                                title: item.name,
-                                closable: true
-                            });
-
-                            tabs.addChild(pane);
-                        });
-                    }
-                    else if (item.href) {
-                        if (item.iframe) {
-                            pane = new ContentPane({
-                                id: paneId,
-                                title: item.name,
-                                closable: true,
-                                content: domConstruct.create("iframe", {
-                                    "src": item.href,
-                                    "style": "border: 0; width: 100%; height: 100%"
-                                })
-                            });
-                        }
-                        else {
-                            pane = new ContentPane({
-                                id: paneId,
-                                title: item.name,
-                                closable: true,
-                                href: item.href,
-                                onDownloadEnd: function () {
-                                    console.log(paneId + 'download end.');
-
-                                    require([item.scripts], function (main) {
-                                        main.startup();
-                                    });
-                                }
-                            });
-                        }
-
-                        tabs.addChild(pane);
-                    }
-                }
-
-                tabs.selectChild(pane);
-            }
-
-            on(btnc, 'click', showContentPane);*/
+        var store = new Memory({
+          data: response.data,
+          getChildren: function (object) {
+            return this.query({ parent: object.id });
+          }
         });
+
+        // Create the model
+        var model = new ObjectStoreModel({
+          store: store,
+          query: { id: 'root' }
+        });
+
+        // Create the Tree.
+        var tree = new Tree({
+          model: model
+        }, 'treeView');
+
+        tree.on('click', clickTreeNode);
+
+        /**
+         * item /*点中节点对应的数据项
+         * node 点中的对象，这里node.item就是的第一个参数
+         * evt  事件
+         */
+        function clickTreeNode(item, node, evt) {
+          console.log(item);
+
+          var tabs = registry.byId("windowTabContainer");
+
+          var pane = null;
+          var paneId = 'menu-tab-' + item.id;
+
+          tabs.getChildren().forEach(function (tab) {
+            if (tab.id == paneId) {
+              pane = tab;
+            }
+          });
+
+          if (!pane) {
+            if (item.href) {
+              if (item.iframe) {
+                pane = new ContentPane({
+                  id: paneId,
+                  title: item.name,
+                  closable: true,
+                  content: domConstruct.create("iframe", {
+                    "src": item.href,
+                    "style": "border: 0; width: 100%; height: 100%"
+                  })
+                });
+              }
+              else {
+                var requireScripts = !item.scripts ? [] : item.scripts.split(',');
+
+                pane = new ContentPane({
+                  id: paneId,
+                  title: item.name,
+                  closable: true,
+                  href: item.href
+                });
+              }
+
+              tabs.addChild(pane);
+            }
+            else if (item.contentPane) {
+              require([item.contentPane], function (Pane) {
+                pane = new Pane({
+                  id: paneId,
+                  title: item.name,
+                  closable: true,
+                  options: item.options || {}
+                });
+
+                tabs.addChild(pane);
+                tabs.selectChild(pane);
+              });
+            }
+          }
+
+          tabs.selectChild(pane);
+        }
+
+        tree.startup();
+
+        // #menu-tab-home
+        // 初始化主页内容
+        var outString = '';
+
+        outString += '<div style="font-size:14px; line-height:150%;">';
+        outString += '<div>项目地址: <a href="https://github.com/cloudwalk-projects/arcgis-js-api-examples/" target="_blank" >https://github.com/cloudwalk-projects/arcgis-js-api-examples/</a></div>';
+        outString += '<div>演示地址: <a href="http://map.x3platform.com/" target="_blank" >http://map.x3platform.com/</a></div>';
+        outString += '<div>接口文档: <a href="http://map.x3platform.com/docs/html/js-apis.html" target="_blank" >http://map.x3platform.com/docs/html/js-apis.html</a></div>';
+        outString += '</div>';
+
+        dom.byId('menu-tab-home').innerHTML = outString;
+      }, function (err) {
+        // Handle the error condition
+        console.error(err);
+      }, function (evt) {
+        // Handle a progress event from the request if the
+        // browser supports XHR2
+      });
+    });
 
 </script>
 
 <body class="x3platform">
-    <div id="borderContainer2" data-dojo-type="dijit/layout/BorderContainer" design="sidebar" gutters="true" liveSplitters="true"
-        style="width: 100%; height: 100%; padding:0;">
-        <div data-dojo-type="dijit/layout/ContentPane" splitter="true" region="leading" style="width: 200px; padding:4px 4px 2px 4px; border-top:none; border-left:none; border-bottom:none;">
-            <div data-dojo-type="dijit/layout/AccordionContainer" splitter="true" region="leading">
-                <div data-dojo-type="dijit/layout/ContentPane" title="演示" style="padding:0;">
-                    <div id="treeView"></div>
-                </div>
-                <div data-dojo-type="dijit/layout/ContentPane" title="测试面板">
-                    <!--<button id="b">打开新窗口</button>
-                    <button id="c">加载脚本</button>-->
-                </div>
-            </div>
+  <div id="borderContainer2" data-dojo-type="dijit/layout/BorderContainer" design="sidebar" gutters="true" liveSplitters="true"
+    style="width: 100%; height: 100%; padding:0;">
+    <div data-dojo-type="dijit/layout/ContentPane" splitter="true" region="leading" style="width: 200px; padding:4px 4px 2px 4px; border-top:none; border-left:none; border-bottom:none;">
+      <div data-dojo-type="dijit/layout/AccordionContainer" splitter="true" region="leading">
+        <div data-dojo-type="dijit/layout/ContentPane" title="演示" style="padding:0;">
+          <div id="treeView"></div>
         </div>
-        <!-- 右侧
+        <div data-dojo-type="dijit/layout/ContentPane" title="测试面板">
+          <!--<button id="b">打开新窗口</button>
+                    <button id="c">加载脚本</button>-->
+        </div>
+      </div>
+    </div>
+    <!-- 右侧
         <div data-dojo-type="dijit.layout.ContentPane" splitter="true" region="trailing" style="width: 100px;">
             Tailing Region
         </div> -->
-        <div data-dojo-type="dijit/layout/ContentPane" splitter="true" region="center" style="padding:4px; border-top:none; border-right:none; border-bottom:none;">
-            <div id="windowTabContainer" data-dojo-type="dijit/layout/TabContainer" style="width: 100%; height: 100%;">
-                <div id="menu-tab-home" data-dojo-type="dijit/layout/ContentPane" title="主页" data-dojo-props="selected:true">
-                </div>
-            </div>
+    <div data-dojo-type="dijit/layout/ContentPane" splitter="true" region="center" style="padding:4px; border-top:none; border-right:none; border-bottom:none;">
+      <div id="windowTabContainer" data-dojo-type="dijit/layout/TabContainer" style="width: 100%; height: 100%;">
+        <div id="menu-tab-home" data-dojo-type="dijit/layout/ContentPane" title="主页" data-dojo-props="selected:true">
         </div>
-        <!-- 
+      </div>
+    </div>
+    <!--
         <div data-dojo-type="dijit.layout.ContentPane" splitter="true" liveSplitters="true" region="top">
             Top Region
         </div>-->
-        <!-- 
+    <!--
         <div data-dojo-type="dijit.layout.ContentPane" splitter="true" region="bottom">
             Bottom Region
         </div>-->
-    </div>
+  </div>
 </body>
 
 </html>

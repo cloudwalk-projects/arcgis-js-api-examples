@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Hello Map</title>
+  <title>basemap.create</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
   <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
@@ -21,7 +21,9 @@
       var map = basemap.create({
         divId: "map",
         map: {
-          zoom: 13
+          zoom: 13,
+          minZoom:10,
+          maxZoom:17
         }
       });
     });

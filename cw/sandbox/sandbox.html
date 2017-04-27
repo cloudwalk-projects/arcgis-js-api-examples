@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ArcGIS API for JavaScript Sandbox</title>
+  <link rel="stylesheet" href="https://fast.fonts.com/cssapi/4a60d16b-c9e4-404d-89d3-809adb97d65c.css">
+  <link rel="stylesheet" href="//js.arcgis.com/3.19/esri/css/esri.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="shortcut icon" href="../graphics/favicon.ico">
+</head>
+<body>
+  <div id="wrapper">
+    <div id="code">
+      <header id="header">
+        <div class="container">
+          <div class="row">
+            <div class="title left">
+              <h1>源码</h1>
+            </div>
+            <div class="links right">
+              <button class="btn toggle"><i class="icon-code"></i></button>
+            </div>
+          </div>
+          <div class="tools row">
+            <div class="right">
+              <button class="btn secondary" id="save-file" disabled="disabled"><i class="icon-storage"></i> 下载</button>
+              <button class="btn primary" id="update-sandbox" disabled="disabled"><i class="icon-play"></i> 运行</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div id="editor"></div>
+      <div id="handle"></div>
+
+      <aside id="sidebar">
+        <button class="btn toggle maximize"><i class="icon-code"></i></button>
+      </aside>
+
+      <footer>
+        <small id="footer-links"><a href="http://map.x3platform.com/docs/html/js-apis.html">地图 API 接口</a></small>
+      </footer>
+    </div>
+
+    <div id="output">
+      <img id="loader" src="images/ajax-loader.gif" alt="">
+    </div>
+  </div>
+
+  <script src="../../init.js"></script>
+  <script src="js/ace/ace.js"></script>
+  <script src="js/FileSaver.js"></script>
+  <script src="js/BlobBuilder.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
+

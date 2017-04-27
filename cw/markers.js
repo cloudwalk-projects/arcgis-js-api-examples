@@ -21,12 +21,12 @@ define(["cw/config",
 
     // 默认设置
     var defaults = {
-      layerId: 'layer_cameras',
+      layerId: 'map-markers-layer',
       layerIndex: 10,
-      cameraName: '',
-      cameraStatus: 'unkown',
+      markerName: '',
+      markerStatus: 'unkown',
       symbol: {
-        defaultName: 'camera-unkown',
+        defaultName: 'marker-unkown',
         yoffset: 10
       }
     };
@@ -34,7 +34,7 @@ define(["cw/config",
     // 图像符号设置
     var symbols = {
       // 摄像头(默认)
-      'camera-unkown': new PictureMarkerSymbol({
+      'marker-unkown': new PictureMarkerSymbol({
         //"angle": 0,
         //"xoffset": 0,
         "yoffset": defaults.symbol.yoffset,
@@ -46,7 +46,7 @@ define(["cw/config",
         "height": 21
       }),
       // 摄像头(蓝)
-      'camera-deactive': new PictureMarkerSymbol({
+      'marker-deactive': new PictureMarkerSymbol({
         //"angle": 0,
         //"xoffset": 0,
         "yoffset": defaults.symbol.yoffset,
@@ -58,7 +58,7 @@ define(["cw/config",
         "height": 21
       }),
       // 摄像头(红)
-      'camera-active': new PictureMarkerSymbol({
+      'marker-active': new PictureMarkerSymbol({
         "angle": 0,
         "xoffset": 0,
         "yoffset": defaults.symbol.yoffset,
@@ -108,13 +108,15 @@ define(["cw/config",
     // 由于 layer-add-result 事件会执行多次，所以设置标识符号只加载一次
     var initialized = false;
 
+    var layers = {};
+
     var self = {
       /**
        * 初始化摄像头要素层
        */
       initLayer: function (options) {
         var map = options.map;
-        var cameras = options.cameras;
+        var markers = options.markers;
 
         var layer = map.getLayer(defaults.layerId);
 
@@ -124,16 +126,16 @@ define(["cw/config",
           map.on("layer-add-result", function (results) {
             if (!initialized && results.layer.id == defaults.layerId) {
               initialized = true;
-              console.log('init cameras:layer-add-result');
-              self.initCameras({ layer: layer, cameras: cameras });
+              console.log('init markers:layer-add-result');
+              self.initMarkers({ layer: layer, markers: markers });
             }
           });
 
           map.addLayer(layer, defaults.layerIndex);
         }
         else {
-          console.log('init cameras:initialized');
-          self.initCameras({ layer: layer, cameras: cameras });
+          console.log('init markers:initialized');
+          self.initMarkers({ layer: layer, markers: markers });
         }
 
         return layer;
@@ -142,13 +144,13 @@ define(["cw/config",
       /**
        * 初始化摄像头
        */
-      initCameras: function (options) {
+      initMarkers: function (options) {
         var layer = options.layer;
-        var cameras = options.cameras;
+        var markers = options.markers;
 
         var graphics = [];
 
-        array.forEach(cameras, function (node, index) {
+        array.forEach(markers, function (node, index) {
 
           var graphic = new Graphic(new Point({
             'x': node.x,
@@ -159,8 +161,8 @@ define(["cw/config",
           }));
 
           graphic.setAttributes(util.ext(node, {
-            'name': node.name || defaults.cameraName,
-            'status': node.status || defaults.cameraStatus
+            'name': node.name || defaults.markerName,
+            'status': node.status || defaults.markerStatus
           }));
 
           graphic.setSymbol(symbols[defaults.symbol.defaultName]);
@@ -200,6 +202,7 @@ define(["cw/config",
         }
 
         map.disableMapNavigation();
+
         draw.activate(type);
 
         draw.on("draw-end", function (evt) {
@@ -237,61 +240,46 @@ define(["cw/config",
         });
       },
 
-      status: function (options) {
-        var map = options.map;
-        var cameraId = options.cameraId;
-        var status = options.status;
-
-        var layer = map.getLayer(defaults.layerId);
-
-        if (layer == null) {
-          return;
-        }
-
-        var cameraStatus = defaults.cameraStatus;
-
-        array.forEach(layer.graphics, function (graphic, index) {
-          if (graphic.attributes.id == cameraId) {
-            if (status) {
-              graphic.attributes.status = status;
-              graphic.setSymbol(symbols["camera-" + status]);
-              graphic.draw();
-            }
-            else {
-              cameraStatus = graphic.attributes.status;
-            }
-          }
-        });
-
-        return !options.status ? cameraStatus : self;
-      },
-
       /**
        * 设置数据
        */
       data: function (options) {
         var map = options.map;
-        var cameraId = options.cameraId;
+        var markerId = options.markerId;
         var data = options.data;
         var override = options.override || 0;
 
         var layer = map.getLayer(defaults.layerId);
 
-        var cameraData = null;
+        var markerData = null;
 
         // 设置图形信息的数据
         array.forEach(layer.graphics, function (graphic, index) {
-          if (graphic.attributes.id == cameraId) {
-            if (options.data) {
+          if (graphic.attributes.id == markerId) {
+            if (data) {
               graphic.setAttributes(util.ext(graphic.attributes, data));
+
+              // 同步图标设置
+              var symbolName = data.type + '-' + data.status;
+              if (symbols[symbolName]) {
+                graphic.setSymbol();
+                graphic.draw();
+              }
             }
             else {
-              cameraData = graphic.attributes;
+              markerData = graphic.attributes;
             }
           }
         });
 
-        return !options.data ? cameraData : self;
+        return !options.data ? markerData : self;
+      },
+
+      /**
+       * 绑定事件
+       */
+      on: function (event, markerType, handler) {
+
       }
     }
 

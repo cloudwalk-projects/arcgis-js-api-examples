@@ -6,24 +6,24 @@ define([
 ], function (config, PictureMarkerSymbol) {
     return {
         // 视频(蓝)
-        'video-blue': new PictureMarkerSymbol({
+        'camera-default': new PictureMarkerSymbol({
             //"angle": 0,
             //"xoffset": 0,
-            //"yoffset": 0,
+            "yoffset": -10,
             "type": "esriPMS",
-            "url": 'lib/arcgis/images/ico_video_blue.png',
+            "url": config.staticFileServer + 'images/ico_video_blue.png',
             "contentType": "image/png",
             // 图片原始大小为 20x28
             "width": 15,
             "height": 21
         }),
         // 视频(红)
-        'video-red': new PictureMarkerSymbol({
+        'camera-active': new PictureMarkerSymbol({
             "angle": 0,
             "xoffset": 0,
             "yoffset": 0,
             "type": "esriPMS",
-            "url": 'lib/arcgis/images/ico_video_red.png',
+            "url": config.staticFileServer + 'images/ico_video_red.png',
             "contentType": "image/png",
             "width": 15,
             "height": 21
