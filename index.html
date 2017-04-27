@@ -2,8 +2,8 @@
 
 <head>
   <title>项目</title>
-  <link rel="stylesheet" type="text/css" href="http://map.x3platform.com/dijit/themes/x3platform/x3platform.css">
-  <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
+  <link rel="stylesheet" type="text/css" href="dijit/themes/flat/flat.css">
+  <link rel="stylesheet" href="esri/css/esri.css">
   <style type="text/css">
     html,
     body,
@@ -61,38 +61,9 @@ local - packages:[{name: 'cw',location: '/arcgis/examples/cw'},{name: 'views',lo
   ) {
       xhr("cw/examples/data/tree.json", { handleAs: "json" }).then(function (response) {
 
-        console.log(response.data);
+        // console.log(response.data);
 
         // Create test store, adding the getChildren() method required by ObjectStoreModel
-        /* var store = new Memory({
-          data: [
-            { id: 'root', name: '地图组件' },
-            { id: 'examples', name: '通用示例', parent: 'root' },
-            { id: 'example-1', name: '初始化地图', parent: 'examples', href: 'cw/examples/example-1-api-basemap-create.html', iframe: true },
-            { id: 'example-2', name: '初始化摄像头数据', parent: 'examples', href: 'cw/examples/example-2-api-cameras-init.html', iframe: true },
-            { id: 'example-3', name: '消息提示', parent: 'examples', href: 'cw/examples/example-3-api-markers-info-window.html', iframe: true },
-            { id: 'example-4', name: '查询轨迹数据', parent: 'examples', href: 'cw/examples/example-4-api-directions-query.html', iframe: true },
-            { id: 'example-5', name: '选择摄像头数据', parent: 'examples', href: 'cw/examples/example-5-api-cameras-select.html', iframe: true },
-            { id: 'example-6', name: '设置摄像头状态', parent: 'examples', href: 'cw/examples/example-6-api-cameras-status.html', iframe: true },
-            { id: 'example-7', name: '同步摄像头数据', parent: 'examples', href: 'cw/examples/example-7-api-cameras-data.html', iframe: true },
-            { id: 'example-9', name: '获取经纬度坐标', parent: 'examples', href: 'cw/examples/example-9-api-util-lonat.html', iframe: true },
-            { id: 'example-10', name: '重置地图中心点', parent: 'examples', href: 'cw/sandbox/sandbox.html?example=example_basemap_edit', iframe: true },
-            { id: 'arcgis', name: 'ArcGIS 示例', parent: 'root' },
-            { id: 'arcgis-1', name: '上下文菜单', parent: 'arcgis', href: 'cw/examples/arcgis-1-contextmenu.html', iframe: true },
-            { id: 'quanzhou', name: '泉州', parent: 'root' },
-            { id: 'quanzhou-1', name: '摄像头信息', parent: 'quanzhou', href: 'cw/examples/cw-quanzhou-camera.html', iframe: true },
-            { id: 'quanzhou-2', name: '区域信息', parent: 'quanzhou', href: 'cw/examples/cw-quanzhou-regions.html', iframe: true },
-            { id: 'quanzhou-3', name: '路径信息', parent: 'quanzhou', href: 'cw/examples/cw-quanzhou-directions.html', iframe: true },
-            //{ id: 'NAc', name: '表单信息', parent: 'root', href: 'cw/examples/cw-form.html', iframe: true },
-            //{ id: 'ex', name: '通用窗口', parent: 'root', contentPane: 'views/map/CityControlMap', options: { cameraXhrUrl: 'cw/examples/data/cameras.json' } },
-            { id: 'docs', name: '帮助文档', parent: 'root', href: 'http://map.x3platform.com/docs/html', iframe: true },
-            { id: 'cw', name: '云从科技', parent: 'root', href: 'http://www.cloudwalk.cn', iframe: true }
-          ],
-          getChildren: function (object) {
-            return this.query({ parent: object.id });
-          }
-        });*/
-
         var store = new Memory({
           data: response.data,
           getChildren: function (object) {
@@ -135,6 +106,7 @@ local - packages:[{name: 'cw',location: '/arcgis/examples/cw'},{name: 'views',lo
                   id: paneId,
                   title: item.name,
                   closable: true,
+                  style:"padding:0",
                   content: domConstruct.create("iframe", {
                     "src": item.href,
                     "style": "border: 0; width: 100%; height: 100%"
@@ -196,7 +168,7 @@ local - packages:[{name: 'cw',location: '/arcgis/examples/cw'},{name: 'views',lo
 
 </script>
 
-<body class="x3platform">
+<body class="flat">
   <div id="borderContainer2" data-dojo-type="dijit/layout/BorderContainer" design="sidebar" gutters="true" liveSplitters="true"
     style="width: 100%; height: 100%; padding:0;">
     <div data-dojo-type="dijit/layout/ContentPane" splitter="true" region="leading" style="width: 200px; padding:4px 4px 2px 4px; border-top:none; border-left:none; border-bottom:none;">

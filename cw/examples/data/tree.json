@@ -24,10 +24,10 @@
       "iframe": true
     },
     {
-      "id": "example_api_menu_bind",
-      "name": "绑定菜单信息",
+      "id": "example_api_markers_init",
+      "name": "初始化符号数据",
       "parent": "examples",
-      "href": "cw/examples/sandbox/sandbox.html?example=api_menu_bind",
+      "href": "cw/examples/sandbox/sandbox.html?example=api_markers_init",
       "iframe": true
     },
     {
@@ -38,6 +38,13 @@
       "iframe": true
     },
     {
+      "id": "example_api_menu_bind",
+      "name": "绑定菜单信息",
+      "parent": "examples",
+      "href": "cw/examples/sandbox/sandbox.html?example=api_menu_bind",
+      "iframe": true
+    },
+    {
       "id": "example-3",
       "name": "消息提示",
       "parent": "examples",
@@ -45,10 +52,17 @@
       "iframe": true
     },
     {
+      "id": "example-3",
+      "name": "消息提示",
+      "parent": "examples",
+      "href": "cw/examples/sandbox/sandbox.html?example=api_markers_info_window",
+      "iframe": true
+    },
+    {
       "id": "example-4",
       "name": "查询轨迹数据",
       "parent": "examples",
-      "href": "cw/examples/example-4-api-directions-query.html",
+      "href": "cw/examples/sandbox/sandbox.html?example=api_directions_query",
       "iframe": true
     },
     {
@@ -67,16 +81,16 @@
     },
     {
       "id": "example-7",
-      "name": "同步摄像头数据",
+      "name": "设置摄像头数据",
       "parent": "examples",
-      "href": "cw/examples/example-7-api-cameras-data.html",
+      "href": "cw/examples/sandbox/sandbox.html?example=api_cameras_data",
       "iframe": true
     },
     {
       "id": "example-9",
       "name": "获取经纬度坐标",
       "parent": "examples",
-      "href": "cw/examples/example-9-api-util-lonat.html",
+      "href": "cw/examples/sandbox/sandbox.html?example=api_util_lonat",
       "iframe": true
     },
     {

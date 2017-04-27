@@ -7,21 +7,12 @@
   <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
   <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
   <link rel="stylesheet" href="http://map.x3platform.com/cw/css/style.css">
-  <style>
-    html,
-    body,
-    #map {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-  </style>
   <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad: true"></script>
   <script>
     require(["cw/basemap", "cw/util", "dojo/domReady!"], function (basemap, util) {
 
       var map = basemap.create({ divId: "map" });
-util
+
       map.on('click', function (evt) {
 
         var lonlat = util.lonlat(evt);
@@ -37,7 +28,7 @@ util
 
 <body>
   <div id="windowLonlatContainer" style="display: block; position: absolute; z-index: 10; background: #fff; padding: 8px; border-radius: 4px; top: 10px;left: 10px;">请点击鼠标左键。</div>
-  <div id="map"></div>
+  <div id="map" class="map"></div>
 </body>
 
 </html>

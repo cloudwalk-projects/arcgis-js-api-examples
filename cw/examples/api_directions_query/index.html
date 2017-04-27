@@ -2,22 +2,13 @@
 <html>
 
 <head>
-  <title>获取地图坐标</title>
+  <title>查询轨迹信息</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
   <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
-  <style>
-    html,
-    body,
-    #map {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-  </style>
-  <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad:true, isDebug:true, locale:'zh-cn'"></script>
+  <script src="http://map.x3platform.com/init.js" data-dojo-config="locale:'zh-cn'"></script>
   <script>
-    // 演示的路径数据信息    
+    // 演示的路径数据信息
     var routes = [
       {
         "name": "A",
@@ -61,6 +52,7 @@
 
         var map = basemap.create({ divId: "map" });
 
+        // 折线模式
         directions.query({
           map: map,
           routes: routes
@@ -72,8 +64,7 @@
 
         on(query("#btnSolve"), "click", function (evt) {
 
-          // naServer:"http://192.168.10.35:6080/arcgis/rest/services/qz/QZNetworkService/NAServer/%E8%B7%AF%E5%BE%84"
-
+          // 道路模式
           directions.query({
             type: 'road',
             naServer: "http://192.168.10.35:6080/arcgis/rest/services/重庆地图/NAServer/路径",

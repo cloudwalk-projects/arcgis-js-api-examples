@@ -11,7 +11,17 @@
     require(["cw/basemap", "dojo/domReady!"], function (basemap) {
       var map = basemap.create({ divId: "map" });
 
-      basemap.edit({map:map, zoom:1});
+      xhr('../data/cameras.json', { handleAs: "json" }).then(function (response) {
+        cameras.initLayer({
+          // 显示地图的容器标识
+          map: map,
+          // 摄像头信息
+          cameras: response.data
+        });
+      }, function (err) {
+        // 错误信息处理
+        console.log(err);
+      });
     });
   </script>
 </head>

@@ -2,45 +2,26 @@
 <html>
 
 <head>
-  <title>获取地图坐标</title>
+  <title>初始化标记数据</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
   <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
-  <style>
-    html,
-    body,
-    #map {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-  </style>
   <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
   <script>
-    require(["cw/basemap", "cw/cameras", "cw/util", "dojo/request/xhr", "dojo/domReady!"], function (basemap, cameras, util, xhr) {
+    require(["cw/basemap", "cw/markers", "cw/util", "dojo/request/xhr", "dojo/domReady!"], function (basemap, markers, util, xhr) {
 
       var map = basemap.create({ divId: "map" });
 
-      xhr('data/cameras.json', { handleAs: "json" }).then(function (respone) {
+      xhr('../data/cameras.json', { handleAs: "json" }).then(function (respone) {
         cameras.initLayer({
           // 显示地图的容器标识
           map: map,
           // 摄像头信息
-          cameras: respone.data
+          markers: respone.data
         });
       }, function (err) {
-        // Handle the error condition
-      }, function (evt) {
-        // Handle a progress event from the request if the
-        // browser supports XHR2
-      });
-
-      map.on('click', function (evt) {
-
-        // 输出经纬度信息
-        var lonlat = util.lonlat(evt);
-        
-        console.log('lonlat(x:' + lonlat.x + ', y:' + lonlat.y + ')');
+        // 错误信息处理
+        console.log(err);
       });
     });
   </script>
