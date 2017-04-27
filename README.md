@@ -27,7 +27,7 @@
 
 脚本引用  
 ```HTML
-<script src="http://<your_server>:8080/arcgis/3.19/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
+<script src="http://<your_server>:8080/arcgis/3.19/init.js" data-dojo-config="locale:'zh-cn'"></script>
 ```
 
 ## 4.演示地址 

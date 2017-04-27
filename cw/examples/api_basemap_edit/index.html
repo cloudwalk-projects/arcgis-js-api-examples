@@ -2,20 +2,19 @@
 <html>
 
 <head>
-  <title>初始化地图</title>
+  <title>编辑地图中心点和放大缩小</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
   <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
   <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
   <script>
     require(["cw/basemap", "dojo/domReady!"], function (basemap) {
-      var map = basemap.create({
-        divId: "map",
-        map: {
-          zoom: 13,
-          minZoom:10,
-          maxZoom:17
-        }
+      var map = basemap.create({ divId: "map" });
+
+      basemap.edit({
+        map: map,
+        center: [106.54917027316932, 29.56358338388472],
+        zoom: 10
       });
     });
   </script>

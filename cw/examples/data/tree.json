@@ -17,10 +17,17 @@
       "iframe": true
     },
     {
+      "id": "example_api_basemap_edit",
+      "name": "设置地图中心点",
+      "parent": "examples",
+      "href": "cw/sandbox/sandbox.html?example=api_basemap_edit",
+      "iframe": true
+    },
+    {
       "id": "example-2",
       "name": "初始化摄像头数据",
       "parent": "examples",
-      "href": "cw/examples/example-2-api-cameras-init.html",
+      "href": "cw/sandbox/sandbox.html?example=api_cameras_init",
       "iframe": true
     },
     {

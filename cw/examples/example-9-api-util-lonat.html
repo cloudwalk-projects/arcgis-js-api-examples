@@ -18,6 +18,7 @@
   <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad: true"></script>
   <script>
     require(["cw/basemap", "cw/util", "dojo/domReady!"], function (basemap, util) {
+
       var map = basemap.create({ divId: "map" });
 
       map.on('click', function (evt) {
@@ -26,7 +27,7 @@
 
         // 输出经纬度信息
         console.log('lonlat(x:' + lonlat.x + ', y=' + lonlat.y + ')');
-        
+
         dojo.byId('windowLonlatContainer').innerHTML = '经纬度 - x:' + lonlat.x + ', y:' + lonlat.y;
       });
     });
