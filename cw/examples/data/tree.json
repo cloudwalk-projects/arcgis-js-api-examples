@@ -18,21 +18,21 @@
     },
     {
       "id": "example_api_basemap_edit",
-      "name": "设置地图中心点",
+      "name": "设置地图中心",
       "parent": "examples",
       "href": "cw/examples/sandbox/sandbox.html?example=api_basemap_edit",
       "iframe": true
     },
     {
       "id": "example_api_markers_init",
-      "name": "初始化标记数据",
+      "name": "初始化标记",
       "parent": "examples",
       "href": "cw/examples/sandbox/sandbox.html?example=api_markers_init",
       "iframe": true
     },
     {
       "id": "example_api_cameras_init",
-      "name": "初始化摄像头数据",
+      "name": "初始化摄像头",
       "parent": "examples",
       "href": "cw/examples/sandbox/sandbox.html?example=api_cameras_init",
       "iframe": true
@@ -45,15 +45,15 @@
       "iframe": true
     },
     {
-      "id": "example-3",
+      "id": "example_api_dialogs_info_window",
       "name": "消息提示",
       "parent": "examples",
-      "href": "cw/examples/example-3-api-markers-info-window.html",
+      "href": "cw/examples/sandbox/sandbox.html?example=api_dialogs_info_window",
       "iframe": true
     },
     {
       "id": "example-3",
-      "name": "消息提示",
+      "name": "报警窗口",
       "parent": "examples",
       "href": "cw/examples/sandbox/sandbox.html?example=api_markers_info_window",
       "iframe": true
@@ -107,7 +107,7 @@
     },
     {
       "id": "quanzhou",
-      "name": "泉州",
+      "name": "泉州示例",
       "parent": "root"
     },
     {

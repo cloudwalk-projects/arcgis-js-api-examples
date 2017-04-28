@@ -13,7 +13,7 @@
       var map = basemap.create({ divId: "map" });
 
       xhr('../data/cameras.json', { handleAs: "json" }).then(function (respone) {
-        cameras.initLayer({
+        markers.initLayer({
           // 显示地图的容器标识
           map: map,
           // 摄像头信息

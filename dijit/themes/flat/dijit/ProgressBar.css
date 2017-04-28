@@ -27,7 +27,7 @@
 .flat .dijitProgressBar {
   background-color: #e0e0e0;
   border: 0 none;
-  border-radius: 3px;
+  border-radius: 0px;
 }
 .flat .dijitProgressBarTile {
   background: url("images/progressBarStrips.png") repeat-x top;

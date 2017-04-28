@@ -70,13 +70,17 @@ require([
     $code    = $('#code');
     $handle  = $('#handle');
     $output  = $('#output');
+    $fullscreen = $('#fullscreen');
     $save    = $('#save-file');
     $toggle  = $('.toggle');
     $update  = $('#update-sandbox');
     $wrapper = $('#wrapper');
 
     $handle.on('mousedown', resizePanes);
+
+    $fullscreen.on('click', openWindow);
     $save.on('click', saveFile);
+
     $toggle.on('click', toggleEditor);
     $update
       .attr('disabled', 'disabled')
@@ -123,6 +127,7 @@ require([
 
     $update.attr('disabled', 'disabled');
     $save.attr('disabled', 'disabled');
+    $fullscreen.attr('disabled', 'disabled');
 
     domUtils.show(dom.byId('loader')); // Show a loading/updating icon
 
@@ -146,6 +151,7 @@ require([
 
       $update.attr('disabled', false);
       $save.attr('disabled', false);
+      $fullscreen.attr('disabled', false);
     });
 
     log('sandboxIsLoaded');
@@ -252,6 +258,13 @@ require([
         // TODO temporary fix (Chris), need to go back and check what this is doing
       //iframe.src = '../examples/' + exampleFolder + '/index.html';
     }
+  }
+
+  // save contents of editor to html file
+  function openWindow() {
+    log('openWindow');
+
+    window.open('../' + exampleFolder + '/index.html', '_blank');
   }
 
   // save contents of editor to html file

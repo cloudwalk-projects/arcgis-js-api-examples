@@ -1,8 +1,7 @@
-/**
+﻿/**
  * 地图操作工具辅助类
  */
-define(["cw/config",
-  "cw/util",
+define(["x", "cw/config", "cw/util",
   "esri/graphic",
   "esri/geometry/Point",
   "esri/layers/FeatureLayer",
@@ -10,6 +9,7 @@ define(["cw/config",
   "esri/toolbars/draw",
   "dojo/_base/array"
 ], function (
+  x,
   config,
   util,
   Graphic,
@@ -21,12 +21,13 @@ define(["cw/config",
 
     // 默认设置
     var defaults = {
-      layerId: 'map-markers-layer',
+      layerId: '$$graphic_{0}',
       layerIndex: 10,
       markerName: '',
-      markerStatus: 'unkown',
+      markerType: 'marker',
+      markerStatus: 'default',
       symbol: {
-        defaultName: 'marker-unkown',
+        defaultName: 'marker-default',
         yoffset: 10
       }
     };
@@ -34,7 +35,7 @@ define(["cw/config",
     // 图像符号设置
     var symbols = {
       // 摄像头(默认)
-      'marker-unkown': new PictureMarkerSymbol({
+      'marker-default': new PictureMarkerSymbol({
         //"angle": 0,
         //"xoffset": 0,
         "yoffset": defaults.symbol.yoffset,
@@ -115,18 +116,24 @@ define(["cw/config",
        * 初始化摄像头要素层
        */
       initLayer: function (options) {
+        // 地图对象
         var map = options.map;
+        // 标记类型
+        var markerType = options.type || defaults.markerType;
+        // 标记数据
         var markers = options.markers;
 
-        var layer = map.getLayer(defaults.layerId);
+        var layerId = x.string.format(defaults.layerId, markerType);
+
+        var layer = map.getLayer(layerId);
 
         if (layer == null) {
-          layer = new FeatureLayer(featureCollection, { id: defaults.layerId });
+          layer = new FeatureLayer(featureCollection, { id: layerId });
 
           map.on("layer-add-result", function (results) {
-            if (!initialized && results.layer.id == defaults.layerId) {
+            if (!initialized && results.layer.id == layerId) {
               initialized = true;
-              console.log('init markers:layer-add-result');
+              console.log('init markers(' + markerType + '):layer-add-result');
               self.initMarkers({ layer: layer, markers: markers });
             }
           });
@@ -179,19 +186,27 @@ define(["cw/config",
       getLayer: function (options) {
         // 地图对象
         var map = options.map;
+        // 标记类型
+        var markerType = options.type || defaults.markerType;
 
-        return map.getLayer(defaults.layerId);
+        var layerId = x.string.format(defaults.layerId, markerType);
+
+        return map.getLayer(layerId);
       },
 
       select: function (options) {
         // 地图对象
         var map = options.map;
+        // 标记类型
+        var markerType = options.type || defaults.markerType;
         // 选择方式
         var type = options.type;
         // 回调函数, 参数 graphics 为摄像头信息
         var callback = options.callback;
 
-        var layer = map.getLayer(defaults.layerId);
+        var layerId = x.string.format(defaults.layerId, markerType);
+
+        var layer = map.getLayer(layerId);
 
         if (layer == null) {
           return [];

@@ -36,7 +36,7 @@
   border-width: 1px;
   border-color: #9e9e9e;
   padding: 4px;
-  border-radius: 3px;
+  border-radius: 0px;
   line-height: 20px;
   cursor: pointer;
   -webkit-transition: all 0.05s linear;
@@ -57,10 +57,10 @@
   content: none;
 }
 .flat .dijitSpinner .dijitUpArrowButton {
-  border-top-right-radius: 2.000000000000001px;
+  border-top-right-radius: 0px;
 }
 .flat .dijitSpinner .dijitDownArrowButton {
-  border-bottom-right-radius: 2.000000000000001px;
+  border-bottom-right-radius: 0px;
 }
 .flat .dijitSpinner .dijitUpArrowButtonHover,
 .flat .dijitSpinner .dijitDownArrowButtonHover {

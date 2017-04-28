@@ -17,7 +17,7 @@
 .flat .dijitEditor {
   background-color: #fff;
   border: 1px solid #9e9e9e;
-  border-radius: 3px;
+  border-radius: 0px;
 }
 .flat .dijitEditor .dijitEditorIFrameContainer {
   border: 1px solid transparent;

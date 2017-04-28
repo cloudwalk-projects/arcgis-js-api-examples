@@ -18,6 +18,9 @@
       width: 100%;
       height: 100%
     }
+
+    #windowTabContainer .dijitTabListWrapper { padding-left:10px; }
+    #windowTabContainer .dijitTabPaneWrapper { border:none; border-top:1px solid #9e9e9e; }
   </style>
 </head>
 <!-- 根据实际情况 配置 packages 信息
@@ -169,23 +172,23 @@ local - packages:[{name: 'cw',location: '/arcgis/examples/cw'},{name: 'views',lo
 </script>
 
 <body class="flat">
-  <div id="borderContainer2" data-dojo-type="dijit/layout/BorderContainer" design="sidebar" gutters="true" liveSplitters="true"
+  <div id="borderContainer" data-dojo-type="dijit/layout/BorderContainer" design="sidebar" gutters="true" liveSplitters="true"
     style="width: 100%; height: 100%; padding:0;">
-    <div data-dojo-type="dijit/layout/ContentPane" splitter="true" region="leading" style="width: 200px; padding:4px 4px 2px 4px; border-top:none; border-left:none; border-bottom:none;">
-      <div data-dojo-type="dijit/layout/AccordionContainer" splitter="true" region="leading">
+    <div data-dojo-type="dijit/layout/ContentPane" splitter="true" region="leading" style="width: 200px; padding:0px; border-top:none; border-left:none; border-bottom:none;">
+      <div id="treeView"></div>
+      <!-- <div data-dojo-type="dijit/layout/AccordionContainer" splitter="true" region="leading">
         <div data-dojo-type="dijit/layout/ContentPane" title="演示" style="padding:0;">
-          <div id="treeView"></div>
         </div>
-        <!--<div data-dojo-type="dijit/layout/ContentPane" title="测试面板"></div>-->
-      </div>
+        <div data-dojo-type="dijit/layout/ContentPane" title="测试面板"></div>
+      </div>-->
     </div>
     <!-- 右侧
         <div data-dojo-type="dijit.layout.ContentPane" splitter="true" region="trailing" style="width: 100px;">
             Tailing Region
         </div> -->
-    <div data-dojo-type="dijit/layout/ContentPane" splitter="true" region="center" style="padding:4px; border-top:none; border-right:none; border-bottom:none;">
-      <div id="windowTabContainer" data-dojo-type="dijit/layout/TabContainer" style="width: 100%; height: 100%;">
-        <div id="menu-tab-home" data-dojo-type="dijit/layout/ContentPane" title="主页" data-dojo-props="selected:true">
+    <div data-dojo-type="dijit/layout/ContentPane" splitter="true" region="center" style="padding:0px; border-top:none; border-right:none; border-bottom:none;">
+      <div id="windowTabContainer" data-dojo-type="dijit/layout/TabContainer" style="width: 100%; height: 100%; border:none;">
+        <div id="menu-tab-home" data-dojo-type="dijit/layout/ContentPane" title="主页" data-dojo-props="selected:true" >
         </div>
       </div>
     </div>

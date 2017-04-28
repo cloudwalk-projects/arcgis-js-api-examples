@@ -47,14 +47,14 @@
  * 		.dijitTabContainerTabListNested - tab list container for nested tabs
  */
 .flat .dijitTabContainer {
-  border-radius: 3px;
+  border-radius: 0px;
 }
 .flat .dijitTabPaneWrapper {
   background: #fff;
   border: 1px solid #9e9e9e;
   margin: 0;
   padding: 0;
-  border-radius: 0 0 3px 3px;
+  border-radius: 0 0 0px 0px;
 }
 .flat .dijitTabContainerTop-tabs,
 .flat .dijitTabContainerBottom-tabs,
@@ -175,7 +175,7 @@
   top: 0;
 }
 .flat .dijitTabPaneWrapper.dijitTabContainerBottom-container {
-  border-radius: 3px 3px 0 0;
+  border-radius: 0px 0px 0 0;
 }
 .flat .dijitTabContainerBottom-tabs .dijitTab {
   margin-right: 0;
@@ -203,7 +203,7 @@
   top: 0;
 }
 .flat .dijitTabPaneWrapper.dijitTabContainerLeft-container {
-  border-radius: 0 3px 3px 0;
+  border-radius: 0 0px 0px 0;
 }
 .flat .dijitTabContainerLeft-tabs .dijitTab {
   margin-bottom: 0;
@@ -225,7 +225,7 @@
   top: -1px;
 }
 .flat .dijitTabPaneWrapper.dijitTabContainerRight-container {
-  border-radius: 3px 0 0 3px;
+  border-radius: 0px 0 0 0px;
 }
 .flat .dijitTabContainerRight-tabs .dijitTab {
   margin-bottom: 0;
@@ -310,7 +310,7 @@
   margin: 4px;
   padding: 4px 8px;
   border: 1px solid transparent;
-  border-radius: 3px;
+  border-radius: 0px;
   -webkit-transition-property: background-color, border-color;
   -moz-transition-property: background-color, border-color;
   -o-transition-property: background-color, border-color;

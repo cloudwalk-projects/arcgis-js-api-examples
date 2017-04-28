@@ -2,36 +2,20 @@
 <html>
 
 <head>
-  <title>获取地图坐标</title>
+  <title>消息提示</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
   <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
-  <style>
-    html,
-    body,
-    #map {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-  </style>
   <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
   <script>
     require([
-      "cw/basemap",
-      "cw/cameras",
-      "cw/util",
-      "cw/dialogs/InfoWindow",
-      "dojo/_base/array",
-      "dojo/query",
-      "dojo/on",
-      "dojo/request/xhr",
-      "dojo/domReady!"
+      "cw/basemap", "cw/cameras", "cw/util", "cw/dialogs/InfoWindow",
+      "dojo/_base/array", "dojo/query", "dojo/on", "dojo/request/xhr", "dojo/domReady!"
     ], function (
       basemap, cameras, util, InfoWindow,
       array, query, on, xhr) {
 
-        // 创建自定义消息窗口  
+        // 创建自定义消息窗口
         var dialog = new InfoWindow({
           divId: 'map',
           xoffset: 0,
@@ -43,7 +27,7 @@
           map: { infoWindow: dialog }
         });
 
-        xhr('data/points.json', { handleAs: "json" }).then(function (respone) {
+        xhr('../data/points.json', { handleAs: "json" }).then(function (respone) {
           var layer = cameras.initLayer({
             // 显示地图的容器标识
             map: map,
