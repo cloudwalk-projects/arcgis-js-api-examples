@@ -101,6 +101,13 @@
       "iframe": true
     },
     {
+      "id": "example-11",
+      "name": "编辑覆盖物",
+      "parent": "examples",
+      "href": "cw/examples/sandbox/sandbox.html?example=api_polygon_edit",
+      "iframe": true
+    },
+    {
       "id": "arcgis",
       "name": "ArcGIS 示例",
       "parent": "root"
