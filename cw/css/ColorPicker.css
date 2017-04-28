@@ -1,0 +1,9 @@
+.dojoxColorPicker {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            -moz-box-shadow: 0 0 7px #888;
+            -webkit-box-shadow: 0 0 7px #888;
+            box-shadow: 0 0 7px #888;
+            display:block;
+        }
