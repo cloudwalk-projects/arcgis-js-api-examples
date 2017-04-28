@@ -230,15 +230,15 @@ require([
           relLinks = relLinks.filter(function(url){ return url.indexOf("//") === -1 }); // ignore absolute URLs
           relLinks.forEach(function(href){
             var file = href.split('"')[1];
-            content = content.replace(file, "../examples/" + exampleFolder + "/" + file);
+            //content = content.replace(file, "../examples/" + exampleFolder + "/" + file);
           });
     };
 
     var jsLinks = content.match(/location.pathname.+\"/g);
     if (jsLinks) {
       jsLinks.forEach(function(href){
-        content = content.replace(/""\)/, "\"/../examples/" + exampleFolder + "/\")");
-        content = content.replace(/''\)/, "\'/../examples/" + exampleFolder + "/\')");
+        //content = content.replace(/""\)/, "\"/../examples/" + exampleFolder + "/\")");
+        //content = content.replace(/''\)/, "\'/../examples/" + exampleFolder + "/\')");
       });
     };
 
