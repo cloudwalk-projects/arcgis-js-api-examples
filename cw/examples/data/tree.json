@@ -1,4 +1,4 @@
-{
+﻿{
   "data": [
     {
       "id": "root",
@@ -91,6 +91,13 @@
       "name": "获取经纬度坐标",
       "parent": "examples",
       "href": "cw/examples/sandbox/sandbox.html?example=api_util_lonat",
+      "iframe": true
+    },
+   {
+      "id": "example-10",
+      "name": "初始化覆盖物图层",
+      "parent": "examples",
+      "href": "cw/examples/sandbox/sandbox.html?example=api_polygon_init",
       "iframe": true
     },
     {
