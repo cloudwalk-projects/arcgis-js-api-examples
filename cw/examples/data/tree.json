@@ -45,13 +45,6 @@
       "iframe": true
     },
     {
-      "id": "example_api_cameras_init",
-      "name": "初始化摄像头",
-      "parent": "examples",
-      "href": "cw/examples/sandbox/sandbox.html?example=api_cameras_init",
-      "iframe": true
-    },
-    {
       "id": "example_api_menu_bind",
       "name": "绑定菜单信息",
       "parent": "examples",
