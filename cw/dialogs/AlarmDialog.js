@@ -151,6 +151,51 @@
               });
 
               this.content = this.content.replace(/{{staticFileServer}}/g, config.staticFileServer);
+
+              // 获取最新一张抓拍图
+              $afaps_api.ajax({
+                url: "extService/capture/recentCapture",
+                data: {
+                  "cameraId": this.markerId,
+                  "count": 3
+                },
+                success: function (result) {
+                  var data = JSON.parse(result).data;
+                  if (data.length > 0) {
+                    var imgUrl = data[0].fullFaceUrl;
+                    $("#captureImg").attr("src", imgUrl);
+
+                    captures = [];
+                    for (var i = 0; i < data.length; i++) {
+                      var capture = {};
+                      capture.captureUrl = data[i].fullFaceUrl;
+                      captures.push(capture);
+                    }
+                  }
+                }
+              });
+
+              // 获取抓拍数
+              $afaps_api.ajax({
+                url: "extService/captureStatistics/cameraCaptureCount",
+                data: { cameraId: this.markerId },
+                success: function (result) {
+                  var data = JSON.parse(result).data;
+                  $("#cameraCaptureCount").text(data);
+                  $("#cameraCaptureCount").attr("title", data);
+                }
+              });
+
+              // 获取报警数
+              $afaps_api.ajax({
+                url: "extService/alarmStatistics/cameraAlarmCount",
+                data: { cameraId: this.markerId },
+                success: function (result) {
+                  var data = JSON.parse(result).data;
+                  $("#cameraAlarmCount").text(data);
+                  $("#cameraAlarmCount").attr("title", data);
+                }
+              });
             }
           }
 
@@ -159,9 +204,6 @@
         },
 
         _showInfoWindow: function (pointX, pointY) {
-          // 绑定数据
-          this.binding();
-
           // 第一次显示时 处理宽度和高度的数据
           if (isNaN(Number(infoHeight)) && isNaN(Number(infoWidth))) {
 
