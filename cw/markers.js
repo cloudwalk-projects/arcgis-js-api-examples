@@ -10,8 +10,7 @@ define(["x", "cw/config", "cw/util",
   "dojo/_base/array"
 ], function (
   x,
-  config,
-  util,
+  config, util,
   Graphic,
   Point,
   FeatureLayer,
@@ -22,6 +21,7 @@ define(["x", "cw/config", "cw/util",
     // 默认设置
     var defaults = {
       layerId: '$$graphic_{0}',
+      // 10
       layerIndex: 10,
       markerName: '',
       markerType: 'marker',
@@ -119,7 +119,7 @@ define(["x", "cw/config", "cw/util",
         // 地图对象
         var map = options.map;
         // 标记类型
-        var markerType = options.type || defaults.markerType;
+        var markerType = options.markerType || defaults.markerType;
         // 标记数据
         var markers = options.markers;
 
@@ -138,10 +138,10 @@ define(["x", "cw/config", "cw/util",
             }
           });
 
-          map.addLayer(layer, defaults.layerIndex);
+          map.addLayer(layer, defaults.layerIndex++);
         }
         else {
-          console.log('init markers:initialized');
+          console.log('init markers(' + markerType + '):initialized');
           self.initMarkers({ layer: layer, markers: markers });
         }
 
@@ -168,11 +168,21 @@ define(["x", "cw/config", "cw/util",
           }));
 
           graphic.setAttributes(util.ext(node, {
-            'name': node.name || defaults.markerName,
             'status': node.status || defaults.markerStatus
           }));
 
-          graphic.setSymbol(symbols[defaults.symbol.defaultName]);
+          // 同步图标设置
+          var symbolName = node.type + '-' + node.status;
+
+          if (symbols[symbolName]) {
+            graphic.setSymbol(symbols[symbolName]);
+          } else {
+            // 默认图标
+            graphic.setSymbol(symbols[defaults.symbol.defaultName]);
+          }
+
+          if (!x.isUndefined(node.visible))
+            graphic.visible = node.visible;
 
           graphics.push(graphic);
         });
@@ -187,7 +197,7 @@ define(["x", "cw/config", "cw/util",
         // 地图对象
         var map = options.map;
         // 标记类型
-        var markerType = options.type || defaults.markerType;
+        var markerType = options.markerType || defaults.markerType;
 
         var layerId = x.string.format(defaults.layerId, markerType);
 
@@ -198,7 +208,7 @@ define(["x", "cw/config", "cw/util",
         // 地图对象
         var map = options.map;
         // 标记类型
-        var markerType = options.type || defaults.markerType;
+        var markerType = options.markerType || defaults.markerType;
         // 选择方式
         var type = options.type;
         // 回调函数, 参数 graphics 为摄像头信息
@@ -259,12 +269,18 @@ define(["x", "cw/config", "cw/util",
        * 设置数据
        */
       data: function (options) {
+        // 地图对象
         var map = options.map;
+        // 标记类型
+        var markerType = options.markerType || defaults.markerType;
+        //
         var markerId = options.markerId;
+        // 数据
         var data = options.data;
-        var override = options.override || 0;
 
-        var layer = map.getLayer(defaults.layerId);
+        var layerId = x.string.format(defaults.layerId, markerType);
+
+        var layer = map.getLayer(layerId);
 
         var markerData = null;
 
@@ -276,10 +292,14 @@ define(["x", "cw/config", "cw/util",
 
               // 同步图标设置
               var symbolName = data.type + '-' + data.status;
+
               if (symbols[symbolName]) {
-                graphic.setSymbol();
+                graphic.setSymbol(symbols[symbolName]);
                 graphic.draw();
               }
+
+              if (!x.isUndefined(node.visible))
+                graphic.visible = data.visible;
             }
             else {
               markerData = graphic.attributes;
@@ -293,8 +313,36 @@ define(["x", "cw/config", "cw/util",
       /**
        * 绑定事件
        */
-      on: function (event, markerType, handler) {
+      on: function (options) {
+        // event, map, markerType, handler
+        // 事件类型
+        var event = options.event;
+        // 地图对象
+        var map = options.map;
+        // 标记类型
+        var markerType = options.markerType || defaults.markerType;
+        // 事件处理
+        var handler = options.handler || x.noop;
 
+        if (x.isString(options)) {
+          if (arguments.length == 3) {
+            event = arguments[0];
+            map = arguments[1];
+            handler = arguments[2];
+          }
+          else if (arguments.length == 4) {
+            event = arguments[0];
+            map = arguments[1];
+            markerType = arguments[2];
+            handler = arguments[3];
+          }
+        }
+
+        var layerId = x.string.format(defaults.layerId, markerType);
+
+        var layer = map.getLayer(layerId);
+
+        layer.on(event, handler);
       }
     }
 

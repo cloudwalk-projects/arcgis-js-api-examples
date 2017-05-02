@@ -8,15 +8,35 @@
   <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
   <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
   <script>
-    require(["cw/basemap", "dojo/domReady!"], function (basemap) {
+    require(["cw/basemap", "cw/markers", "cw/menu", "dojo/request/xhr", "dojo/domReady!"], function (basemap, markers, menu, xhr) {
       var map = basemap.create({ divId: "map" });
 
       xhr('../data/cameras.json', { handleAs: "json" }).then(function (response) {
-        cameras.initLayer({
+        markers.initLayer({
           // 显示地图的容器标识
           map: map,
           // 摄像头信息
-          cameras: response.data
+          markers: response.data
+        });
+
+        menu.bind({
+          target: map,
+          items: [
+            {
+              label: "菜单 1", onClick: function () {
+                console.log("菜单 1");
+              }
+            },
+            {
+              label: "菜单 2", onClick: function () {
+                console.log("菜单 1");
+              }
+            },
+            {
+              label: "菜单 3", onClick: function () {
+                console.log("菜单 1");
+              }
+            }]
         });
       }, function (err) {
         // 错误信息处理
@@ -27,7 +47,7 @@
 </head>
 
 <body>
-  <div id="map"></div>
+  <div id="map" class="map"></div>
 </body>
 
 </html>

@@ -168,7 +168,7 @@ require([
       relLinks = relLinks.concat(content.match(/src=".+?"/g).filter(function(url){ return url.indexOf("//") === -1 }));
       relLinks.forEach(function(href){
         var path = href.split('"')[1];
-        content = content.replace(path, "../examples/" + exampleFolder + "/" + path);
+        // content = content.replace(path, "../examples/" + exampleFolder + "/" + path);
       });
     }
 

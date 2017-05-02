@@ -31,6 +31,20 @@
       "iframe": true
     },
     {
+      "id": "example_api_markers_on",
+      "name": "绑定标记事件",
+      "parent": "examples",
+      "href": "cw/examples/sandbox/sandbox.html?example=api_markers_on",
+      "iframe": true
+    },
+    {
+      "id": "example_api_markers_data",
+      "name": "绑定标记数据",
+      "parent": "examples",
+      "href": "cw/examples/sandbox/sandbox.html?example=api_markers_data",
+      "iframe": true
+    },
+    {
       "id": "example_api_cameras_init",
       "name": "初始化摄像头",
       "parent": "examples",

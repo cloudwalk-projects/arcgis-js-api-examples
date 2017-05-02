@@ -1,15 +1,19 @@
-/**
+﻿/**
  * 地图操作工具辅助类
  */
-define(["cw/config",
+define(["x", "cw/config",
   "cw/util",
   "esri/graphic",
   "esri/geometry/Point",
   "esri/layers/FeatureLayer",
   "esri/symbols/PictureMarkerSymbol",
   "esri/toolbars/draw",
-  "dojo/_base/array"
+  "dojo/_base/array",
+  "dijit/Menu",
+  "dijit/MenuItem",
+  "dijit/MenuSeparator"
 ], function (
+  x,
   config,
   util,
   Graphic,
@@ -17,7 +21,8 @@ define(["cw/config",
   FeatureLayer,
   PictureMarkerSymbol,
   Draw,
-  array) {
+  array,
+  Menu, MenuItem, MenuSeparator) {
 
     var self = {
       /**
@@ -45,7 +50,11 @@ define(["cw/config",
         }
 
         menu.startup();
-        menu.bindDomNode(layer);
+
+        if (target.declaredClass == "esri.Map")
+          menu.bindDomNode(target.container);
+        else
+          menu.bindDomNode(target);
       }
     }
 
