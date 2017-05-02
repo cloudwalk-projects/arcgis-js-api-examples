@@ -45,7 +45,7 @@ define(["cw/config",
         "width": 15,
         "height": 21
       }),
-      // 摄像头(蓝)
+      // 摄像头(未激活)
       'camera-deactive': new PictureMarkerSymbol({
         //"angle": 0,
         //"xoffset": 0,
@@ -57,7 +57,7 @@ define(["cw/config",
         "width": 15,
         "height": 21
       }),
-      // 摄像头(红)
+      // 摄像头(激活)
       'camera-active': new PictureMarkerSymbol({
         "angle": 0,
         "xoffset": 0,

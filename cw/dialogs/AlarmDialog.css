@@ -3,7 +3,7 @@
     z-index: 100;
     font-family: sans-serif;
     font-size: 12px;
-    width: 365px;
+    width: 360px;
     height: 166px;
 }
 
@@ -27,9 +27,7 @@
     background-color: rgba(0, 52, 68, .7);
     color: #fff;
     overflow: auto;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 5px;
+    padding: 0;
 }
 
 .cw-dialogs-alarm-dialog .arrow {
@@ -41,7 +39,7 @@
     border-top: 10px solid rgba(0, 52, 68, .7);
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-    left: 45%;
+    left: 49%;
     /*bottom: -60px;  */
 }
 
@@ -66,6 +64,7 @@
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 5px;
+    display: none;
 }
 
 .left {
@@ -77,7 +76,7 @@
     height: 156px;
     background: rgba(0, 52, 68, .7);
     margin: 0 auto;
-    border-radius: 4px;
+    border-radius: 0px;
     position: relative;
     overflow: hidden;
     box-shadow: 0 0 10px #003444;

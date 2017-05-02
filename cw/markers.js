@@ -1,18 +1,16 @@
 ﻿/**
  * 地图操作工具辅助类
  */
-define(["x", "cw/config", "cw/util",
-  "esri/graphic",
-  "esri/geometry/Point",
+define(["x", "cw/config", "cw/symbols", "cw/util",
+  "esri/graphic", "esri/geometry/Point",
   "esri/layers/FeatureLayer",
   "esri/symbols/PictureMarkerSymbol",
   "esri/toolbars/draw",
   "dojo/_base/array"
 ], function (
   x,
-  config, util,
-  Graphic,
-  Point,
+  config, symbols, util,
+  Graphic, Point,
   FeatureLayer,
   PictureMarkerSymbol,
   Draw,
@@ -31,45 +29,6 @@ define(["x", "cw/config", "cw/util",
         yoffset: 10
       }
     };
-
-    // 图像符号设置
-    var symbols = {
-      // 摄像头(默认)
-      'marker-default': new PictureMarkerSymbol({
-        //"angle": 0,
-        //"xoffset": 0,
-        "yoffset": defaults.symbol.yoffset,
-        "type": "esriPMS",
-        "url": config.staticFileServer + 'images/ico_video_blue.png',
-        "contentType": "image/png",
-        // 图片原始大小为 20x28
-        "width": 15,
-        "height": 21
-      }),
-      // 摄像头(蓝)
-      'marker-deactive': new PictureMarkerSymbol({
-        //"angle": 0,
-        //"xoffset": 0,
-        "yoffset": defaults.symbol.yoffset,
-        "type": "esriPMS",
-        "url": config.staticFileServer + 'images/ico_video_blue.png',
-        "contentType": "image/png",
-        // 图片原始大小为 20x28
-        "width": 15,
-        "height": 21
-      }),
-      // 摄像头(红)
-      'marker-active': new PictureMarkerSymbol({
-        "angle": 0,
-        "xoffset": 0,
-        "yoffset": defaults.symbol.yoffset,
-        "type": "esriPMS",
-        "url": config.staticFileServer + 'images/ico_video_red.png',
-        "contentType": "image/png",
-        "width": 15,
-        "height": 21
-      })
-    }
 
     // 定义要数集合 a feature collection for the flickr photos
     var featureCollection = {
@@ -298,7 +257,7 @@ define(["x", "cw/config", "cw/util",
                 graphic.draw();
               }
 
-              if (!x.isUndefined(node.visible))
+              if (!x.isUndefined(data.visible))
                 graphic.visible = data.visible;
             }
             else {

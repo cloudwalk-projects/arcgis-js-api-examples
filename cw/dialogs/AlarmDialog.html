@@ -1,16 +1,18 @@
 <div class="capture">
     <div class="capture-top">
-        <div class="left img-div"><img id="captureImg" src="images/follow.png"><img class="more" src="images/ico_more.png" style="opacity: 0.7;"></div>
-
+        <div class="left img-div"><img id="captureImg" src="{{staticFileServer}}images/follow.png"><img class="more" src="{{staticFileServer}}images/ico_more.png" style="opacity: 0.7;"></div>
         <div class="left mess">
-            <div><img class="img-one" src="images/ico_camera.png">
-                <p id="sourceName" style="color: #9cecff;width:80%;overflow:hidden;white-space:nowrap;text-overflow: ellipsis;" title="14dadsa">{{name}}</p>
+            <div>
+              <img class="img-one" src="{{staticFileServer}}images/ico_camera.png">
+              <p id="sourceName" style="color: #9cecff;width:80%;overflow:hidden;white-space:nowrap;text-overflow: ellipsis;" title="{{name}}">{{name}}</p>
             </div>
-            <div><img class="img-two" src="images/ico_IP.png">
-                <p id="ip" style="color: #9cecff;width:80%;overflow:hidden;white-space:nowrap;text-overflow: ellipsis;" title="192.3.3.3">{{ip}}</p>
+            <div>
+              <img class="img-two" src="{{staticFileServer}}images/ico_IP.png">
+              <p id="ip" style="color: #9cecff;width:80%;overflow:hidden;white-space:nowrap;text-overflow: ellipsis;" title="{{ip}}">{{ip}}</p>
             </div>
-            <div><img class="img-three left" src="images/ico_gps.png">
-                <p id="place" style="height: 40px; color: rgb(156, 236, 255); word-wrap: break-word; white-space: normal;" title="acxzcxz">acxzcxz</p>
+            <div>
+              <img class="img-three left" src="{{staticFileServer}}images/ico_gps.png">
+              <p id="place" style="height: 40px; color: rgb(156, 236, 255); word-wrap: break-word; white-space: normal;" title="{{place}}">{{place}}</p>
             </div>
         </div>
     </div>
@@ -18,9 +20,9 @@
     <div class="capture-bottom">
         <div class="capture-button green left">
             <lable style="width: 65px;float: left;font-size: 15px;">抓拍次数: </lable><span id="captureCount" style="width: 50px;float: left;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"
-                title="0">{{count}}</span></div>
+                title="0">{{cameraCaptureCount}}</span></div>
         <div class="capture-button red left">
             <lable style="width: 65px;float: left;font-size: 15px;">报警次数: </lable><span id="warningCount" style="width: 50px;float: left;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"
-                title="0">0</span></div>
+                title="0">{{cameraAlarmCount}}</span></div>
     </div>
 </div>

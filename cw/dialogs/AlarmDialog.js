@@ -1,5 +1,5 @@
-define([
-  "x", "cw/cameras",
+﻿define([
+  "x", "cw/config", "cw/markers",
   "dojo/_base/declare",
   "dojo/_base/array",
   "dojo/_base/lang",
@@ -19,8 +19,8 @@ define([
   "xstyle/css!./AlarmDialog.css"
 ],
   function (
-    x,
-    cameras,
+    x, config,
+    markers,
     declare,
     array,
     lang,
@@ -61,6 +61,9 @@ define([
             this.domNode = domConstruct.create("div", null, dom.byId(this.divId));
           }
 
+          this.xoffset = this.xoffset || 0;
+          this.yoffset = this.yoffset || -10;
+
           domClass.add(this.domNode, defaultWindowClassName);
 
           this.closeButtonNode = domConstruct.create("div", { "class": "close", "title": "关闭" }, this.domNode);
@@ -79,7 +82,7 @@ define([
           });
 
           // 启动定时器
-          timer.start();
+          // timer.start();
 
           on(this.closeButtonNode, "click", lang.hitch(this, function () {
             //hide the content when the info window is toggled close.
@@ -132,27 +135,33 @@ define([
 				 * 将摄像头数据绑定到内容上
 				 */
         binding() {
-          if (this.cameraId) {
-            var layer = cameras.getLayer({ map: this.map });
+          if (this.markerId) {
+            var layer = markers.getLayer({ map: this.map, markerType: 'camera' });
 
             if (layer) {
               this.content = this.templateContent;
               var that = this;
               // 设置图形信息的数据
               array.forEach(layer.graphics, function (graphic, index) {
-                if (graphic.attributes.id == that.cameraId) {
+                if (graphic.attributes.id == that.markerId) {
                   for (name in graphic.attributes) {
-                    that.content = that.content.replace('{{' + name + '}}', graphic.attributes[name]);
+                    that.content = that.content.replace(new RegExp('{{' + name + '}}', 'g'), graphic.attributes[name]);
                   }
                 }
               });
+
+              this.content = this.content.replace(/{{staticFileServer}}/g, config.staticFileServer);
             }
           }
-          console.log(this.content);
+
+          // console.log(this.content);
           this.place(this.content, this.contentNode);
         },
 
         _showInfoWindow: function (pointX, pointY) {
+          // 绑定数据
+          this.binding();
+
           // 第一次显示时 处理宽度和高度的数据
           if (isNaN(Number(infoHeight)) && isNaN(Number(infoWidth))) {
 
@@ -184,7 +193,7 @@ define([
           var location = graphic.geometry;
 
           if (graphic.attributes.id) {
-            this.cameraId = graphic.attributes.id;
+            this.markerId = graphic.attributes.id;
           }
 
           this.binding();

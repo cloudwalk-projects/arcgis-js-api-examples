@@ -51,10 +51,25 @@ define(["x", "cw/config",
 
         menu.startup();
 
-        if (target.declaredClass == "esri.Map")
+        if (target.declaredClass == "esri.Map") {
           menu.bindDomNode(target.container);
-        else
-          menu.bindDomNode(target);
+        }
+        else if (target.declaredClass == "esri.layers.FeatureLayer") {
+
+          target.on("mouse-over", function (evt) {
+            // We'll use this "selected" graphic to enable editing tools
+            // on this graphic when the user click on one of the tools
+            // listed in the menu.
+            selected = evt.graphic;
+
+            // Let's bind to the graphic underneath the mouse cursor
+            menu.bindDomNode(evt.graphic.getDojoShape().getNode());
+          });
+
+          target.on("mouse-out", function (evt) {
+            menu.unBindDomNode(evt.graphic.getDojoShape().getNode());
+          });
+        }
       }
     }
 
