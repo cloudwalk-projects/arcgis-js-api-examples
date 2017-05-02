@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>初始化覆盖物图层</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" /> 
+  <link rel="stylesheet" href="../../../esri/css/esri.css">
+  <link rel="stylesheet" href="../../../dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="../../../dojox/widget/ColorPicker/ColorPicker.css">
+  <style>
+    html,
+    body,
+    #map {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <script src=" http://ditu.fuwu.io:7020/arcgis/quanzhou/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
+  <script>
+    require([
+    	"cw/basemap", "cw/overlay", "cw/util",
+    	"dojo/on","dojo/query",  "dojo/domReady!"
+    	], function (
+    		basemap, overlays, util,
+    		on,query){
+      var map = basemap.create({ divId: "map" });
+
+	  // 初始化覆盖物事件
+	  var overlayArr=[{
+         // 唯一标识
+         "id": "00020001",
+		 // 是否可见，0：可见，1：不可见
+         "visible": "0",
+		 // 名称
+         "name": "区域 1",   
+         // 地址
+         "location": "泉州市五堡新村"
+		},
+     	{
+          // 唯一标识
+         "id": "00020005",
+		 // 是否可见，0：可见，1：不可见
+         "visible": "0",
+         // 名称
+         "name": "区域 2",    
+         // 地址
+         "location": "泉州市天后路"
+		},
+     ];
+
+
+	  //--------------------------------
+      // 初始化覆盖物图层
+      //--------------------------------
+        
+      var polygons = overlays.initLayer({
+          // 显示地图的容器标识
+          map: map,
+          // 是否可编辑状态 0:是  1：否
+          editEnable:"0",
+          // 覆盖物信息
+          overlay: overlayArr
+        });
+		
+		//--------------------------------
+        // 绑定事件
+        //--------------------------------
+        overlays.on({
+			layer: polygons,
+			event: "mouse-over",
+			handler: getPolygon
+		});
+        
+        function getPolygon(evt){
+			var node = evt.graphic;
+			// 获取覆盖物中心点
+			var point = node.geometry.getCentroid();
+			// 中心点坐标转换
+			var lonat = util.mercator2lonlat(point);
+			dojo.byId('windowLonlatContainer').innerHTML = '<p>名称:' + node.attributes.NAME + '  地址：' + node.attributes.LOCATION+"</p> <p>  中心点坐标：x-"+ lonat.x +" y-" + lonat.y +"</p>";
+		}
+    });
+  </script>
+</head>
+
+<body class="claro" style="font-size: 0.75em;">
+  <div id="map"></div>
+  <div id="windowLonlatContainer" style="display: block; position: absolute; z-index: 10; background: #fff; padding: 8px; border-radius: 4px; top: 10px;left: 10px;">
+    <div id="results" style="margin:10px 0 0 0;">请将鼠标移动到覆盖物上方。</div>
+  </div>
+</body>
+
+</html>
