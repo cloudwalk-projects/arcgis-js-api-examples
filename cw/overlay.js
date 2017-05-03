@@ -46,7 +46,7 @@ define(["cw/config",
 
         // 默认设置
         var defaults = {
-            layerId: 'map-cameras-layer',
+            layerId: 'map-polygon-layer',
             layerAddr: '',
             layerIndex: 10,
             cameraName: '',
@@ -80,7 +80,18 @@ define(["cw/config",
                     			res = node;
                     		}
                    });
-                    	return res;
+            return res;
+        };
+		
+		// 根据ID查找Graphic
+        function findGraphic(graphic,id) {
+        	var res;
+        	array.forEach(graphic,function(node,index){
+                    		if(node.attributes.ID == id){
+                    			res = node;
+                    		}
+                   });
+            return res;
         };
          
 		// 覆盖物开启编辑状态
@@ -298,11 +309,11 @@ define(["cw/config",
                 layer.on("update-end", function () {
                     //初始化效果渲染
                     array.forEach(layer.graphics, function (node, index) {
-                    	var overlay = findOverlay(overlays,node.attributes.CODE);
+                    	var overlay = findOverlay(overlays,node.attributes.ID);
                     	
 						if(typeof(overlay) != "undefined"){
 							// 显示
-							if(overlay.visible == 0){
+							if(overlay.visible == 1){
 								node.hide();
 							}
 							// 业务数据
@@ -322,8 +333,10 @@ define(["cw/config",
                         
                     });
                     layer.redraw();
-					
-					if(dom.byId("cPicker") == null)
+					});
+				});
+				
+				if(dom.byId("cPicker") == null)
 					{
 						//初始化调色板
 						var n = domConstruct.create("div", { id: "cPicker",class: "dojoxColorPicker" },document.body);
@@ -373,11 +386,6 @@ define(["cw/config",
 							ctxmenuUnable(layer,map);
 						}
 					}
-
-					
-					});
-				});
-				
 			},
 			
 			// 编辑覆盖物
@@ -399,16 +407,16 @@ define(["cw/config",
 				}
 				
 				// 设置数据
-				var overlay = findOverlay(layer.graphics,id);
+				var overlay = findGraphic(layer.graphics,id);
                     	
 				if(typeof(overlay) != "undefined"){
 					// 显示
-					if(visible == 0){
+					if(visible == 1){
 						overlay.hide();
 					}
 					// 业务数据
-					overlay.NAME = name;
-					overlay.LOCATION = location;
+					overlay.attributes.NAME = name;
+					overlay.attributes.LOCATION = location;
 				}
                
                 layer.redraw();
