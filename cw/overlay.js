@@ -274,7 +274,7 @@ define(["cw/config",
                 
                 var layer = map.getLayer(defaults.layerId);
 
-                if (layer == null) {
+                if (layer == null or typeof(layer) == "undefined") {
                     layer = new FeatureLayer(config.featureServers.polygonServer, {
                     mode: FeatureLayer.MODE_SNAPSHOT,
                     outFields: ["*"],
