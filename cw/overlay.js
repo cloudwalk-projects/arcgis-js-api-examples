@@ -274,7 +274,7 @@ define(["cw/config",
                 
                 var layer = map.getLayer(defaults.layerId);
 
-                if (layer == null or typeof(layer) == "undefined") {
+                if (layer == null || typeof(layer) == "undefined") {
                     layer = new FeatureLayer(config.featureServers.polygonServer, {
                     mode: FeatureLayer.MODE_SNAPSHOT,
                     outFields: ["*"],
@@ -312,7 +312,7 @@ define(["cw/config",
                     	var overlay = findOverlay(overlays,node.attributes.ID);
                     	
 						if(typeof(overlay) != "undefined"){
-							// 显示
+							// 显示控制
 							if(overlay.visible == 1){
 								node.hide();
 							}
@@ -320,6 +320,9 @@ define(["cw/config",
 							node.attributes.NAME = overlay.name;
 							node.attributes.LOCATION = overlay.location;
 							
+						}
+						else{
+							node.hide();
 						}
                     	// 样式
                         array.forEach(layer.graphics, function (node, index) {

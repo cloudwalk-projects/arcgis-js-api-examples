@@ -5,9 +5,9 @@
   <title>编辑覆盖物图层</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" /> 
-  <link rel="stylesheet" href="../../../esri/css/esri.css">
-  <link rel="stylesheet" href="../../../dijit/themes/claro/claro.css">
-  <link rel="stylesheet" href="../../../dojox/widget/ColorPicker/ColorPicker.css">
+  <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
+  <link rel="stylesheet" href="http://map.x3platform.com/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="http://map.x3platform.com/dojox/widget/ColorPicker/ColorPicker.css">
   
   <style>
     html,
@@ -18,7 +18,7 @@
       padding: 0;
     }
   </style>
-  <script src=" http://ditu.fuwu.io:7020/arcgis/quanzhou/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
+  <script src="http://ditu.fuwu.io:7020/arcgis/quanzhou/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
   <script>
     require([
     	"cw/basemap", "cw/overlay", "cw/util",
@@ -30,7 +30,7 @@
 
 	  var overlayArr=[{
          // 唯一标识
-         "id": "00020001",
+         "id": "3edb07f4826341e4ae5405d14074fcd5",
 		 // 是否可见，0：可见，1：不可见
          "visible": "0",
 		 // 名称
@@ -40,7 +40,7 @@
 		},
      	{
           // 唯一标识
-         "id": "00020005",
+         "id": "3140d106212d4d658bb4584a2173476d",
 		 // 是否可见，0：可见，1：不可见
          "visible": "0",
          // 名称
@@ -55,7 +55,7 @@
           // 显示地图的容器标识
           map: map,
           // 是否可编辑状态 0:是  1：否
-          editEnable:"1",
+          editEnable:"0",
           // 覆盖物信息
           overlay: overlayArr
         });
