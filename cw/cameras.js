@@ -1,19 +1,15 @@
 /**
  * 地图操作工具辅助类
  */
-define(["cw/config",
-  "cw/util",
-  "esri/graphic",
-  "esri/geometry/Point",
+define(["cw/config", "cw/symbols", "cw/util",
+  "esri/graphic", "esri/geometry/Point",
   "esri/layers/FeatureLayer",
   "esri/symbols/PictureMarkerSymbol",
   "esri/toolbars/draw",
   "dojo/_base/array"
 ], function (
-  config,
-  util,
-  Graphic,
-  Point,
+  config, symbols, util,
+  Graphic, Point,
   FeatureLayer,
   PictureMarkerSymbol,
   Draw,
@@ -21,54 +17,15 @@ define(["cw/config",
 
     // 默认设置
     var defaults = {
-      layerId: 'layer_cameras',
+      layerId: '$$graphic_camera',
       layerIndex: 10,
       cameraName: '',
-      cameraStatus: 'unkown',
+      cameraStatus: 'default',
       symbol: {
-        defaultName: 'camera-unkown',
+        defaultName: 'camera-default',
         yoffset: 10
       }
     };
-
-    // 图像符号设置
-    var symbols = {
-      // 摄像头(默认)
-      'camera-unkown': new PictureMarkerSymbol({
-        //"angle": 0,
-        //"xoffset": 0,
-        "yoffset": defaults.symbol.yoffset,
-        "type": "esriPMS",
-        "url": config.staticFileServer + 'images/ico_video_blue.png',
-        "contentType": "image/png",
-        // 图片原始大小为 20x28
-        "width": 15,
-        "height": 21
-      }),
-      // 摄像头(未激活)
-      'camera-deactive': new PictureMarkerSymbol({
-        //"angle": 0,
-        //"xoffset": 0,
-        "yoffset": defaults.symbol.yoffset,
-        "type": "esriPMS",
-        "url": config.staticFileServer + 'images/ico_video_blue.png',
-        "contentType": "image/png",
-        // 图片原始大小为 20x28
-        "width": 15,
-        "height": 21
-      }),
-      // 摄像头(激活)
-      'camera-active': new PictureMarkerSymbol({
-        "angle": 0,
-        "xoffset": 0,
-        "yoffset": defaults.symbol.yoffset,
-        "type": "esriPMS",
-        "url": config.staticFileServer + 'images/ico_video_red.png',
-        "contentType": "image/png",
-        "width": 15,
-        "height": 21
-      })
-    }
 
     // 定义要数集合 a feature collection for the flickr photos
     var featureCollection = {

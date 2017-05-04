@@ -48,6 +48,86 @@
     // 默认窗口样式
     var defaultWindowClassName = 'cw-dialogs-alarm-dialog';
 
+    // 更多抓拍
+    var moreCaptrue = {
+      maxNum: 3,
+      obj: $(".img-div"),
+      status: false,
+      data: new Map(),
+      videoId: "",
+      createData: function (markerId, captrues) {
+        // if (!$.isEmptyObject(moreCaptrue.data.get(marker.video.id))) {
+        //  return;
+        // }
+        var caps = captrues;
+        // moreCaptrue.videoId = marker.video.id;
+        moreCaptrue.videoId = markerId;
+        var data = [];
+        if ($.isEmptyObject(caps)) {
+          return;
+        }
+        for (var int = 0; int < caps.length; int++) {
+          if (moreCaptrue.maxNum < (int + 1)) {
+            break;
+          }
+          data.push(caps[int].captureUrl);
+        }
+        moreCaptrue.data.put(moreCaptrue.videoId, data);
+        moreCaptrue.createImg(moreCaptrue.videoId);
+      },
+      createImg: function (videoId) {
+        $.each(moreCaptrue.data.get(videoId), function (n, value) {
+          var html = moreCaptrue.createHtml(n, value);
+          $(".img-div").after(html);
+        })
+      },
+      createHtml: function (id, url) {
+        var html = '<div id="' + id + '" class="popCaptrueImage">' +
+          '<img class="captrueImg" src="' + url + '" onerror="this.src=' + "'lib/style/img/follow.png'" + '">' +
+          '</div>';
+        return html;
+      },
+      click: function () {
+        if (moreCaptrue.status) {
+          moreCaptrue.close();
+        } else {
+          moreCaptrue.open();
+        }
+      },
+      open: function () {
+        if ($.isEmptyObject(moreCaptrue.data.get(moreCaptrue.videoId))) {
+          return;
+        }
+        $.each(moreCaptrue.data.get(moreCaptrue.videoId), function (n, value) {
+          //弹出动画
+          if (n == 0) {
+            $("#0").animate({ left: '75px' });
+          } else if (n == 1) {
+            $("#1").animate({ left: '143px' });
+          } else if (n == 2) {
+            $("#2").animate({ left: '212px' });
+          }
+        });
+        moreCaptrue.status = true;
+      },
+      close: function () {
+        for (var int = moreCaptrue.data.get(moreCaptrue.videoId).length; int >= 0; int--) {
+          //弹出动画
+          if (int == 0) {
+            $("#0").animate({ left: '6px' });
+          } else if (int == 1) {
+            $("#1").animate({ left: '6px' });
+          } else if (int == 2) {
+            $("#2").animate({ left: '6px' });
+          }
+        }
+        moreCaptrue.status = false;
+      },
+      clearData: function () {
+        moreCaptrue.data = new Map();
+      }
+    }
+
     return declare([InfoWindowBase, Evented],
       {
 				/**
@@ -136,11 +216,11 @@
 				 */
         binding() {
           if (this.markerId) {
+            var that = this;
             var layer = markers.getLayer({ map: this.map, markerType: 'camera' });
 
             if (layer) {
               this.content = this.templateContent;
-              var that = this;
               // 设置图形信息的数据
               array.forEach(layer.graphics, function (graphic, index) {
                 if (graphic.attributes.id == that.markerId) {
@@ -199,8 +279,27 @@
             }
           }
 
-          // console.log(this.content);
           this.place(this.content, this.contentNode);
+
+          if ($("#captureImg").attr("src") != 'lib/style/img/follow.png') {
+            moreCaptrue.createData(that.markerId, captures);
+            // moreCaptrue.click();
+          }
+
+          // 绑定事件
+          //设置图片more移入移除与点击
+          $(".img-div .more").on('mouseover', function () {
+            $(this).attr("style", "opacity: 1;cursor: pointer;");
+          });
+          $(".img-div .more").on('mouseout', function () {
+            $(this).attr("style", "opacity: 0.7;cursor: pointer;");
+          });
+          $(".img-div .more").on('click', function () {
+            if ($("#captureImg").attr("src") != 'lib/style/img/follow.png') {
+              // moreCaptrue.createData(that.markerId, captures);
+              moreCaptrue.click();
+            }
+          });
         },
 
         _showInfoWindow: function (pointX, pointY) {

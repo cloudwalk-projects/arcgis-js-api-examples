@@ -1,25 +1,18 @@
 ﻿/**
  * 地图操作工具辅助类
  */
-define(["x", "cw/config",
-  "cw/util",
-  "esri/graphic",
-  "esri/geometry/Point",
-  "esri/layers/FeatureLayer",
-  "esri/symbols/PictureMarkerSymbol",
+define(["x", "cw/config", "cw/util",
+  "esri/graphic", "esri/geometry/Point",
+  "esri/layers/FeatureLayer", "esri/symbols/PictureMarkerSymbol",
   "esri/toolbars/draw",
   "dojo/_base/array",
   "dijit/Menu",
   "dijit/MenuItem",
   "dijit/MenuSeparator"
 ], function (
-  x,
-  config,
-  util,
-  Graphic,
-  Point,
-  FeatureLayer,
-  PictureMarkerSymbol,
+  x, config, util,
+  Graphic, Point,
+  FeatureLayer, PictureMarkerSymbol,
   Draw,
   array,
   Menu, MenuItem, MenuSeparator) {
@@ -33,6 +26,8 @@ define(["x", "cw/config",
         var target = options.target;
         // 菜单项
         var items = options.items;
+
+        var selected;
 
         // Creates right-click context menu for map
         var menu = new Menu({
@@ -69,7 +64,13 @@ define(["x", "cw/config",
           target.on("mouse-out", function (evt) {
             menu.unBindDomNode(evt.graphic.getDojoShape().getNode());
           });
+
+          menu.getSelected = function () {
+              return selected;
+          }
         }
+
+        return menu;
       }
     }
 

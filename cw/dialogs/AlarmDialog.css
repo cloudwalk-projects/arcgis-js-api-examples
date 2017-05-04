@@ -28,6 +28,8 @@
     color: #fff;
     overflow: auto;
     padding: 0;
+    width: 360px;
+    height: 156px;
 }
 
 .cw-dialogs-alarm-dialog .arrow {
