@@ -94,6 +94,13 @@
       "iframe": true
     },
     {
+      "id": "example-12",
+      "name": "新增覆盖物",
+      "parent": "examples",
+      "href": "cw/examples/sandbox/sandbox.html?example=api_polygon_add",
+      "iframe": true
+    },
+    {
       "id": "example-11",
       "name": "编辑覆盖物",
       "parent": "examples",
