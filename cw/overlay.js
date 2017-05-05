@@ -71,6 +71,7 @@ define(["cw/config",
 		var	polygonEditUnabled = null;
 		var ctxMenuForMap;
 		var ctxMenuForGraphics;
+		var updateEndHandler = null;
         
         // 根据ID查找覆盖物
         function findOverlay(overlays,id) {
@@ -197,11 +198,11 @@ define(["cw/config",
                 //});
             }
            
-		// 开启右键菜单
+		// 开启编辑右键菜单
 		function ctxmenuEnable(layer,map){
-			if(typeof(ctxMenuForMap) != "undefined"){
-				ctxMenuForMap.bindDomNode(map.container);
-			}
+			//if(typeof(ctxMenuForMap) != "undefined"){
+				//ctxMenuForMap.bindDomNode(map.container);
+			//}
 			if(typeof(ctxMenuForGraphics) != "undefined"){
 				layer.on("mouse-over", function(evt) {
                     selected = evt.graphic;
@@ -214,11 +215,11 @@ define(["cw/config",
 			}
 		}
 		
-		// 关闭右键菜单
+		// 关闭编辑右键菜单
 		function ctxmenuUnable(layer,map){
-			if(typeof(ctxMenuForMap) != "undefined"){
-				ctxMenuForMap.unBindDomNode(map.container);
-			}
+			//if(typeof(ctxMenuForMap) != "undefined"){
+				//ctxMenuForMap.unBindDomNode(map.container);
+			//}
 			if(typeof(ctxMenuForGraphics) != "undefined"){
 				layer.on("mouse-over", function(evt) {
                     selected = evt.graphic;
@@ -230,7 +231,20 @@ define(["cw/config",
                 });
 			}
 		}
-			
+		
+		// 开启新增右键菜单
+		function ctxAddmenuEnable(layer,map){
+			if(typeof(ctxMenuForMap) != "undefined"){
+				ctxMenuForMap.bindDomNode(map.container);
+			}
+		}
+		
+		// 关闭新增右键菜单
+		function ctxAddmenuUnable(layer,map){
+			if(typeof(ctxMenuForMap) != "undefined"){
+				ctxMenuForMap.unBindDomNode(map.container);
+			}
+		}	
             // 开启调色板
             function ColorPickerOn(graphic) {
                 if(typeof(colorPicker)=='undefined') {
@@ -337,6 +351,10 @@ define(["cw/config",
                     });
                     layer.redraw();
 					});
+					
+					if(updateEndHandler != null){
+						updateEndHandler();
+					}
 				});
 				
 				if(dom.byId("cPicker") == null)
@@ -391,6 +409,28 @@ define(["cw/config",
 					}
 			},
 			
+			// 添加覆盖物
+			add: function (options) {
+				var layer = options.layer;
+				var id = options.id;
+				var visible = options.visible;
+				defaults.editEnabled = options.editble;
+				var name = options.name;
+				var location = options.location;
+				
+				// 设置编辑状态
+				if(defaults.editEnabled == 0)
+				{
+					ctxAddmenuEnable(layer,map);
+					ctxmenuEnable(layer,map);
+				}
+				else{
+					ctxAddmenuUnable(layer,map);
+					ctxmenuUnable(layer,map);
+				}
+			
+        },
+		
 			// 编辑覆盖物
 			edit: function (options) {
 				var layer = options.layer;
@@ -432,9 +472,14 @@ define(["cw/config",
 			var event = options.event;
 			var handler = options.handler;
 			
-			//var layerHandler = dojo.connect(layer, event, handler);
-			var layerHandler = layer.on(event,handler)
-			return layerHandler;
+			if(event == "update-end"){
+				updateEndHandler = handler;
+			}
+			else{
+				var layerHandler = layer.on(event,handler)
+				return layerHandler;
+			}
+			
 		}
 		}
 		return self;
