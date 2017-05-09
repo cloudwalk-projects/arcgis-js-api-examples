@@ -2,8 +2,8 @@
  * 定义默认符号信息
  */
 define([
-  "cw/config", "esri/symbols/PictureMarkerSymbol"
-], function (config, PictureMarkerSymbol) {
+  "cw/config", "esri/Color", "esri/symbols/PictureMarkerSymbol", "esri/symbols/PictureFillSymbol", "esri/symbols/SimpleLineSymbol"
+], function (config, Color, PictureMarkerSymbol, PictureFillSymbol, SimpleLineSymbol) {
   // 图像符号设置
   return {
     // 摄像头(默认)
@@ -75,6 +75,14 @@ define([
       "contentType": "image/png",
       "width": 15,
       "height": 21
-    })
+    }),
+    // 选择图形
+    'select-symbol': new PictureFillSymbol(
+      config.staticFileServer + "images/sand.png",
+      new SimpleLineSymbol(
+        SimpleLineSymbol.STYLE_SOLID,
+        new Color('#000'),
+        1
+      ), 42, 42)
   }
 });

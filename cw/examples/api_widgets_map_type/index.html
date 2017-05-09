@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>获取地图坐标</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
+  <link rel="stylesheet" href="http://map.x3platform.com/cw/css/style.css">
+  <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad: true"></script>
+  <script>
+    require(["cw/basemap", "cw/util", "cw/widgets/MapTypeWidget", "dojo/domReady!"], function (basemap, util, MapTypeWidget) {
+
+      var map = basemap.create({ divId: "map" });
+
+      map.on('click', function (evt) {
+
+        var lonlat = util.lonlat(evt);
+
+        // 输出经纬度信息
+        console.log('lonlat(x:' + lonlat.x + ', y=' + lonlat.y + ')');
+      });
+
+      var widget = new MapTypeWidget({
+        map: map,
+        data: [
+          { name: '街景图', value: 'streets', default: true },
+          { name: '卫星图', value: 'satellite' }
+        ]
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div id="map" class="map"></div>
+</body>
+
+</html>

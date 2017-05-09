@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>选择工具</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
+  <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
+  <script>
+    require(["x", "cw/basemap", "cw/markers", "cw/util", "cw/widgets/SelectToolbarWidget", "dojo/request/xhr", "dojo/domReady!"],
+      function (x, basemap, markers, util, SelectToolbarWidget, xhr) {
+
+        var map = basemap.create({ divId: "map" });
+
+        xhr('../data/cameras.json', { handleAs: "json" }).then(function (respone) {
+          markers.initLayer({
+            // 显示地图的容器标识
+            map: map,
+            // 摄像头信息
+            markers: respone.data
+          });
+        }, function (err) {
+          // 错误信息处理
+          console.log(err);
+        });
+
+        // SelectToolbarWidget
+        var widget = new SelectToolbarWidget({
+          map: map,
+          callback: function (results) {
+            var outString = '';
+
+            x.each(results, function (index, node) {
+              outString += '[' + index + '] ' + node.name + ' 经纬度 - x:' + node.x + ', y:' + node.y + '<br />';
+            });
+
+            dojo.byId('windowLonlatContainer').innerHTML = outString;
+          }
+        });
+      });
+  </script>
+</head>
+
+<body>
+  <div id="windowLonlatContainer" style="display: block; position: absolute; z-index: 10; background: #fff; padding: 8px; border-radius: 4px; top: 60px;left: 10px;">请选择菜单。</div>
+  <div id="map"></div>
+</body>
+
+</html>
