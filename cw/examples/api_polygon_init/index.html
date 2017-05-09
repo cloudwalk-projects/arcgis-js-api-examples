@@ -30,9 +30,11 @@
 	  // 初始化覆盖物事件
 	  var overlayArr=[{
          // 唯一标识
-         "id": "00020005",
+         "id": "3edb07f4826341e4ae5405d14074fcd5",
 		 // 是否可见，0：可见，1：不可见
          "visible": "0",
+         // 当前覆盖物编辑状态，0：是，1：否
+         "editble": "1",
 		 // 名称
          "name": "区域 1",   
          // 地址
@@ -40,9 +42,11 @@
 		},
      	{
           // 唯一标识
-         "id": "00020002",
+         "id": "3140d106212d4d658bb4584a2173476d",
 		 // 是否可见，0：可见，1：不可见
          "visible": "0",
+         // 当前覆盖物编辑状态，0：是，1：否
+         "editble": "1",
          // 名称
          "name": "区域 2",    
          // 地址
@@ -79,7 +83,7 @@
 			var point = node.geometry.getCentroid();
 			// 中心点坐标转换
 			var lonat = util.mercator2lonlat(point);
-			dojo.byId('windowLonlatContainer').innerHTML = '<p>名称:' + node.attributes.NAME + '  地址：' + node.attributes.LOCATION+"</p> <p>  中心点坐标：x-"+ lonat.x +" y-" + lonat.y +"</p>";
+			dojo.byId('results').innerHTML = '<p>名称:' + node.attributes.NAME + '  地址：' + node.attributes.LOCATION+"</p> <p>  中心点坐标：x-"+ lonat.x +" y-" + lonat.y +"</p>";
 		}
     });
   </script>
@@ -88,7 +92,8 @@
 <body class="claro" style="font-size: 0.75em;">
   <div id="map"></div>
   <div id="windowLonlatContainer" style="display: block; position: absolute; z-index: 10; background: #fff; padding: 8px; border-radius: 4px; top: 10px;left: 10px;">
-    <div id="results" style="margin:10px 0 0 0;">请将鼠标移动到覆盖物上方。</div>
+    <div id="description" style="margin:10px 0 0 0;">请将鼠标移动到覆盖物上方。</div>
+    <div id="results" style="margin:10px 0 0 0;">。</div>
   </div>
 </body>
 

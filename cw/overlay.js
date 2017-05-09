@@ -49,8 +49,10 @@ define(["cw/config",
             layerId: 'map-polygon-layer',
             layerAddr: '',
             layerIndex: 10,
-            cameraName: '',
-            cameraStatus: 'unkown',
+			polygonID: '',
+            polygonName: '',
+			polygonLocation: '',
+            polygonStatus: 'unkown',
             symbol: {
                 defaultName: 'camera-unkown',
                 yoffset: 10
@@ -200,9 +202,6 @@ define(["cw/config",
            
 		// 开启编辑右键菜单
 		function ctxmenuEnable(layer,map){
-			//if(typeof(ctxMenuForMap) != "undefined"){
-				//ctxMenuForMap.bindDomNode(map.container);
-			//}
 			if(typeof(ctxMenuForGraphics) != "undefined"){
 				layer.on("mouse-over", function(evt) {
                     selected = evt.graphic;
@@ -217,9 +216,6 @@ define(["cw/config",
 		
 		// 关闭编辑右键菜单
 		function ctxmenuUnable(layer,map){
-			//if(typeof(ctxMenuForMap) != "undefined"){
-				//ctxMenuForMap.unBindDomNode(map.container);
-			//}
 			if(typeof(ctxMenuForGraphics) != "undefined"){
 				layer.on("mouse-over", function(evt) {
                     selected = evt.graphic;
@@ -330,6 +326,20 @@ define(["cw/config",
 							if(overlay.visible == 1){
 								node.hide();
 							}
+							// 覆盖物编辑状态控制
+							if(overlay.editble == 0){
+								editToolbar.activate(Edit.EDIT_VERTICES, node);
+								layer.on("mouse-over", function(evt) {
+									selected = evt.graphic;
+									if(selected.attributes.ID == overlay.id){
+										ctxMenuForGraphics.bindDomNode(selected.getDojoShape().getNode());
+									}
+								});
+
+								layer.on("mouse-out", function(evt) {
+									ctxMenuForGraphics.unBindDomNode(selected.getDojoShape().getNode());
+								});
+							}
 							// 业务数据
 							node.attributes.NAME = overlay.name;
 							node.attributes.LOCATION = overlay.location;
@@ -388,7 +398,10 @@ define(["cw/config",
 
 							//设置新增Graphic的属性，OBJECTID必须设置，其余可以设为NULL
 							var attr = {
-                            "OBJECTID": currentObj + 1
+                            "OBJECTID": currentObj + 1,
+							"ID": defaults.id,
+							"NAME": defaults.polygonName,
+							"LOCATION": defaults.polygonLocation
 							};
 							//产生新的Graphic
 							var newGraphic = new Graphic(evt.geometry, null, attr);
@@ -412,21 +425,29 @@ define(["cw/config",
 			// 添加覆盖物
 			add: function (options) {
 				var layer = options.layer;
-				var id = options.id;
+				defaults.id = options.id;
 				var visible = options.visible;
-				defaults.editEnabled = options.editble;
-				var name = options.name;
-				var location = options.location;
+				var editEnabled = options.editble;
+				defaults.polygonName = options.name;
+				defaults.polygonLocation = options.location;
 				
 				// 设置编辑状态
-				if(defaults.editEnabled == 0)
+				if(editEnabled == 0)
 				{
 					ctxAddmenuEnable(layer,map);
-					ctxmenuEnable(layer,map);
+					layer.on("mouse-over", function(evt) {
+						selected = evt.graphic;
+						if(selected.attributes.ID == defaults.id){
+							ctxMenuForGraphics.bindDomNode(selected.getDojoShape().getNode());
+						}
+					});
+
+					layer.on("mouse-out", function(evt) {
+						ctxMenuForGraphics.unBindDomNode(selected.getDojoShape().getNode());
+					});
 				}
 				else{
 					ctxAddmenuUnable(layer,map);
-					ctxmenuUnable(layer,map);
 				}
 			
         },
@@ -434,32 +455,38 @@ define(["cw/config",
 			// 编辑覆盖物
 			edit: function (options) {
 				var layer = options.layer;
-				var id = options.id;
+				defaults.id = options.id;
 				var visible = options.visible;
 				defaults.editEnabled = options.editble;
-				var name = options.name;
-				var location = options.location;
-				
-				// 设置编辑状态
-				if(defaults.editEnabled == 0)
-				{
-					ctxmenuEnable(layer,map);
-				}
-				else{
-					ctxmenuUnable(layer,map);
-				}
+				defaults.polygonName = options.name;
+				defaults.polygonLocation = options.location;
 				
 				// 设置数据
-				var overlay = findGraphic(layer.graphics,id);
-                    	
+				var overlay = findGraphic(layer.graphics,defaults.id);
+				
+				// 覆盖物编辑状态控制
+				if(overlay.editble == 0){
+					editToolbar.activate(Edit.EDIT_VERTICES, node);
+					layer.on("mouse-over", function(evt) {
+						selected = evt.graphic;
+						if(selected.attributes.ID == overlay.id){
+							ctxMenuForGraphics.bindDomNode(selected.getDojoShape().getNode());
+						}
+					});
+
+					layer.on("mouse-out", function(evt) {
+						ctxMenuForGraphics.unBindDomNode(selected.getDojoShape().getNode());
+					});
+				}
+				
 				if(typeof(overlay) != "undefined"){
 					// 显示
 					if(visible == 1){
 						overlay.hide();
 					}
 					// 业务数据
-					overlay.attributes.NAME = name;
-					overlay.attributes.LOCATION = location;
+					overlay.attributes.NAME = defaults.polygonName;
+					overlay.attributes.LOCATION = defaults.polygonLocation;
 				}
                
                 layer.redraw();

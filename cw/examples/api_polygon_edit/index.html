@@ -30,9 +30,11 @@
 
 	  var overlayArr=[{
          // 唯一标识
-         "id": "00020005",
+         "id": "3edb07f4826341e4ae5405d14074fcd5",
 		 // 是否可见，0：可见，1：不可见
          "visible": "0",
+         // 当前覆盖物编辑状态，0：是，1：否
+         "editble": "1",
 		 // 名称
          "name": "区域 1",   
          // 地址
@@ -40,9 +42,11 @@
 		},
      	{
           // 唯一标识
-         "id": "00020002",
+         "id": "3140d106212d4d658bb4584a2173476d",
 		 // 是否可见，0：可见，1：不可见
          "visible": "0",
+         // 当前覆盖物编辑状态，0：是，1：否
+         "editble": "1",
          // 名称
          "name": "区域 2",    
          // 地址
@@ -115,7 +119,8 @@
   <div id="map"></div>
   <div id="windowLonlatContainer" style="display: block; position: absolute; z-index: 10; background: #fff; padding: 8px; border-radius: 4px; top: 10px;left: 10px;">
     <button id="btnEdit">编辑</button>
-    <div id="results" style="margin:10px 0 0 0;">点击【编辑】按钮，然后选择覆盖物。</div>
+    <div id="description" style="margin:10px 0 0 0;">点击【编辑】按钮，然后选择覆盖物。</div>
+    <div id="results" style="margin:10px 0 0 0;"></div>
   </div>
 </body>
 
