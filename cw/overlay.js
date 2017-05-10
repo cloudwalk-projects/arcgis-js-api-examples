@@ -177,27 +177,18 @@ define(["cw/config",
                         layer.applyEdits(null, [selected], null);
                     }
                 }));
-                ctxMenuForGraphics.addChild(new MenuItem({
-                    label: "删除",
-                    onClick: function () {
-						editingEnabled = false;
-                        editToolbar.deactivate();
-                        ColorPickerOff();
-                        layer.applyEdits(null, null, [selected]);
-                    }
-                }));
+                //ctxMenuForGraphics.addChild(new MenuItem({
+                    //label: "删除",
+                    //onClick: function () {
+						//editingEnabled = false;
+                        //editToolbar.deactivate();
+                        //ColorPickerOff();
+                        //layer.applyEdits(null, null, [selected]);
+                    //}
+                //}));
 				
                 ctxMenuForGraphics.startup();
 				ctxMenuForMap.startup();
-				
-				//ctxMenuForMap.bindDomNode(map.container);
-                //layer.on("mouse-over", function(evt) {
-                    //selected = evt.graphic;
-                    //ctxMenuForGraphics.bindDomNode(evt.graphic.getDojoShape().getNode());
-                //});
-                //layer.on("mouse-out", function(evt) {
-                    //ctxMenuForGraphics.unBindDomNode(evt.graphic.getDojoShape().getNode());
-                //});
             }
            
 		// 开启编辑右键菜单
@@ -445,12 +436,14 @@ define(["cw/config",
 					layer.on("mouse-out", function(evt) {
 						ctxMenuForGraphics.unBindDomNode(selected.getDojoShape().getNode());
 					});
+					//ctxmenuEnable(layer,map);
 				}
 				else{
 					ctxAddmenuUnable(layer,map);
+					//ctxmenuUnable(layer,map);
 				}
 			
-        },
+			},
 		
 			// 编辑覆盖物
 			edit: function (options) {
@@ -491,23 +484,33 @@ define(["cw/config",
                
                 layer.redraw();
 			
-        },
+			},
+			
+			// 删除覆盖物
+			del: function (options) {
+				var layer = options.layer;
+				defaults.id = options.id;
+				
+				// 设置数据
+				var overlay = findGraphic(layer.graphics,defaults.id);
+				layer.applyEdits(null, null, [overlay]);
+			},
 		
-		// 绑定事件
-		on: function (options) {
-			var layer = options.layer;
-			var event = options.event;
-			var handler = options.handler;
+			// 绑定事件
+			on: function (options) {
+				var layer = options.layer;
+				var event = options.event;
+				var handler = options.handler;
 			
-			if(event == "update-end"){
-				updateEndHandler = handler;
-			}
-			else{
-				var layerHandler = layer.on(event,handler)
-				return layerHandler;
-			}
+				if(event == "update-end"){
+					updateEndHandler = handler;
+				}
+				else{
+					var layerHandler = layer.on(event,handler)
+					return layerHandler;
+				}
 			
-		}
+			}
 		}
 		return self;
     });
