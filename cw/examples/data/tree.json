@@ -108,6 +108,20 @@
       "iframe": true
     },
     {
+      "id": "example_api_widgets_map_type",
+      "name": "地图切换控件",
+      "parent": "examples",
+      "href": "cw/examples/sandbox/sandbox.html?example=api_widgets_map_type",
+      "iframe": true
+    },
+    {
+      "id": "exampleapi_widgets_select_toolbar",
+      "name": "地图选择控件",
+      "parent": "examples",
+      "href": "cw/examples/sandbox/sandbox.html?example=api_widgets_select_toolbar",
+      "iframe": true
+    },
+    {
       "id": "arcgis",
       "name": "ArcGIS 示例",
       "parent": "root"
