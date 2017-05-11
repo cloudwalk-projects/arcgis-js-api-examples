@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>地图类型选择</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
+  <link rel="stylesheet" href="http://map.x3platform.com/cw/css/style.css">
+  <script src="http://ditu.fuwu.io:7020/arcgis/quanzhou/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
+  <script>
+    require(["cw/basemap", "cw/util", "cw/widgets/MapTypeWidget", "dojo/domReady!"], function (basemap, util, MapTypeWidget) {
+
+      var map = basemap.create({
+        divId: "map", map: {
+          basemap: 'streets',
+          center: [118.596703, 24.900576]
+        }
+      });
+
+      var widget = new MapTypeWidget({
+        map: map,
+        data: [
+          { name: '街景图', value: 'streets', url:'http://192.168.10.35:6080/arcgis/rest/services/qz/QZMapService/MapServer' },
+          { name: '卫星图', value: 'satellite', url:'http://192.168.10.35:6080/arcgis/rest/services/qz/QZ_RSService/MapServer' }
+        ]
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div id="map" class="map"></div>
+</body>
+
+</html>

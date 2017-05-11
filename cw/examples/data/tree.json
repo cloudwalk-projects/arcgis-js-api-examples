@@ -158,6 +158,13 @@
       "parent": "quanzhou",
       "href": "cw/examples/cw-quanzhou-directions.html",
       "iframe": true
+    },
+    {
+      "id": "quanzhou-4",
+      "name": "地图类型控件",
+      "parent": "quanzhou",
+      "href": "cw/examples/cw-quanzhou-map-type.html",
+      "iframe": true
     }
   ]
 }

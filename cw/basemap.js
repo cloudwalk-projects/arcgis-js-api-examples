@@ -28,10 +28,10 @@ define(["cw/config",
         var layer = null;
 
         if (config.tiledMapType == 'tiled') {
-          layer = new ArcGISTiledMapServiceLayer(options.tiledMapServer);
+          layer = new ArcGISTiledMapServiceLayer(options.tiledMapServer, { id: 'basemap-layer' });
         }
         else {
-          layer = new ArcGISDynamicMapServiceLayer(options.tiledMapServer);
+          layer = new ArcGISDynamicMapServiceLayer(options.tiledMapServer, { id: 'basemap-layer' });
         }
 
         map.addLayer(layer);

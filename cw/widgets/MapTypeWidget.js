@@ -1,7 +1,9 @@
-﻿define(["x", "dojo/_base/declare", "dijit/_WidgetBase", "dojo/text!./MapTypeWidget.html",
+﻿define(["x", "cw/config", "esri/layers/ArcGISTiledMapServiceLayer", "esri/layers/ArcGISDynamicMapServiceLayer",
+  "dojo/_base/declare", "dijit/_WidgetBase", "dojo/text!./MapTypeWidget.html",
   "dojo/query", "dojo/dom-style", "dojo/dom-construct", "dojo/on", "dojo/_base/lang", "dojo/_base/connect",
   "xstyle/css!./MapTypeWidget.css", "dojo/domReady!"],
-  function (x, declare, WidgetBase, template, query, domStyle, domConstruct, on, lang, connect) {
+  function (x, config, ArcGISTiledMapServiceLayer, ArcGISDynamicMapServiceLayer,
+    declare, WidgetBase, template, query, domStyle, domConstruct, on, lang, connect) {
 
     // cw/widgets/MapTypeWidget
     return declare([WidgetBase], {
@@ -12,9 +14,6 @@
       label: '',
       onclick: '',
       constructor: function (params, node) {
-        // image = params.image;
-        console.log('constructor');
-
         if (params.map != undefined) {
           this.map = params.map;
         }
@@ -49,7 +48,10 @@
           if (node.default) {
             defaultMapType = node.value;
           }
-          outString += '<div class="widget-map-type-item" value="' + node.value + '">' + node.name + '</div>';
+          if (!node.url) {
+            node.url = '';
+          }
+          outString += '<div class="widget-map-type-item" value="' + node.value + '" url="' + node.url + '">' + node.name + '</div>';
         });
 
         this.domNode.innerHTML = innerHTML.replace('{widget-map-type-items}', outString);
@@ -63,9 +65,33 @@
         for (var i = 0, l = this.domNode.childNodes[0].childNodes.length; i < l; i++) {
           on(this.domNode.childNodes[0].childNodes[i], 'click', (function (evt) {
             var target = evt.currentTarget;
-            console.log(target)
-            // evt.currentTarget.attributes["value"];
-            this.map.setBasemap(target.attributes["value"].value);
+            var value = target.attributes["value"].value;
+            var url = target.attributes["url"].value;
+
+            console.log('set basemap:' + value)
+
+            if (url) {
+
+              // 加载地图服务
+              var layer = this.map.getLayer('basemap-layer');
+
+              if (layer) {
+                this.map.removeLayer(layer);
+              }
+
+              //if (config.tiledMapType == 'tiled') {
+              //  layer = new ArcGISTiledMapServiceLayer(url, { id: 'basemap-layer' });
+              //}
+              //else {
+                layer = new ArcGISDynamicMapServiceLayer(url, { id: 'basemap-layer' });
+              //}
+
+              this.map.addLayer(layer);
+            }
+            else {
+              // evt.currentTarget.attributes["value"];
+              this.map.setBasemap(target.attributes["value"].value);
+            }
           }).bind(this));
         }
 
