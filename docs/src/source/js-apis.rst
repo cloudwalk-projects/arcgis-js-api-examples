@@ -66,7 +66,7 @@ create - 创建地图
 
 **输出参数**
 
-esri.Map 对象
+`esri.Map 对象 <https://developers.arcgis.com/javascript/3/jsapi/map-amd.html>`_
 
 **示例代码**
 
@@ -113,7 +113,7 @@ edit - 编辑地图
 
 **输出参数**
 
-void
+无
 
 **示例代码**
 
@@ -229,7 +229,7 @@ initLayer - 初始化标记图层
 
 **输出参数**
 
-esri.layers.FeatureLayer 对象
+`esri.layers.FeatureLayer 对象 <https://developers.arcgis.com/javascript/3/jsapi/featurelayer-amd.html>`_
 
 **示例代码**
 
@@ -260,7 +260,7 @@ getLayer - 获取标记图层
 
 **输出参数**
 
-esri.layers.FeatureLayer 对象
+`esri.layers.FeatureLayer 对象 <https://developers.arcgis.com/javascript/3/jsapi/featurelayer-amd.html>`_
 
 **示例代码**
 
@@ -414,7 +414,7 @@ initLayer - 初始化覆盖物图层
 
 **输出参数**
 
-esri.layers.FeatureLayer 对象
+`esri.layers.FeatureLayer 对象 <https://developers.arcgis.com/javascript/3/jsapi/featurelayer-amd.html>`_
 
 add – 新增覆盖物数据
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -550,7 +550,7 @@ initLayer - 初始化摄像头图层
 
 **输出参数**
 
-esri.layers.FeatureLayer 对象
+`esri.layers.FeatureLayer 对象 <https://developers.arcgis.com/javascript/3/jsapi/featurelayer-amd.html>`_
 
 **示例代码**
 
@@ -587,7 +587,7 @@ getLayer - 获取摄像头图层
 
 **输出参数**
 
-esri.layers.FeatureLayer 对象
+`esri.layers.FeatureLayer 对象 <https://developers.arcgis.com/javascript/3/jsapi/featurelayer-amd.html>`_
 
 **示例代码**
 
