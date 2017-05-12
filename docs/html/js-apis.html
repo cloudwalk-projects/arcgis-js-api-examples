@@ -101,6 +101,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#markers">markers</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#initlayer">initLayer - 初始化标记图层</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#getlayer">getLayer - 获取标记图层</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#data">data - 设置摄像头状态数据</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#on">on - 事件绑定</a></li>
 </ul>
@@ -115,10 +116,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#cameras">cameras</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id8">initLayer - 初始化摄像头图层</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#getlayer">getLayer - 获取摄像头图层</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">getLayer - 获取摄像头图层</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#select">select - 选择摄像头数据</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#status">status - 设置摄像头状态数据</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id9">data - 设置摄像头状态数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">data - 设置摄像头状态数据</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#directions">directions</a><ul>
@@ -128,7 +129,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#util">util</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#lonat">lonat - 获取地图经纬度</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mercator2lonlat">mercator2lonlat - 墨卡托坐标转经纬度坐标</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id10">mercator2lonlat - 墨卡托坐标转经纬度坐标</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">mercator2lonlat - 墨卡托坐标转经纬度坐标</a></li>
 </ul>
 </li>
 </ul>
@@ -385,12 +386,38 @@
 <p>esri.layers.FeatureLayer 对象</p>
 <p><strong>示例代码</strong></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">markers</span><span class="p">.</span><span class="nx">initLayer</span><span class="p">({</span>
-  <span class="c1">// 显示地图的容器标识</span>
+  <span class="c1">// (必填)地图对象</span>
   <span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span>
   <span class="c1">// (必填)标记类别，camera， wifi</span>
   <span class="nx">markerType</span><span class="o">:</span> <span class="s2">&quot;camera&quot;</span><span class="p">,</span>
   <span class="c1">// 标记数据数据</span>
   <span class="nx">markers</span><span class="o">:</span><span class="p">[]</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getlayer">
+<h4>getLayer - 获取标记图层<a class="headerlink" href="#getlayer" title="永久链接至标题">¶</a></h4>
+<p><strong>输入参数</strong></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="c1">// (必填)地图对象</span>
+  <span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span>
+  <span class="c1">// (必填)标记类别，camera， wifi</span>
+  <span class="nx">markerType</span><span class="o">:</span> <span class="s2">&quot;camera&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>输出参数</strong></p>
+<p>esri.layers.FeatureLayer 对象</p>
+<p><strong>示例代码</strong></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">require</span><span class="p">([</span>
+    <span class="s2">&quot;cw/basemap&quot;</span><span class="p">,</span><span class="s2">&quot;cw/cameras&quot;</span><span class="p">,</span> <span class="p">...</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">basemap</span><span class="p">,</span> <span class="nx">cameras</span><span class="p">,</span> <span class="p">...</span> <span class="p">)</span> <span class="p">{</span>
+
+  <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">basemap</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="nx">divId</span><span class="o">:</span><span class="s1">&#39;map&#39;</span> <span class="p">});</span>
+
+  <span class="kd">var</span> <span class="nx">layer</span> <span class="o">=</span> <span class="nx">cameras</span><span class="p">.</span><span class="nx">getLayer</span><span class="p">({</span> <span class="nx">map</span><span class="o">:</span><span class="nx">map</span> <span class="p">});</span>
+<span class="p">...</span>
 <span class="p">});</span>
 </pre></div>
 </div>
@@ -654,8 +681,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="getlayer">
-<h4>getLayer - 获取摄像头图层<a class="headerlink" href="#getlayer" title="永久链接至标题">¶</a></h4>
+<div class="section" id="id9">
+<h4>getLayer - 获取摄像头图层<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h4>
 <p><strong>输入参数</strong></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="c1">// 地图对象</span>
@@ -727,8 +754,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id9">
-<h4>data - 设置摄像头状态数据<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h4>
+<div class="section" id="id10">
+<h4>data - 设置摄像头状态数据<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h4>
 <p><strong>输入参数</strong></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="c1">// (必填)地图对象</span>
@@ -880,8 +907,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id10">
-<h4>mercator2lonlat - 墨卡托坐标转经纬度坐标<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h4>
+<div class="section" id="id11">
+<h4>mercator2lonlat - 墨卡托坐标转经纬度坐标<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h4>
 <p><strong>输入参数</strong></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="c1">// 纬度</span>
