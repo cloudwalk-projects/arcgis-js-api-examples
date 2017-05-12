@@ -92,18 +92,33 @@
 <li class="toctree-l2"><a class="reference internal" href="#cw">cw</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#basemap">basemap</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#create">create - 创建地图</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edit">edit - 编辑地图</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#menu">menu</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bind">bind - 绑定菜单</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#markers">markers</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#initlayer">initLayer - 初始化标记图层</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data">data - 设置摄像头状态数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#on">on - 事件绑定</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#overlay">overlay</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">initLayer - 初始化覆盖物图层</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add">add – 新增覆盖物数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">edit – 编辑覆盖物数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#del">del – 新增覆盖物数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">on - 事件绑定</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#cameras">cameras</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id5">initLayer - 初始化摄像头图层</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">initLayer - 初始化摄像头图层</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#getlayer">getLayer - 获取摄像头图层</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#select">select - 选择摄像头数据</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#status">status - 设置摄像头状态数据</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data">data - 设置摄像头状态数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">data - 设置摄像头状态数据</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#directions">directions</a><ul>
@@ -113,7 +128,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#util">util</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#lonat">lonat - 获取地图经纬度</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mercator2lonlat">mercator2lonlat - 墨卡托坐标转经纬度坐标</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">mercator2lonlat - 墨卡托坐标转经纬度坐标</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">mercator2lonlat - 墨卡托坐标转经纬度坐标</a></li>
 </ul>
 </li>
 </ul>
@@ -249,6 +264,84 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="edit">
+<h4>edit - 编辑地图<a class="headerlink" href="#edit" title="永久链接至标题">¶</a></h4>
+<p><strong>输入参数</strong></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="c1">// 地图对象</span>
+   <span class="nx">map</span><span class="o">:</span> <span class="nx">map</span><span class="p">,</span>
+   <span class="c1">// (可选)中心点坐标</span>
+   <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mf">106.54917027</span><span class="p">,</span> <span class="mf">29.56358338</span><span class="p">],</span>
+   <span class="c1">// (可选)缩放比例</span>
+   <span class="nx">zoom</span><span class="o">:</span> <span class="mi">14</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>输出参数</strong></p>
+<p>void</p>
+<p><strong>示例代码</strong></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">require</span><span class="p">([</span>
+    <span class="s2">&quot;cw/basemap&quot;</span><span class="p">,</span> <span class="p">...</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">basemap</span><span class="p">,</span> <span class="p">...</span> <span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">basemap</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="nx">divId</span><span class="o">:</span> <span class="s2">&quot;map&quot;</span> <span class="p">});</span>
+
+  <span class="nx">basemap</span><span class="p">.</span><span class="nx">edit</span><span class="p">({</span>
+    <span class="nx">map</span><span class="o">:</span> <span class="nx">map</span><span class="p">,</span>
+    <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mf">106.54917027</span><span class="p">,</span> <span class="mf">29.56358338</span><span class="p">],</span>
+    <span class="nx">zoom</span><span class="o">:</span> <span class="mi">14</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="menu">
+<h3>menu<a class="headerlink" href="#menu" title="永久链接至标题">¶</a></h3>
+<p>地图的上下文菜单</p>
+<div class="section" id="bind">
+<h4>bind - 绑定菜单<a class="headerlink" href="#bind" title="永久链接至标题">¶</a></h4>
+<p><strong>输入参数</strong></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="c1">// 地图或者图层对象</span>
+  <span class="nx">target</span><span class="o">:</span> <span class="nx">layer</span><span class="p">,</span>
+  <span class="c1">// 菜单列表</span>
+  <span class="nx">items</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="c1">// (必填)名称</span>
+      <span class="nx">label</span><span class="o">:</span> <span class="s2">&quot;抓拍记录&quot;</span><span class="p">,</span>
+      <span class="c1">// 事件</span>
+      <span class="nx">onClick</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">},</span>
+      <span class="c1">// (可选)子菜单列表</span>
+      <span class="nx">items</span><span class="o">:</span> <span class="p">[]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="c1">// (必填)名称</span>
+      <span class="nx">label</span><span class="o">:</span> <span class="s2">&quot;告警记录&quot;</span><span class="p">,</span>
+      <span class="c1">// 事件</span>
+      <span class="nx">onClick</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">},</span>
+      <span class="c1">// (可选)子菜单列表</span>
+      <span class="nx">items</span><span class="o">:</span> <span class="p">[]</span>
+    <span class="p">},</span>
+    <span class="p">...</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>输出参数</strong></p>
+<p>无</p>
+<p><strong>示例代码</strong></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">menu</span><span class="p">.</span><span class="nx">bind</span><span class="p">({</span>
+  <span class="nx">target</span><span class="o">:</span> <span class="nx">map</span><span class="p">,</span>
+  <span class="nx">items</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">label</span><span class="o">:</span> <span class="s2">&quot;菜单 Map 1&quot;</span><span class="p">,</span> <span class="nx">onClick</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;菜单 Map 1&quot;</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}]</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="markers">
 <h3>markers<a class="headerlink" href="#markers" title="永久链接至标题">¶</a></h3>
@@ -257,67 +350,286 @@
 <h4>initLayer - 初始化标记图层<a class="headerlink" href="#initlayer" title="永久链接至标题">¶</a></h4>
 <p><strong>输入参数</strong></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
-     <span class="c1">// (必填)显示地图的容器标识</span>
-     <span class="nx">divId</span><span class="o">:</span><span class="s1">&#39;map&#39;</span><span class="p">,</span>
-     <span class="c1">// 中心点坐标</span>
-     <span class="nx">center</span><span class="o">:</span><span class="p">[],</span>
-     <span class="c1">// 默认缩放比例</span>
-     <span class="nx">zoom</span><span class="o">:</span><span class="mi">16</span><span class="p">,</span>
-     <span class="c1">// 最小缩放比例</span>
-     <span class="nx">minZoom</span><span class="o">:</span><span class="mi">15</span><span class="p">,</span>
-     <span class="c1">// 最大缩放比例</span>
-     <span class="nx">maxZoom</span><span class="o">:</span><span class="mi">19</span>
- <span class="p">}</span>
+  <span class="c1">// (必填)地图对象</span>
+  <span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span>
+  <span class="c1">// (必填)标记类别，camera， wifi</span>
+  <span class="nx">markerType</span><span class="o">:</span> <span class="s2">&quot;camera&quot;</span><span class="p">,</span>
+  <span class="c1">// (必填)标记数据</span>
+  <span class="nx">markers</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;10001&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;camera&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;C10001&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ip&quot;</span><span class="o">:</span> <span class="s2">&quot;192.168.0.1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;y&quot;</span><span class="o">:</span> <span class="s2">&quot;29.550517&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;x&quot;</span><span class="o">:</span> <span class="s2">&quot;106.548977&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;visible&quot;</span><span class="o">:</span><span class="kc">true</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;10002&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;camera&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;C10002&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ip&quot;</span><span class="o">:</span> <span class="s2">&quot;192.168.0.2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;y&quot;</span><span class="o">:</span> <span class="s2">&quot;29.550617&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;x&quot;</span><span class="o">:</span> <span class="s2">&quot;106.546977&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;visible&quot;</span><span class="o">:</span><span class="kc">true</span>
+  <span class="p">},</span>
+  <span class="p">...</span>
+  <span class="p">]</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>输出参数</strong></p>
-<p>esri.Map 对象</p>
+<p>esri.layers.FeatureLayer 对象</p>
 <p><strong>示例代码</strong></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">markers</span><span class="p">.</span><span class="nx">initLayer</span><span class="p">({</span>
-    <span class="c1">// 显示地图的容器标识</span>
+  <span class="c1">// 显示地图的容器标识</span>
+  <span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span>
+  <span class="c1">// (必填)标记类别，camera， wifi</span>
+  <span class="nx">markerType</span><span class="o">:</span> <span class="s2">&quot;camera&quot;</span><span class="p">,</span>
+  <span class="c1">// 标记数据数据</span>
+  <span class="nx">markers</span><span class="o">:</span><span class="p">[]</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="data">
+<h4>data - 设置摄像头状态数据<a class="headerlink" href="#data" title="永久链接至标题">¶</a></h4>
+<p><strong>输入参数</strong></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="c1">// (必填)地图对象</span>
+  <span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span>
+  <span class="c1">// (必填)摄像头唯一标识</span>
+  <span class="nx">markerId</span><span class="o">:</span><span class="s1">&#39;0001&#39;</span><span class="p">,</span>
+  <span class="c1">// (可选)标记相关的数据</span>
+  <span class="nx">data</span><span class="o">:</span><span class="nx">data</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>输出参数</strong></p>
+<p>摄像头数据</p>
+<p><strong>示例代码</strong></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">require</span><span class="p">([</span>
+    <span class="s2">&quot;cw/basemap&quot;</span><span class="p">,</span><span class="s2">&quot;cw/markers&quot;</span><span class="p">,</span> <span class="p">...</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">basemap</span><span class="p">,</span> <span class="nx">markers</span><span class="p">,</span> <span class="p">...</span> <span class="p">)</span> <span class="p">{</span>
+
+  <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">basemap</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="nx">divId</span><span class="o">:</span><span class="s1">&#39;map&#39;</span><span class="p">});</span>
+
+  <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">markers</span><span class="p">.</span><span class="nx">data</span><span class="p">({</span><span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span> <span class="nx">cameraId</span><span class="o">:</span><span class="s1">&#39;001&#39;</span><span class="p">});</span>
+
+  <span class="nx">markers</span><span class="p">.</span><span class="nx">data</span><span class="p">({</span>
+    <span class="c1">// 地图对象</span>
     <span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span>
-    <span class="c1">// 坐标点数据</span>
-    <span class="nx">points</span><span class="o">:</span><span class="p">[]</span>
+    <span class="c1">// 摄像头标识</span>
+    <span class="nx">cameraId</span><span class="o">:</span><span class="s1">&#39;001&#39;</span><span class="p">,</span>
+    <span class="c1">// 摄像头状态</span>
+    <span class="nx">data</span><span class="o">:</span><span class="nx">x</span><span class="p">.</span><span class="nx">ext</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span> <span class="nx">count</span><span class="o">:</span><span class="mi">100</span><span class="p">})</span>
+  <span class="p">});</span>
+  <span class="p">...</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="on">
+<h4>on - 事件绑定<a class="headerlink" href="#on" title="永久链接至标题">¶</a></h4>
+<p><strong>输入参数</strong></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="c1">// (必填)地图对象</span>
+  <span class="nx">map</span><span class="o">:</span> <span class="nx">map</span><span class="p">,</span>
+  <span class="c1">// (必填)标注类别: camera, wifi</span>
+  <span class="nx">markerType</span><span class="o">:</span> <span class="s2">&quot;camera&quot;</span><span class="p">,</span>
+  <span class="c1">// (必填)事件类型</span>
+  <span class="nx">event</span><span class="o">:</span> <span class="s2">&quot;click&quot;</span><span class="p">,</span>
+  <span class="c1">// (必填)事件处理函数</span>
+  <span class="nx">handler</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>输出参数</strong></p>
+<p>无</p>
+<p><strong>示例代码</strong></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">require</span><span class="p">([</span>
+    <span class="s2">&quot;cw/basemap&quot;</span><span class="p">,</span><span class="s2">&quot;cw/markers&quot;</span><span class="p">,</span> <span class="p">...</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">basemap</span><span class="p">,</span> <span class="nx">markers</span><span class="p">,</span> <span class="p">...</span> <span class="p">)</span> <span class="p">{</span>
+
+  <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">basemap</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="nx">divId</span><span class="o">:</span><span class="s1">&#39;map&#39;</span><span class="p">});</span>
+
+  <span class="c1">// 事件绑定</span>
+  <span class="nx">markers</span><span class="p">.</span><span class="nx">on</span><span class="p">({</span>
+    <span class="nx">map</span><span class="o">:</span> <span class="nx">map</span><span class="p">,</span>
+    <span class="nx">event</span><span class="o">:</span> <span class="s2">&quot;mouse-over&quot;</span><span class="p">,</span>
+    <span class="nx">handler</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">graphic</span> <span class="o">=</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">graphic</span><span class="p">;</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="o">!!</span><span class="nx">graphic</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">graphic</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+  <span class="p">...</span>
 <span class="p">});</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="section" id="overlay">
+<h3>overlay<a class="headerlink" href="#overlay" title="永久链接至标题">¶</a></h3>
+<p>覆盖物管理</p>
+<div class="section" id="id5">
+<h4>initLayer - 初始化覆盖物图层<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h4>
+<p><strong>输入参数</strong></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="c1">// 地图对象</span>
+  <span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span>
+  <span class="c1">// 是否所有覆盖物编辑状态，0：是，1：否</span>
+  <span class="s2">&quot;editble&quot;</span><span class="o">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+  <span class="c1">// 覆盖物数据信息</span>
+  <span class="nx">overlay</span><span class="o">:</span><span class="p">[</span>
+    <span class="p">{</span>
+      <span class="c1">// 唯一标识</span>
+      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;0001&quot;</span><span class="p">,</span>
+      <span class="c1">// 是否可见，0：可见，1：不可见</span>
+      <span class="s2">&quot;visible&quot;</span><span class="o">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+      <span class="c1">// 当前覆盖物编辑状态，0：是，1：否</span>
+      <span class="s2">&quot;editble&quot;</span><span class="o">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+      <span class="c1">// 名称</span>
+      <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;区域 1&quot;</span><span class="p">,</span>
+      <span class="c1">// 地址</span>
+      <span class="s2">&quot;location&quot;</span><span class="o">:</span> <span class="s2">&quot;泉州市五堡新村&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="c1">// 唯一标识</span>
+      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;0002&quot;</span><span class="p">,</span>
+      <span class="c1">// 是否可见，0：可见，1：不可见</span>
+      <span class="s2">&quot;visible&quot;</span><span class="o">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+      <span class="c1">// 当前覆盖物编辑状态，0：是，1：否</span>
+      <span class="s2">&quot;editble&quot;</span><span class="o">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+      <span class="c1">// 名称</span>
+      <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;区域 2&quot;</span><span class="p">,</span>
+      <span class="c1">// 地址</span>
+      <span class="s2">&quot;location&quot;</span><span class="o">:</span> <span class="s2">&quot;泉州市天后路&quot;</span>
+    <span class="p">},</span>
+    <span class="p">...</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>输出参数</strong></p>
+<p>esri.layers.FeatureLayer 对象</p>
+</div>
+<div class="section" id="add">
+<h4>add – 新增覆盖物数据<a class="headerlink" href="#add" title="永久链接至标题">¶</a></h4>
+<p><strong>输入参数</strong></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="c1">// 标注图层对象</span>
+  <span class="nx">layer</span><span class="o">:</span><span class="nx">layer</span><span class="p">,</span>
+  <span class="c1">// 唯一标识</span>
+  <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;0009&quot;</span><span class="p">,</span>
+  <span class="c1">// 是否可见，0：可见，1：不可见</span>
+  <span class="s2">&quot;visible&quot;</span><span class="o">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+  <span class="c1">// 是否编辑状态，0：是，1：否</span>
+  <span class="s2">&quot;editble&quot;</span><span class="o">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+  <span class="c1">// 名称</span>
+  <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;新增区域 1&quot;</span><span class="p">,</span>
+  <span class="c1">// 地址</span>
+  <span class="s2">&quot;location&quot;</span><span class="o">:</span> <span class="s2">&quot;泉州市天后路&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>输出参数</strong></p>
+<p>无</p>
+</div>
+<div class="section" id="id6">
+<h4>edit – 编辑覆盖物数据<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
+<p><strong>输入参数</strong></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="c1">// 标注图层对象</span>
+  <span class="nx">layer</span><span class="o">:</span><span class="nx">layer</span><span class="p">,</span>
+  <span class="c1">// 唯一标识</span>
+  <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;0001&quot;</span><span class="p">,</span>
+  <span class="c1">// 是否可见，0：可见，1：不可见</span>
+  <span class="s2">&quot;visible&quot;</span><span class="o">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+  <span class="c1">// 是否编辑状态，0：是，1：否</span>
+  <span class="s2">&quot;editble&quot;</span><span class="o">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+  <span class="c1">// 名称</span>
+  <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;区域 1&quot;</span><span class="p">,</span>
+  <span class="c1">// 地址</span>
+  <span class="s2">&quot;location&quot;</span><span class="o">:</span> <span class="s2">&quot;泉州市天后路&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>输出参数</strong></p>
+<p>无</p>
+</div>
+<div class="section" id="del">
+<h4>del – 新增覆盖物数据<a class="headerlink" href="#del" title="永久链接至标题">¶</a></h4>
+<p><strong>输入参数</strong></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="c1">// 标注图层对象</span>
+  <span class="nx">layer</span><span class="o">:</span><span class="nx">layer</span><span class="p">,</span>
+  <span class="c1">// 唯一标识</span>
+  <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;0009&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>输出参数</strong></p>
+<p>无</p>
+</div>
+<div class="section" id="id7">
+<h4>on - 事件绑定<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h4>
+<p><strong>输入参数</strong></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="c1">// (必填)图层对象</span>
+  <span class="nx">layer</span><span class="o">:</span> <span class="nx">layer</span><span class="p">,</span>
+  <span class="c1">// (必填)事件类型</span>
+  <span class="nx">event</span><span class="o">:</span> <span class="s2">&quot;click&quot;</span><span class="p">,</span>
+  <span class="c1">// (必填)事件处理函数</span>
+  <span class="nx">handler</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>输出参数</strong></p>
+<p>无</p>
+</div>
+</div>
 <div class="section" id="cameras">
 <h3>cameras<a class="headerlink" href="#cameras" title="永久链接至标题">¶</a></h3>
 <p>摄像头管理</p>
-<div class="section" id="id5">
-<h4>initLayer - 初始化摄像头图层<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h4>
+<div class="section" id="id8">
+<h4>initLayer - 初始化摄像头图层<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h4>
 <p><strong>输入参数</strong></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
-     <span class="c1">// 地图对象</span>
-     <span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span>
-     <span class="c1">// 摄像头数据信息</span>
-     <span class="nx">cameras</span><span class="o">:</span><span class="p">[{</span>
-         <span class="c1">// 唯一标识</span>
-         <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;0001&quot;</span><span class="p">,</span>
-         <span class="c1">// 名称</span>
-         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;摄像头 1&quot;</span><span class="p">,</span>
-         <span class="c1">// 描述</span>
-         <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-         <span class="c1">// IP</span>
-         <span class="s2">&quot;ip&quot;</span><span class="o">:</span> <span class="s2">&quot;192.168.0.1&quot;</span><span class="p">,</span>
-         <span class="c1">// 经度</span>
-         <span class="s2">&quot;x&quot;</span><span class="o">:</span> <span class="s2">&quot;106.55097271762801&quot;</span><span class="p">,</span>
-         <span class="c1">// 纬度</span>
-         <span class="s2">&quot;y&quot;</span><span class="o">:</span> <span class="s2">&quot;29.563900672574004&quot;</span>
-     <span class="p">},</span>
-     <span class="p">{</span>
-         <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;0002&quot;</span><span class="p">,</span>
-         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;摄像头 2&quot;</span><span class="p">,</span>
-         <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-         <span class="s2">&quot;ip&quot;</span><span class="o">:</span> <span class="s2">&quot;192.168.0.2&quot;</span><span class="p">,</span>
-         <span class="s2">&quot;x&quot;</span><span class="o">:</span> <span class="s2">&quot;106.54717470966243&quot;</span><span class="p">,</span>
-         <span class="s2">&quot;y&quot;</span><span class="o">:</span> <span class="s2">&quot;29.560709076232932&quot;</span>
-     <span class="p">}</span>
-     <span class="p">...</span>
-     <span class="p">]</span>
- <span class="p">}</span>
+  <span class="c1">// 地图对象</span>
+  <span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span>
+  <span class="c1">// 摄像头数据信息</span>
+  <span class="nx">cameras</span><span class="o">:</span><span class="p">[</span>
+    <span class="p">{</span>
+      <span class="c1">// 唯一标识</span>
+      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;0001&quot;</span><span class="p">,</span>
+      <span class="c1">// 名称</span>
+      <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;摄像头 1&quot;</span><span class="p">,</span>
+      <span class="c1">// 描述</span>
+      <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+      <span class="c1">// IP</span>
+      <span class="s2">&quot;ip&quot;</span><span class="o">:</span> <span class="s2">&quot;192.168.0.1&quot;</span><span class="p">,</span>
+      <span class="c1">// 经度</span>
+      <span class="s2">&quot;x&quot;</span><span class="o">:</span> <span class="s2">&quot;106.55097271762801&quot;</span><span class="p">,</span>
+      <span class="c1">// 纬度</span>
+      <span class="s2">&quot;y&quot;</span><span class="o">:</span> <span class="s2">&quot;29.563900672574004&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;0002&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;摄像头 2&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;ip&quot;</span><span class="o">:</span> <span class="s2">&quot;192.168.0.2&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;x&quot;</span><span class="o">:</span> <span class="s2">&quot;106.54717470966243&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;y&quot;</span><span class="o">:</span> <span class="s2">&quot;29.560709076232932&quot;</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+  <span class="p">]</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>输出参数</strong></p>
@@ -415,17 +727,17 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="data">
-<h4>data - 设置摄像头状态数据<a class="headerlink" href="#data" title="永久链接至标题">¶</a></h4>
+<div class="section" id="id9">
+<h4>data - 设置摄像头状态数据<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h4>
 <p><strong>输入参数</strong></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
-     <span class="c1">// (必填)地图对象</span>
-     <span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span>
-     <span class="c1">// 摄像头唯一标识</span>
-     <span class="nx">cameraId</span><span class="o">:</span><span class="s1">&#39;0001&#39;</span><span class="p">,</span>
-     <span class="c1">// 摄像头相关的数据</span>
-     <span class="nx">data</span><span class="o">:</span><span class="nx">data</span>
- <span class="p">}</span>
+  <span class="c1">// (必填)地图对象</span>
+  <span class="nx">map</span><span class="o">:</span><span class="nx">map</span><span class="p">,</span>
+  <span class="c1">// (必填)摄像头唯一标识</span>
+  <span class="nx">cameraId</span><span class="o">:</span><span class="s1">&#39;0001&#39;</span><span class="p">,</span>
+  <span class="c1">// (可选)摄像头相关的数据</span>
+  <span class="nx">data</span><span class="o">:</span><span class="nx">data</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>输出参数</strong></p>
@@ -568,8 +880,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id6">
-<h4>mercator2lonlat - 墨卡托坐标转经纬度坐标<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
+<div class="section" id="id10">
+<h4>mercator2lonlat - 墨卡托坐标转经纬度坐标<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h4>
 <p><strong>输入参数</strong></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="c1">// 纬度</span>

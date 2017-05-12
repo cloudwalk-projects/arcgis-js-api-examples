@@ -59,24 +59,10 @@
       "iframe": true
     },
     {
-      "id": "example-3",
-      "name": "报警窗口",
-      "parent": "examples",
-      "href": "cw/examples/sandbox/sandbox.html?example=api_markers_info_window",
-      "iframe": true
-    },
-    {
       "id": "example-4",
       "name": "查询轨迹数据",
       "parent": "examples",
       "href": "cw/examples/sandbox/sandbox.html?example=api_directions_query",
-      "iframe": true
-    },
-    {
-      "id": "example-5",
-      "name": "选择摄像头数据",
-      "parent": "examples",
-      "href": "cw/examples/example-5-api-cameras-select.html",
       "iframe": true
     },
     {
