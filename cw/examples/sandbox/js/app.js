@@ -13,7 +13,7 @@ require([
   'esri/map',
   'dojo/NodeList-dom',
   'dojo/domReady!'
-], function($, on, dom, domConstruct, domGeom, connect, has, event, domClass, domStyle, domUtils) {
+], function ($, on, dom, domConstruct, domGeom, connect, has, event, domClass, domStyle, domUtils) {
 
   // declare shared variables
   var editor, exampleFolder, sandboxIsLoaded, toggleCodeWidth, toggleOutputWidth;
@@ -67,13 +67,13 @@ require([
   function bindEventHandlers() {
     log('bindEventHandlers');
 
-    $code    = $('#code');
-    $handle  = $('#handle');
-    $output  = $('#output');
+    $code = $('#code');
+    $handle = $('#handle');
+    $output = $('#output');
     $fullscreen = $('#fullscreen');
-    $save    = $('#save-file');
-    $toggle  = $('.toggle');
-    $update  = $('#update-sandbox');
+    $save = $('#save-file');
+    $toggle = $('.toggle');
+    $update = $('#update-sandbox');
     $wrapper = $('#wrapper');
 
     $handle.on('mousedown', resizePanes);
@@ -146,7 +146,7 @@ require([
     // create an iframe
     var iframe = domConstruct.create('iframe', { 'id': iframeName }, 'output');
 
-    sandboxIsLoaded = on(iframe, 'load', function() {
+    sandboxIsLoaded = on(iframe, 'load', function () {
       domUtils.hide(dom.byId('loader')); // Hide the loading icon
 
       $update.attr('disabled', false);
@@ -158,15 +158,15 @@ require([
 
     idoc = (iframe.contentWindow) ?
       iframe.contentWindow : (iframe.contentDocument.document) ?
-      iframe.contentDocument.document : iframe.contentDocument;
+        iframe.contentDocument.document : iframe.contentDocument;
 
     var content = editor.getSession().getValue();
 
     var relLinks = content.match(/href=".+?"/g);
     if (relLinks) {
-      relLinks = relLinks.filter(function(url){ return url.indexOf("//") === -1 }); // ignore absolute URLs
-      relLinks = relLinks.concat(content.match(/src=".+?"/g).filter(function(url){ return url.indexOf("//") === -1 }));
-      relLinks.forEach(function(href){
+      relLinks = relLinks.filter(function (url) { return url.indexOf("//") === -1 }); // ignore absolute URLs
+      relLinks = relLinks.concat(content.match(/src=".+?"/g).filter(function (url) { return url.indexOf("//") === -1 }));
+      relLinks.forEach(function (href) {
         var path = href.split('"')[1];
         //content = content.replace(path, "../examples/" + exampleFolder + "/" + path);
         // content = content.replace(path, "../examples/" + exampleFolder + "/" + path);
@@ -175,8 +175,8 @@ require([
 
     relLinks = content.match(/src='.+?'/g);
     if (relLinks) {
-      relLinks = relLinks.filter(function(url){ return url.indexOf("//") === -1 }); // ignore absolute URLs
-      relLinks.forEach(function(href){
+      relLinks = relLinks.filter(function (url) { return url.indexOf("//") === -1 }); // ignore absolute URLs
+      relLinks.forEach(function (href) {
         var path = href.split("'")[1];
         content = content.replace(path, "../examples/" + exampleFolder + "/" + path);
       });
@@ -186,7 +186,7 @@ require([
     //      "images/mangrove.png",
     relLinks = content.match(/images\/mangrove.png/g);
     if (relLinks) {
-      relLinks.forEach(function(href){
+      relLinks.forEach(function (href) {
         content = content.replace(href, "../examples/" + exampleFolder + "/" + href);
       });
     };
@@ -196,8 +196,8 @@ require([
     //      url: "county_population.csv"
     relLinks = content.match(/url: ".+?"/g);
     if (relLinks) {
-      relLinks = relLinks.filter(function(url){ return url.indexOf("//") === -1 }); // ignore absolute URLs
-      relLinks.forEach(function(href){
+      relLinks = relLinks.filter(function (url) { return url.indexOf("//") === -1 }); // ignore absolute URLs
+      relLinks.forEach(function (href) {
         var file = href.split('"')[1];
         content = content.replace(file, "../examples/" + exampleFolder + "/" + file);
       });
@@ -207,8 +207,8 @@ require([
     //      "url": "images/flickr.png",
     relLinks = content.match(/"url": ".+?"/g);
     if (relLinks) {
-      relLinks = relLinks.filter(function(url){ return url.indexOf("//") === -1 }); // ignore absolute URLs
-      relLinks.forEach(function(href){
+      relLinks = relLinks.filter(function (url) { return url.indexOf("//") === -1 }); // ignore absolute URLs
+      relLinks.forEach(function (href) {
         var file = href.split('"')[3]; // more "s than in fix above
         content = content.replace(file, "../examples/" + exampleFolder + "/" + file);
       });
@@ -218,7 +218,7 @@ require([
     //      .undoIcon { background-image:url(images/undo.png); width:16px; height:16px; }
     relLinks = content.match(/background-image:url\(.+?\.png/g);
     if (relLinks) {
-      relLinks.forEach(function(href){
+      relLinks.forEach(function (href) {
         var file = href.split('(')[1];
         content = content.replace(file, "../examples/" + exampleFolder + "/" + file);
       });
@@ -227,17 +227,17 @@ require([
     // fix for syntax used in smartmapping_bycolor sample
     //      imageUrl: "images/busy-indicator.gif",
     relLinks = content.match(/imageUrl: ".+?"/g);
-        if (relLinks) {
-          relLinks = relLinks.filter(function(url){ return url.indexOf("//") === -1 }); // ignore absolute URLs
-          relLinks.forEach(function(href){
-            var file = href.split('"')[1];
-            //content = content.replace(file, "../examples/" + exampleFolder + "/" + file);
-          });
+    if (relLinks) {
+      relLinks = relLinks.filter(function (url) { return url.indexOf("//") === -1 }); // ignore absolute URLs
+      relLinks.forEach(function (href) {
+        var file = href.split('"')[1];
+        //content = content.replace(file, "../examples/" + exampleFolder + "/" + file);
+      });
     };
 
     var jsLinks = content.match(/location.pathname.+\"/g);
     if (jsLinks) {
-      jsLinks.forEach(function(href){
+      jsLinks.forEach(function (href) {
         //content = content.replace(/""\)/, "\"/../examples/" + exampleFolder + "/\")");
         //content = content.replace(/''\)/, "\'/../examples/" + exampleFolder + "/\')");
       });
@@ -256,7 +256,7 @@ require([
       // set the iframe's src attribute
       // otherwise, no referrer is sent when making requests from the iframe
       // which breaks samples which use the /sproxy on developers.arcgis.com
-        // TODO temporary fix (Chris), need to go back and check what this is doing
+      // TODO temporary fix (Chris), need to go back and check what this is doing
       //iframe.src = '../examples/' + exampleFolder + '/index.html';
     }
   }
@@ -292,14 +292,17 @@ require([
     var min = 550;
     var width = domStyle.get('wrapper', 'width');
 
-    var dragHandle = on(window, 'mousemove', function(e){
+    var dragHandle = on(window, 'mousemove', function (e) {
       event.stop(e);
       if (e.pageX > min) {
         setHandlePosition(e.pageX + 8, width);
       }
     });
 
-    on.once(parent.document, 'mouseup', function(e){
+    // 由于内嵌到 tab 控件，所以 parent.document 方式会引起错误
+    // on.once(parent.document, 'mouseup', function(e){
+    on.once(window, 'mouseup', function (e) {
+      console.log(parent.document);
       $wrapper.removeClass('resizing');
       connect.disconnect(dragHandle);
     });
