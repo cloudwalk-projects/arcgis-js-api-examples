@@ -43,7 +43,7 @@ define(["cw/config",
     ColorPicker,
 	Menu,MenuItem,MenuSeparator
     ) {
-
+		
         // 默认设置
         var defaults = {
             layerId: 'map-polygon-layer',
