@@ -4,11 +4,11 @@
 <head>
   <title>编辑覆盖物图</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" /> 
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
   <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
   <link rel="stylesheet" href="http://map.x3platform.com/dijit/themes/claro/claro.css">
   <link rel="stylesheet" href="http://map.x3platform.com/dojox/widget/ColorPicker/ColorPicker.css">
-  
+
   <style>
     html,
     body,
@@ -36,7 +36,7 @@
          // 当前覆盖物编辑状态，0：是，1：否
          "editble": "1",
 		 // 名称
-         "name": "区域 1",   
+         "name": "区域 1",
          // 地址
          "location": "泉州市五堡新村"
 		},
@@ -48,7 +48,7 @@
          // 当前覆盖物编辑状态，0：是，1：否
          "editble": "1",
          // 名称
-         "name": "区域 2",    
+         "name": "区域 2",
          // 地址
          "location": "泉州市天后路"
 		},
@@ -59,11 +59,11 @@
           // 显示地图的容器标识
           map: map,
           // 是否可编辑状态 0:是  1：否
-          editEnable:"0",
+          editEnable:"1",
           // 覆盖物信息
           overlay: overlayArr
         });
-		
+
 		//--------------------------------
         // 绑定事件
         //--------------------------------
@@ -72,7 +72,7 @@
 			event: "mouse-over",
 			handler: getPolygon
 		});
-		
+
         function getPolygon(evt){
 			var node = evt.graphic;
 			// 获取覆盖物中心点
@@ -81,7 +81,7 @@
 			var lonat = util.mercator2lonlat(point);
 			dojo.byId('results').innerHTML = '<p>名称:' + node.attributes.NAME + '  地址：' + node.attributes.LOCATION+"</p> <p>  中心点坐标：x-"+ lonat.x +" y-" + lonat.y +"</p>";
 		};
-		
+
 		// 设置覆盖物数据
 		on(query("#btnEdit"), "click", function (evt) {
 			overlays.on({
@@ -90,10 +90,10 @@
 				handler: setPolygon
 			});
         });
-        
+
         // 绑定覆盖物修改事件
         function setPolygon(evt){
-        	
+
         	var node = evt.graphic;
         	overlays.edit({
 				// 经过初始化的覆盖物图层对象
@@ -101,7 +101,7 @@
 				// 唯一标识
 				id:	node.attributes.ID,
 				// 是否可见，0：可见，1：不可见
-				visible: "1",
+				visible: "0",
 				// 是否可编辑状态 0:是  1：否
 				editble: "0",
 				// 名称
@@ -110,7 +110,7 @@
 				location: "泉州市五堡新村"
 			});
         };
-		
+
     });
   </script>
 </head>
