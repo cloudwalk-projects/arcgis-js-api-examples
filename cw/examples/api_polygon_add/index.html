@@ -4,11 +4,11 @@
 <head>
   <title>新增覆盖物</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" /> 
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
   <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
   <link rel="stylesheet" href="http://map.x3platform.com/dijit/themes/claro/claro.css">
   <link rel="stylesheet" href="http://map.x3platform.com/dojox/widget/ColorPicker/ColorPicker.css">
-  
+
   <style>
     html,
     body,
@@ -36,22 +36,34 @@
          // 当前覆盖物编辑状态，0：是，1：否
          "editble": "1",
 		 // 名称
-         "name": "区域 1",   
+         "name": "区域 1",
          // 地址
          "location": "泉州市五堡新村"
 		},
      	{
-          // 唯一标识
-         "id": "3140d106212d4d658bb4584a2173476d",
-		 // 是否可见，0：可见，1：不可见
-         "visible": "0",
-         // 当前覆盖物编辑状态，0：是，1：否
-         "editble": "1",
-         // 名称
-         "name": "区域 2",    
-         // 地址
-         "location": "泉州市天后路"
-		},
+        // 唯一标识
+        "id": "b26f988de89644049b99d7b74119c658",
+        // 是否可见，0：可见，1：不可见
+        "visible": "0",
+        // 当前覆盖物编辑状态，0：是，1：否
+        "editble": "1",
+        // 名称
+        "name": "区域 2",
+        // 地址
+        "location": "泉州市天后路"
+      },
+      {
+        // 唯一标识
+        "id": "9ba469ed-ce7d-b493-5915-bdfa7c3a4b2b",
+        // 是否可见，0：可见，1：不可见
+        "visible": "0",
+        // 当前覆盖物编辑状态，0：是，1：否
+        "editble": "1",
+        // 名称
+        "name": "区域 3",
+        // 地址
+        "location": "泉州市天后路"
+      },
      ];
 
 	  // 初始化覆盖物图层
@@ -63,7 +75,7 @@
           // 覆盖物信息
           overlay: overlayArr
         });
-		
+
 		//--------------------------------
         // 绑定事件
         //--------------------------------
@@ -72,7 +84,7 @@
 			event: "mouse-over",
 			handler: getPolygon
 		});
-		
+
         function getPolygon(evt){
 			var node = evt.graphic;
 			// 获取覆盖物中心点
@@ -81,12 +93,12 @@
 			var lonat = util.mercator2lonlat(point);
 			dojo.byId('results').innerHTML = '<p>名称:' + node.attributes.NAME + '  地址：' + node.attributes.LOCATION+"</p> <p>  中心点坐标：x-"+ lonat.x +" y-" + lonat.y +"</p>";
 		};
-		
+
 		// 新增覆盖物
 		on(query("#btnAdd"), "click", function (evt) {
 			setPolygon(evt);
         });
-        
+
         // 绑定覆盖物新增事件
         function setPolygon(evt){
         	var newID = x.guid.create();
@@ -105,7 +117,7 @@
 				location: "泉州市五堡新村"
 			});
         };
-		
+
 		// 删除覆盖物
 		on(query("#btnDel"), "click", function (evt) {
 			overlays.on({
@@ -114,7 +126,7 @@
 				handler: delPolygon
 			});
         });
-        
+
         // 绑定覆盖物删除事件
         function delPolygon(evt){
         	var delID = evt.graphic.attributes.ID;
@@ -135,7 +147,7 @@
   <div id="windowLonlatContainer" style="display: block; position: absolute; z-index: 10; background: #fff; padding: 8px; border-radius: 4px; top: 10px;left: 10px;">
     <button id="btnAdd">新增</button>
     <button id="btnDel">删除</button>
-    <div id="description" style="margin:10px 0 0 0;">点击【新增】按钮，鼠标右键新增覆盖物。点击【删除】按钮，鼠标左键需要删除的覆盖物</div>
+    <div id="description" style="margin:10px 0 0 0;">点击【新增】按钮，然后鼠标右键选择新增覆盖物。点击【删除】按钮，然后鼠标左键需要删除的覆盖物</div>
     <div id="results" style="margin:10px 0 0 0;"></div>
   </div>
 </body>

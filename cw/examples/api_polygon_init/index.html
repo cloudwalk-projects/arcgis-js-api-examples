@@ -4,7 +4,7 @@
 <head>
   <title>初始化覆盖物图层</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" /> 
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
   <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
   <link rel="stylesheet" href="http://map.x3platform.com/dijit/themes/claro/claro.css">
   <link rel="stylesheet" href="http://map.x3platform.com/dojox/widget/ColorPicker/ColorPicker.css">
@@ -36,38 +36,50 @@
          // 当前覆盖物编辑状态，0：是，1：否
          "editble": "1",
 		 // 名称
-         "name": "区域 1",   
+         "name": "区域 1",
          // 地址
          "location": "泉州市五堡新村"
 		},
      	{
           // 唯一标识
-         "id": "3140d106212d4d658bb4584a2173476d",
+         "id": "b26f988de89644049b99d7b74119c658",
 		 // 是否可见，0：可见，1：不可见
          "visible": "0",
          // 当前覆盖物编辑状态，0：是，1：否
          "editble": "1",
          // 名称
-         "name": "区域 2",    
+         "name": "区域 2",
          // 地址
          "location": "泉州市天后路"
 		},
+      {
+        // 唯一标识
+        "id": "9ba469ed-ce7d-b493-5915-bdfa7c3a4b2b",
+        // 是否可见，0：可见，1：不可见
+        "visible": "0",
+        // 当前覆盖物编辑状态，0：是，1：否
+        "editble": "1",
+        // 名称
+        "name": "区域 3",
+        // 地址
+        "location": "泉州市天后路"
+      },
      ];
 
 
 	  //--------------------------------
       // 初始化覆盖物图层
       //--------------------------------
-        
+
       var polygons = overlays.initLayer({
           // 显示地图的容器标识
           map: map,
           // 是否可编辑状态 0:是  1：否
-          editEnable:"0",
+          editEnable:"1",
           // 覆盖物信息
           overlay: overlayArr
         });
-		
+
 		//--------------------------------
         // 绑定事件
         //--------------------------------
@@ -76,7 +88,7 @@
 			event: "mouse-over",
 			handler: getPolygon
 		});
-        
+
         function getPolygon(evt){
 			var node = evt.graphic;
 			// 获取覆盖物中心点
