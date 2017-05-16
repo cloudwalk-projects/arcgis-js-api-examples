@@ -5,13 +5,12 @@
 
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
     <title>direction</title>
-
-    <link rel="stylesheet" href="http://192.168.10.217/arcgis_js_api/library/3.19/3.19/dijit/themes/claro/claro.css">
-    <link rel="stylesheet" href="http://192.168.10.217/arcgis_js_api/library/3.19/3.19/esri/css/esri.css">
+    <link rel="stylesheet" href="http://map.x3platform.com/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
     <style type="text/css">
         html,body, #map{height:100%; width:100%; padding:0; margin: 0;}
     </style>
-    <script src="http://192.168.10.217/arcgis_js_api/library/3.19/3.19/init.js"></script>
+    <script src="http://ditu.fuwu.io:7020/arcgis/quanzhou/init.js"></script>
     <script>
         require([
             "esri/urlUtils",
@@ -85,7 +84,7 @@
                     zoom: 18
                 });
                 //var arcGISMapServiceLayer = new esri.layers.ArcGISTiledMapServiceLayer("http://192.168.10.35:6080/arcgis/rest/services/qz/QZMapService/MapServer");
-                var arcGISMapServiceLayer = new esri.layers.ArcGISTiledMapServiceLayer("http://192.168.10.35:6080/arcgis/rest/services/qz/QZRSService/MapServer");
+                var arcGISMapServiceLayer = new esri.layers.ArcGISTiledMapServiceLayer("http://192.168.10.35:6080/arcgis/rest/services/qz/QZ_RSService/MapServer");
                 // 添加到地图中
                 map.addLayer(arcGISMapServiceLayer);
 
