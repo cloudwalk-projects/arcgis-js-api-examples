@@ -75,6 +75,8 @@ define(["cw/config",
   var ctxMenuForGraphics;
   var updateEndHandler = null;
 
+  var selected = null;
+
   // 根据ID查找覆盖物
   function findOverlay(overlays,id) {
     var res;
@@ -98,27 +100,27 @@ define(["cw/config",
   };
 
   // 覆盖物开启编辑状态
-  function polygonEditEnable(evt) {
-    event.stop(evt);
-    if (editingEnabled === false) {
-      editingEnabled = true;
-      editToolbar.activate(Edit.EDIT_VERTICES, evt.graphic);
-    } else {
-      editToolbar.deactivate();
-      editingEnabled = false;
-    }
-  }
+  // function polygonEditEnable(evt) {
+  //   event.stop(evt);
+  //   if (editingEnabled === false) {
+  //     editingEnabled = true;
+  //     //editToolbar.activate(Edit.EDIT_VERTICES, evt.graphic);
+  //   } else {
+  //     editToolbar.deactivate();
+  //     editingEnabled = false;
+  //   }
+  // }
 
   // 覆盖物关闭编辑状态
-  function polygonEditUnable(evt) {
-    event.stop(evt);
-    if (editingEnabled == true) {
-      //layer.applyEdits(null, null, [evt.graphic]);
-      editToolbar.deactivate();
-      ColorPickerOff();
-      editingEnabled = false;
-    }
-  }
+  // function polygonEditUnable(evt) {
+  //   event.stop(evt);
+  //   if (editingEnabled == true) {
+  //     //layer.applyEdits(null, null, [evt.graphic]);
+  //     editToolbar.deactivate();
+  //     ColorPickerOff();
+  //     editingEnabled = false;
+  //   }
+  // }
 
   // 初始化右键菜单
   function InitCtxMenu(layer,map) {
@@ -261,7 +263,6 @@ define(["cw/config",
   }
 
   var self = {
-
     /**
      * 初始化覆盖物要素层
      */
@@ -285,7 +286,7 @@ define(["cw/config",
         map.on("layer-add-result", function (results) {
           if (!initialized && results.layer.id == defaults.layerId) {
             initialized = true;
-            console.log('init polygons:layer-add-result');
+            //console.log('init polygons:layer-add-result');
             self.initPolygons({ layer: layer, overlay: overlay });
           }
         });
@@ -293,7 +294,7 @@ define(["cw/config",
         map.addLayer(layer, defaults.layerIndex);
       }
       else {
-        console.log('init cameras:initialized');
+        //console.log('init polygons:initialized');
         self.initPolygons({ layer: layer, overlay: overlay });
       }
 
@@ -308,6 +309,14 @@ define(["cw/config",
       var overlays = options.overlay;
 
       layer.on("update-end", function () {
+        // 注册鼠标悬停事件
+        layer.on("mouse-over", function(evt) {
+          selected = evt.graphic;
+        });
+        layer.on("mouse-out", function(evt) {
+          //selected = null;
+        });
+
         //初始化效果渲染
         array.forEach(layer.graphics, function (node, index) {
           var overlay = findOverlay(overlays,node.attributes.ID);
@@ -317,19 +326,30 @@ define(["cw/config",
             if(overlay.visible == 1){
               node.hide();
             }
+            else{
+              node.show();
+            }
             // 覆盖物编辑状态控制
             if(overlay.editble == 0){
-              editToolbar.activate(Edit.EDIT_VERTICES, node);
+              //editToolbar.activate(Edit.EDIT_VERTICES, node);
+
               layer.on("mouse-over", function(evt) {
-                selected = evt.graphic;
-                if(selected.attributes.ID == overlay.id){
+                //selected = evt.graphic;
+                if(selected != null && selected.attributes.ID == overlay.id){
                   ctxMenuForGraphics.bindDomNode(selected.getDojoShape().getNode());
                 }
               });
-
               layer.on("mouse-out", function(evt) {
-                ctxMenuForGraphics.unBindDomNode(selected.getDojoShape().getNode());
+                if(selected != null){
+                  ctxMenuForGraphics.unBindDomNode(selected.getDojoShape().getNode());
+                }
               });
+            }
+            else{
+              editToolbar.deactivate();
+              if(selected != null){
+                ctxMenuForGraphics.unBindDomNode(selected.getDojoShape().getNode());
+              };
             }
             // 业务数据
             node.attributes.NAME = overlay.name;
@@ -374,7 +394,6 @@ define(["cw/config",
       // 初始化画图完成事件
       if(typeof(drawToolbar.onDrawEnd.target) == "undefined"){
         drawToolbar.on("draw-end", function (evt) {
-
           drawToolbar.deactivate();
           editToolbar.deactivate();
 
@@ -400,16 +419,17 @@ define(["cw/config",
 
         });
 
+        // 初始化右键菜单
         InitCtxMenu(layer,map);
 
         // 设置编辑状态
-        if(defaults.editEnabled == 0)
-        {
-          ctxmenuEnable(layer,map);
-        }
-        else{
-          ctxmenuUnable(layer,map);
-        }
+        // if(defaults.editEnabled == 0)
+        // {
+        //   ctxmenuEnable(layer,map);
+        // }
+        // else{
+        //   ctxmenuUnable(layer,map);
+        // }
       }
     },
 
@@ -417,40 +437,34 @@ define(["cw/config",
     add: function (options) {
       var layer = options.layer;
       defaults.id = options.id;
-      var visible = options.visible;
-      var editEnabled = options.editble;
+      defaults.visible = options.visible;
+      defaults.editEnabled = options.editble;
       defaults.polygonName = options.name;
       defaults.polygonLocation = options.location;
 
+      // 覆盖物新增状态开启
+      ctxAddmenuEnable(layer,map);
+
       // 设置编辑状态
-      if(editEnabled == 0)
-      {
-        ctxAddmenuEnable(layer,map);
-        layer.on("mouse-over", function(evt) {
-          selected = evt.graphic;
-          if(selected.attributes.ID == defaults.id){
-            ctxMenuForGraphics.bindDomNode(selected.getDojoShape().getNode());
-          }
-        });
-
-        layer.on("mouse-out", function(evt) {
+      layer.on("mouse-over", function(evt) {
+        //selected = evt.graphic;
+        if(selected != null && selected.attributes.ID == defaults.id){
+          ctxMenuForGraphics.bindDomNode(selected.getDojoShape().getNode());
+        }
+      });
+      layer.on("mouse-out", function(evt) {
+        if(selected != null){
           ctxMenuForGraphics.unBindDomNode(selected.getDojoShape().getNode());
-        });
-        //ctxmenuEnable(layer,map);
-      }
-      else{
-        ctxAddmenuUnable(layer,map);
-        //ctxmenuUnable(layer,map);
-      }
-
+        }
+      });
     },
 
     // 编辑覆盖物
     edit: function (options) {
       var layer = options.layer;
       defaults.id = options.id;
-      var visible = options.visible;
-      var editEnabled = options.editble;
+      defaults.visible = options.visible;
+      defaults.editEnabled = options.editble;
       defaults.polygonName = options.name;
       defaults.polygonLocation = options.location;
 
@@ -458,24 +472,29 @@ define(["cw/config",
       var overlay = findGraphic(layer.graphics,defaults.id);
 
       // 覆盖物编辑状态控制
-      if(editEnabled == 0){
+      if(defaults.editEnabled == 0){
         editToolbar.activate(Edit.EDIT_VERTICES, overlay);
-        layer.on("mouse-over", function(evt) {
-          selected = evt.graphic;
-          if(selected.attributes.ID == overlay.attributes.ID){
-            ctxMenuForGraphics.bindDomNode(selected.getDojoShape().getNode());
-          }
-        });
-
-        layer.on("mouse-out", function(evt) {
-          ctxMenuForGraphics.unBindDomNode(selected.getDojoShape().getNode());
-        });
+        if(selected != null && overlay !=null && selected.attributes.ID == defaults.id){
+          ctxMenuForGraphics.bindDomNode(overlay.getDojoShape().getNode());
+        }
+        else if(selected == null && overlay != null){
+          ctxMenuForGraphics.unBindDomNode(overlay.getDojoShape().getNode());
+        };
+      }
+      else{
+        editToolbar.deactivate();
+        if(selected != null){
+          ctxMenuForGraphics.unBindDomNode(overlay.getDojoShape().getNode());
+        };
       }
 
       if(typeof(overlay) != "undefined"){
         // 显示
-        if(visible == 1){
+        if(defaults.visible == 1){
           overlay.hide();
+        }
+        else{
+          overlay.show();
         }
         // 业务数据
         overlay.attributes.NAME = defaults.polygonName;
@@ -493,7 +512,9 @@ define(["cw/config",
 
       // 设置数据
       var overlay = findGraphic(layer.graphics,defaults.id);
-      layer.applyEdits(null, null, [overlay]);
+      if(typeof(overlay) != 'undefined' && overlay != null){
+        layer.applyEdits(null, null, [overlay]);
+      }
     },
 
     // 绑定事件
@@ -509,7 +530,6 @@ define(["cw/config",
         var layerHandler = layer.on(event,handler)
         return layerHandler;
       }
-
     }
   }
   return self;

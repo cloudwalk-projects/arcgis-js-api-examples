@@ -81,7 +81,7 @@
     },
     {
       "id": "example-12",
-      "name": "新增覆盖物",
+      "name": "增删覆盖物",
       "parent": "examples",
       "href": "cw/examples/sandbox/sandbox.html?example=api_polygon_add",
       "iframe": true
