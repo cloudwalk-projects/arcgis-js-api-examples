@@ -120,13 +120,6 @@
       "iframe": true
     },
     {
-      "id": "arcgis-2",
-      "name": "热力图",
-      "parent": "arcgis",
-      "href": "cw/examples/cw-quanzhou-heatmap.html",
-      "iframe": true
-    },
-    {
       "id": "quanzhou",
       "name": "泉州示例",
       "parent": "root"
@@ -157,6 +150,20 @@
       "name": "地图类型控件",
       "parent": "quanzhou",
       "href": "cw/examples/cw-quanzhou-map-type.html",
+      "iframe": true
+    },
+    {
+      "id": "quanzhou-5",
+      "name": "热力图",
+      "parent": "quanzhou",
+      "href": "cw/examples/cw-quanzhou-heatmap.html",
+      "iframe": true
+    },
+    {
+      "id": "quanzhou-6",
+      "name": "聚合图",
+      "parent": "quanzhou",
+      "href": "cw/examples/cw-quanzhou-clustermap.html",
       "iframe": true
     }
   ]

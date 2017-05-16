@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+  <title>Cluster</title>
+  <link rel="stylesheet" href="http://ditu.fuwu.io:7020/arcgis/quanzhou/dijit/themes/tundra/tundra.css">
+  <link rel="stylesheet" href="http://ditu.fuwu.io:7020/arcgis/quanzhou/esri/css/esri.css">
+  <style>
+    html, body { height: 100%; width: 100%; margin: 0; padding: 0; }
+    #map{ margin: 0; padding: 0; }
+
+    /* center the image in the popup */
+    .esriViewPopup .gallery { margin: 0 auto !important; }
+  </style>
+
+  <script>
+      // helpful for understanding dojoConfig.packages vs. dojoConfig.paths:
+      // http://www.sitepen.com/blog/2013/06/20/dojo-faq-what-is-the-difference-packages-vs-paths-vs-aliases/
+      var dojoConfig = {
+          paths: {
+              extras: location.pathname.replace(/\/[^/]+$/, "") + "/extras"
+          }
+      };
+  </script>
+  <script src="http://ditu.fuwu.io:7020/arcgis/quanzhou/init.js"></script>
+  <script>
+      var map;
+      require([
+          "dojo/parser",
+          "dojo/ready",
+          "dojo/_base/array",
+          "esri/Color",
+          "dojo/dom-style",
+          "dojo/query",
+          "dojo/_base/array",
+          "esri/map",
+          "esri/request",
+          "esri/graphic",
+          "esri/geometry/Extent",
+          "esri/layers/ArcGISTiledMapServiceLayer",
+          "esri/layers/FeatureLayer",
+          "esri/symbols/SimpleMarkerSymbol",
+          "esri/symbols/SimpleFillSymbol",
+          "esri/symbols/PictureMarkerSymbol",
+          "esri/renderers/ClassBreaksRenderer",
+          "esri/layers/GraphicsLayer",
+          "esri/SpatialReference",
+          "esri/dijit/PopupTemplate",
+          "esri/geometry/Point",
+          "esri/geometry/webMercatorUtils",
+          "cw/clusterLayer/clusterLayer",
+          "dijit/layout/BorderContainer",
+          "dijit/layout/ContentPane",
+          "dojo/domReady!"
+      ], function(
+          parser, ready, arrayUtils, Color, domStyle, query, array,
+          Map, esriRequest, Graphic, Extent,ArcGISTiledMapServiceLayer,FeatureLayer,
+          SimpleMarkerSymbol, SimpleFillSymbol, PictureMarkerSymbol, ClassBreaksRenderer,
+          GraphicsLayer, SpatialReference, PopupTemplate, Point, webMercatorUtils,
+          ClusterLayer
+      ) {
+          ready(function() {
+              parser.parse();
+
+              var clusterLayer;
+              var popupOptions = {
+                  "markerSymbol": new SimpleMarkerSymbol("circle", 20, null, new Color([0, 0, 0, 0.25])),
+                  "marginLeft": "20",
+                  "marginTop": "20"
+              };
+              map = new Map("map", {
+                  //basemap: "streets", //显示的地图样式 此处为地图，basemap: "satellite", //实景图
+                  // 泉州 坐标
+                  center: [118.596703, 24.900576], //地图加载后，初始位置
+                  zoom: 17,        //放大级别，值越大放大的比例就越大
+                  maxZoom: 19,     // 地图最大缩放级别
+                  minZoom: 1,      // 地图最小缩放级别
+                  slider: true,   // 设置显示地图缩放按钮
+                  logo: false      // 不显示Esri的logo
+              });
+              var tiledMapServiceLayer = new ArcGISTiledMapServiceLayer('http://192.168.10.35:6080/arcgis/rest/services/qz/QZMapService/MapServer');
+              map.addLayer(tiledMapServiceLayer);
+
+              // 加载相机要素服务
+              var featureLayer = new FeatureLayer("http://192.168.10.35:6080/arcgis/rest/services/qz/QZFeatureService/FeatureServer/0", {
+                  mode: FeatureLayer.MODE_SNAPSHOT,
+                  outFields: ["*"]
+              });
+              map.addLayer(featureLayer);
+
+              featureLayer.on("update-end", function() {
+                  // hide the popup's ZoomTo link as it doesn't make sense for cluster features
+                  domStyle.set(query("a.action.zoomTo")[0], "display", "none");
+                array.forEach(featureLayer.graphics, function (node, index) {
+                  node.hide();
+              });
+
+                  // get the latest 1000 photos from instagram/laguna beach
+                  var cameras = featureLayer.graphics;
+                  //cameras.then(addClusters, error);
+                  addClusters(cameras);
+              });
+
+              function addClusters(resp) {
+                  var photoInfo = {};
+//                  var wgs = new SpatialReference({
+//                      "wkid": 4326
+//                  });
+                  photoInfo.data = arrayUtils.map(resp, function(p) {
+                      var latlng = new  Point(parseFloat(p.geometry.x), parseFloat(p.geometry.y));
+                      //var webMercator = webMercatorUtils.geographicToWebMercator(latlng);
+                      var attributes = {
+                          "Caption": p.attributes.NAME,
+                          "Name": p.attributes.NAME,
+                          "Image": p.image,
+                          "Link": p.link
+                      };
+                      return {
+                          "x": latlng.x,
+                          "y": latlng.y,
+                          "attributes": attributes
+                      };
+                  });
+
+                  // popupTemplate to work with attributes specific to this dataset
+                  var popupTemplate = new PopupTemplate({
+                      "title": "",
+                      "fieldInfos": [{
+                          "fieldName": "Caption",
+                          visible: true
+                      }, {
+                          "fieldName": "Name",
+                          "label": "By",
+                          visible: true
+                      }, {
+                          "fieldName": "Link",
+                          "label": "On Instagram",
+                          visible: true
+                      }]
+                  });
+
+                  // cluster layer that uses OpenLayers style clustering
+                  clusterLayer = new ClusterLayer({
+                      "data": photoInfo.data,
+                      "distance": 100,
+                      "id": "clusters",
+                      "labelColor": "#fff",
+                      "labelOffset": 10,
+                      "resolution": map.extent.getWidth() / map.width,
+                      "singleColor": "#888",
+                      "singleTemplate": popupTemplate
+                  });
+                  var defaultSym = new SimpleMarkerSymbol().setSize(4);
+                  var renderer = new ClassBreaksRenderer(defaultSym, "clusterCount");
+
+                  var picBaseUrl = "https://static.arcgis.com/images/Symbols/Shapes/";
+                  var blue = new PictureMarkerSymbol(picBaseUrl + "BluePin1LargeB.png", 32, 32).setOffset(0, 15);
+                  var green = new PictureMarkerSymbol(picBaseUrl + "GreenPin1LargeB.png", 64, 64).setOffset(0, 15);
+                  var red = new PictureMarkerSymbol(picBaseUrl + "RedPin1LargeB.png", 72, 72).setOffset(0, 15);
+                  renderer.addBreak(0, 5, blue);
+                  renderer.addBreak(6, 20, green);
+                  renderer.addBreak(21, 100, red);
+
+                  clusterLayer.setRenderer(renderer);
+                  map.addLayer(clusterLayer);
+
+                  // close the info window when the map is clicked
+                  map.on("click", cleanUp);
+                  // close the info window when esc is pressed
+                  map.on("key-down", function(e) {
+                      if (e.keyCode === 27) {
+                          cleanUp();
+                      }
+                  });
+              }
+
+              function cleanUp() {
+                  map.infoWindow.hide();
+                  clusterLayer.clearSingles();
+              }
+
+              function error(err) {
+                  console.log("something failed: ", err);
+              }
+
+              // show cluster extents...
+              // never called directly but useful from the console
+              window.showExtents = function() {
+                  var extents = map.getLayer("clusterExtents");
+                  if ( extents ) {
+                      map.removeLayer(extents);
+                  }
+                  extents = new GraphicsLayer({ id: "clusterExtents" });
+                  var sym = new SimpleFillSymbol().setColor(new Color([205, 193, 197, 0.5]));
+
+                  arrayUtils.forEach(clusterLayer._clusters, function(c, idx) {
+                      var e = c.attributes.extent;
+                      extents.add(new Graphic(new Extent(e[0], e[1], e[2], e[3], map.spatialReference), sym));
+                  }, this);
+                  map.addLayer(extents, 0);
+              };
+          });
+      });
+  </script>
+</head>
+
+<body>
+<div data-dojo-type="dijit/layout/BorderContainer"
+     data-dojo-props="design:'headline',gutters:false"
+     style="width: 100%; height: 100%; margin: 0;">
+  <div id="map"
+       data-dojo-type="dijit/layout/ContentPane"
+       data-dojo-props="region:'center'">
+  </div>
+</div>
+</body>
+</html>
+

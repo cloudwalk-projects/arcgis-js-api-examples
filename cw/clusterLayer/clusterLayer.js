@@ -159,7 +159,7 @@ define([
             } else {
                 // stop the click from bubbling to the map
                 e.stopPropagation();
-                this._map.infoWindow.show(e.graphic.geometry);
+                //this._map.infoWindow.show(e.graphic.geometry);
                 this._addSingles(singles);
             }
         },
