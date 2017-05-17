@@ -1,0 +1,4 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["../../../core/Accessor","../support/mathUtils"],function(c,d){var b=c.createSubclass([],{declaredClass:"esri.views.3d.constraints.SceneViewTiltConstraint",properties:{mode:{value:"auto"},max:{value:0.5,cast:function(a){return d.clamp(a,0.5,179.5)},set:function(a){this._set("max",a);this.mode="manual"}}},autoUpdate:function(a){"auto"===this.mode&&this._get("max")!==a&&this._set("max",a)},scale:function(a){}});b.MAX_DEFAULT=0.5;b.MIN_DEFAULT=179.5;return b});

@@ -1,2 +1,2 @@
 //>>built
-define("dojox/storage",["./storage/_common"],function(){});
+define(["./storage/_common"],function(){});

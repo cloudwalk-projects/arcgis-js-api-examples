@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["../../core/Accessor","../../core/Collection","../../core/Identifiable","../../core/lang","../../support/Action"],function(e,a,f,c,d){var g=(new a.ofType(a.ofType(d)))(),b=e.createSubclass(f,{properties:{actionsSections:{type:a.ofType(a.ofType(d)),value:g},actionsOpen:{value:!1},children:{type:a.ofType(b),value:[]},error:{},open:{value:!1},title:{value:""},updating:{value:!1},visible:{value:!0},visibleAtCurrentScale:{value:!0},visibilityMode:{}},clone:function(){return new b({actionsSections:c.clone(this.actionsSections.toArray()),
+actionsOpen:this.actionsOpen,children:c.clone(this.children.toArray()),error:this.error,open:this.open,title:this.title,updating:this.updating,visible:this.visible,visibleAtCurrentScale:this.visibleAtCurrentScale,visibilityMode:this.visibilityMode})}});return b});

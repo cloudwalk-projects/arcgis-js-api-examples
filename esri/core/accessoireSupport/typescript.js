@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["../declare","../typescript","../JSONSupporter","dojo/_base/lang"],function(k,g,l,m){function h(d,a){if(!d)return a;if(!a)return d;for(var b in a){var c=d[b],f=a[b];Array.isArray(f)&&Array.isArray(c)?d[b]=c.concat(f):d[b]="object"===typeof f&&"object"===typeof c?h(c,f):f}return d}return{subclass:function(d,a){return function(b){b=g.declareDefinition(b,d);a&&(b.instanceMembers.classMetadata=h(a,b.instanceMembers.classMetadata));var c=b.instanceMembers.classMetadata;if(c&&c.properties)for(var f in c.properties){var e=
+c.properties[f];e&&(!e.reader&&e.type)&&(e.type===Date?e.reader=function(a){return null!=a?new Date(a):null}:-1!==e.type._meta.bases.indexOf(l)&&(e.reader=function(a){return function(b){return a.fromJSON(b)}}(e.type)))}return m.mixin(k(b.bases,b.instanceMembers),b.classMembers)}},shared:g.shared,property:function(d){return function(a,b){var c=Object.getPrototypeOf(a),c=c&&c.classMetadata;if(!a.classMetadata||a.classMetadata===c)a.classMetadata={};a.classMetadata.properties=a.classMetadata.properties||
+{};a.classMetadata.properties[b]=d||{}}}}});

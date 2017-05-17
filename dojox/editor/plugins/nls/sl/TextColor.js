@@ -1,2 +1,2 @@
 //>>built
-define("dojox/editor/plugins/nls/sl/TextColor",{setButtonText:"Nastavi",cancelButtonText:"Prekli\u010di"});
+define({setButtonText:"Nastavi",cancelButtonText:"Prekli\u010di"});

@@ -1,4 +1,5 @@
 // All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.19/esri/copyright.txt for details.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
 //>>built
-define("esri/opsdashboard/featureActionProxy",["dojo/_base/declare","dojo/_base/lang","../tasks/FeatureSet","./core/ExtensionBase"],function(b,d,e,f){return new (b([f],{_messageReceived:function(a){"execute"===a.functionName.toLowerCase()&&this.getDataSourceProxy(a.args.dataSourceId).then(d.hitch(this,function(c){this._execute(c,new e(a.args.featureSet),a.args.configuration||a.args.config)}))},_execute:function(a,c,b){this.emit("execute",{dataSourceProxy:a,featureSet:c,config:b})}}))});
+define("require exports ../core/tsSupport/extendsHelper ../core/tsSupport/decorateHelper ../core/typescript ./core/ExtensionBase ../tasks/support/FeatureSet".split(" "),function(l,m,e,f,g,h,k){return new (function(c){function a(){c.call(this)}e(a,c);a.prototype._messageReceived=function(b){var a=this;"execute"===b.functionName.toLowerCase()&&this.getDataSourceProxy(b.args.dataSourceId).then(function(d){a._execute(d,new k(b.args.featureSet),b.args.configuration||b.args.config)})};a.prototype._execute=
+function(a,c,d){this.emit("execute",{dataSourceProxy:a,features:c,config:d})};return a=f([g.subclass()],a)}(h))});

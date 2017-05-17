@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport/decorateHelper ./Symbol3DLayer ../core/accessorSupport/decorators".split(" "),function(g,h,e,c,f,b){return function(d){function a(a){d.call(this);this.material=null;this.type="Path";this.size=void 0}e(a,d);a.prototype.readSize=function(a,b){return a||b.width||0};a.prototype.clone=function(){return new a({enabled:this.enabled,material:this.material&&this.material.clone(),size:this.size})};c([b.property()],a.prototype,
+"material",void 0);c([b.property()],a.prototype,"type",void 0);c([b.property({json:{writable:!0}})],a.prototype,"size",void 0);c([b.read("size",["size","width"])],a.prototype,"readSize",null);return a=c([b.subclass("esri.symbols.PathSymbol3DLayer")],a)}(b.declared(f))});

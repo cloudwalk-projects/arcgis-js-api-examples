@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport/decorateHelper ../core/lang ../core/JSONSupport ./support/Symbol3DMaterial ../core/accessorSupport/decorators".split(" "),function(k,l,f,c,d,g,h,b){return function(e){function a(a){e.call(this);this.enabled=!0;this.type=this.material=null}f(a,e);a.prototype.writeEnabled=function(a,b){a||(b.enabled=a)};a.prototype.readElevationInfo=function(a){return d.clone(a)};a.prototype.writeElevationInfo=function(a,b){b.elevationInfo=
+d.clone(a)};c([b.property()],a.prototype,"enabled",void 0);c([b.write("enabled")],a.prototype,"writeEnabled",null);c([b.property()],a.prototype,"elevationInfo",void 0);c([b.read("elevationInfo")],a.prototype,"readElevationInfo",null);c([b.write("elevationInfo")],a.prototype,"writeElevationInfo",null);c([b.property({type:h.default,json:{writable:!0}})],a.prototype,"material",void 0);c([b.property({type:String,readOnly:!0,json:{readable:!1,writeAlways:!0}})],a.prototype,"type",void 0);return a=c([b.subclass("esri.symbols.Symbol3DLayer")],
+a)}(b.declared(g))});

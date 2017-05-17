@@ -1,2 +1,2 @@
 //>>built
-define("dojox/editor/plugins/nls/sk/Save",{save:"Ulo\u017ei\u0165"});
+define({save:"Ulo\u017ei\u0165"});

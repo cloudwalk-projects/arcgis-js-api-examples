@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports"],function(n,l){var m=function(){function k(){this.segments=[]}Object.defineProperty(k.prototype,"time",{get:function(){return this.segments.reduce(function(b,a){return b+a.time},0)},enumerable:!0,configurable:!0});k.prototype.interpolateComponentsAt=function(b,a){b=Math.min(Math.max(b,0),1);b*=this.time;for(var c=0,e=0,g=this.definition,f=0;f<this.segments.length;f++){var h=this.segments[f],d=h.definition;if(b<=h.time||f===this.segments.length-1)return a=this.segmentInterpolateComponentsAt(h,
+b/h.time,a),a.pan=g.hasPan?(c+d.compared.pan*a.pan)/g.compared.pan:1,a.rotate=g.hasRotate?(e+d.compared.rotate*a.rotate)/g.compared.rotate:1,c=a.zoom*(d.compared.targetZoom-d.compared.sourceZoom)+d.compared.sourceZoom,e=this.segments[0].definition.compared.sourceZoom,f=this.segments[this.segments.length-1].definition.compared.targetZoom,a.zoom=g.hasZoom?(c-e)/(f-e):1,a;b-=h.time;c+=d.compared.pan;e+=d.compared.rotate}};k.prototype.segmentInterpolateComponentsAt=function(b,a,c){return b.interpolateComponentsAt(a,
+c)};return k}();l.Path=m;Object.defineProperty(l,"__esModule",{value:!0});l.default=m});

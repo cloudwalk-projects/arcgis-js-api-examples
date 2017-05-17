@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["../../core/Accessoire","../../core/declare","../../core/kebabDictionary","../../geometry/support/jsonUtils"],function(d,e,f,c){var g=f({9001:"meters",9002:"feet",9036:"kilometers",9093:"miles",109012:"nautical-miles",109001:"yards"});return e(d,{declaredClass:"esri.tasks.support.DistanceParameters",geometry1:null,geometry2:null,distanceUnit:null,geodesic:null,toJSON:function(){var a={},b=this.geometry1;b&&(a.geometry1=JSON.stringify({geometryType:c.getJsonType(b),geometry:b}),a.sr=JSON.stringify(this.geometry1.spatialReference.toJSON()));
+if(b=this.geometry2)a.geometry2=JSON.stringify({geometryType:c.getJsonType(b),geometry:b});this.distanceUnit&&(a.distanceUnit=g.toJSON(this.distanceUnit));this.geodesic&&(a.geodesic=this.geodesic);return a}})});

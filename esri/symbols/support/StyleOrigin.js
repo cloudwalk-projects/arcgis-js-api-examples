@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define("require exports ../../core/tsSupport/declareExtendsHelper ../../core/tsSupport/decorateHelper ../../core/accessorSupport/decorators ../../core/Accessor ../../portal/Portal".split(" "),function(h,k,e,c,b,f,g){return function(d){function a(){d.apply(this,arguments);this.portal=null}e(a,d);a.prototype.clone=function(){return new a({name:this.name,styleUrl:this.styleUrl,styleName:this.styleName,portal:this.portal})};c([b.property({type:String})],a.prototype,"name",void 0);c([b.property({type:String})],
+a.prototype,"styleUrl",void 0);c([b.property({type:String})],a.prototype,"styleName",void 0);c([b.property({type:g})],a.prototype,"portal",void 0);return a=c([b.subclass("esri.symbols.support.StyleOrigin")],a)}(b.declared(f))});

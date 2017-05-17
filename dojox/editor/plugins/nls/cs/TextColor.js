@@ -1,2 +1,2 @@
 //>>built
-define("dojox/editor/plugins/nls/cs/TextColor",{setButtonText:"Nastavit",cancelButtonText:"Storno"});
+define({setButtonText:"Nastavit",cancelButtonText:"Storno"});

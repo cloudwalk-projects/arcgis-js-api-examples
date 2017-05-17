@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define("require exports ../../../../core/tsSupport/extendsHelper ../../../../core/tsSupport/decorateHelper ./TileKey ./TileInfoView".split(" "),function(k,l,g,m,e,h){return function(f){function c(){f.apply(this,arguments)}g(c,f);c.prototype.getTileParentId=function(a){a=e.from(a);return 0===a.level?null:e.getId(a.level-1,a.row>>1,a.col>>1,a.world)};c.prototype.getTileIdAtParent=function(a,c){var d=e.from(c),b=this._infoByLevel[d.level];if(a.resolution<b.resolution)throw Error("Cannot calculate parent tile. destination LOD's resolution "+
+a.resolution+" is not a parent resolution of "+b.resolution);if(a.resolution===b.resolution)return d.id;b=d.level-a.level;if(0>b)throw Error("Wrong way...!");return e.getId(a.level,d.row>>b,d.col>>b,d.world)};return c}(h)});

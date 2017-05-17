@@ -1,2 +1,2 @@
 //>>built
-define("dojox/fx",["./fx/_base"],function(a){return a});
+define(["./fx/_base"],function(a){return a});

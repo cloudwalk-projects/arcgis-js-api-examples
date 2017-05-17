@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define({title:"Titre",fileName:"Nom de fichier",titlePlaceHolder:"Titre du ficher",fileNamePlaceHolder:"Nom de fichier",formatDefaultOption:"S\u00e9lectionner le format",fileFormatTitle:"Format de fichier",layoutTitle:"Mise en page",layoutDefaultOption:"S\u00e9lectionner la mise en page",scale:"D\u00e9finir l'\u00e9chelle",scaleLabel:"\u00e9chelle",reset:"r\u00e9initialiser",author:"Auteur",copyright:"Copyright",legend:"Inclure la l\u00e9gende",lock:"verrouiller",swap:"\u00e9changer",panelToggle:"Activer/d\u00e9sactiver le volet",
+advancedOptions:"Options avanc\u00e9es",width:"Largeur",height:"Hauteur",attribution:"Inclure l'attribution",layoutTab:"Mise en page",mapOnlyTab:"Carte uniquement",untitled:"sans titre","export":"Exporter",exportText:"Fichiers export\u00e9s",exportHint:"Vos fichiers export\u00e9s appara\u00eetront ici."});

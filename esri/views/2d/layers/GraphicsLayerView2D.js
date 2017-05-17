@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define("require exports ../../../core/tsSupport/extendsHelper ../../../core/tsSupport/decorateHelper ../../../core/accessorSupport/decorators ./LayerView2D ./support/GraphicsView2D".split(" "),function(k,l,e,f,c,g,h){return function(d){function a(){d.apply(this,arguments);this.graphicsView=new h;this.container=this.graphicsView.container}e(a,d);a.prototype.hitTest=function(a,b){return this.graphicsView.hitTest(a,b)};a.prototype.attach=function(){var a=this;this.layer.createGraphicsController({layerView:this}).then(function(b){a.graphicsView.graphics=
+b.graphics})};a.prototype.detach=function(){this.graphicsView.graphics=null};a.prototype.update=function(a){};a.prototype.moveStart=function(){};a.prototype.viewChange=function(){};a.prototype.moveEnd=function(){};return a=f([c.subclass("esri.views.2d.layers.GraphicsLayerView2D")],a)}(c.declared(g))});

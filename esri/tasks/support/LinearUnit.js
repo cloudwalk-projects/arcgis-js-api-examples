@@ -1,0 +1,4 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["../../core/declare","../../core/JSONSupporter","../../core/kebabDictionary"],function(c,d,e){var b=e({esriMeters:"meters",esriFeet:"feet",esriKilometers:"kilometers",esriMiles:"miles",esriNauticalMiles:"nautical-miles",esriYards:"yards"});return c(d,{declaredClass:"esri.tasks.support.LinearUnit",distance:0,units:null,_unitsReader:b.fromJSON,toJSON:function(){var a={};this.distance&&(a.distance=this.distance);this.units&&(a.units=b.toJSON(this.units));return a}})});

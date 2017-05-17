@@ -1,0 +1,4 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../../../core/tsSupport/extendsHelper","../../../input/InputHandler"],function(a,c,d,e){a=function(a){function b(f,b){var c=this;a.call(this,"esri.views.2d.input.handlers.MouseWheelZoom",!0);this.view=f;this.registerIncoming("mouse-wheel",b,function(a){return c._handleMouseWheel(a)})}d(b,a);b.prototype._handleMouseWheel=function(a){this.view.navigation.zoom.scroll(this.view,a);a.stopPropagation()};return b}(e.InputHandler);c.MouseWheelZoom=a});

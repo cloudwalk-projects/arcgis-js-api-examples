@@ -1,9 +1,8 @@
 # dgrid Documentation
 
 This folder contains the official dgrid documentation. It includes
-information on dgrid's core components, as well as information on various
-mixins, plugins, and extensions that are available to further expand dgrid's
-default functionality. 
+information on dgrid's core components, mixins, and extensions that are
+available to further expand dgrid's functionality.
 
 ## Components
 
@@ -16,21 +15,20 @@ default functionality.
     * [Keyboard](components/mixins/Keyboard.md)
     * [ColumnSet](components/mixins/ColumnSet.md)
     * [Selection](components/mixins/Selection.md)
+    * [Selector](components/mixins/Selector.md)
     * [CellSelection](components/mixins/CellSelection.md)
-* Column Plugins
-    * [editor](components/column-plugins/editor.md)
-    * [tree](components/column-plugins/tree.md)
-    * [selector](components/column-plugins/selector.md)
+    * [Editor](components/mixins/Editor.md)
+    * [Tree](components/mixins/Tree.md)
 * Extensions
     * [ColumnReorder](components/extensions/ColumnReorder.md)
     * [ColumnResizer](components/extensions/ColumnResizer.md)
     * [ColumnHider](components/extensions/ColumnHider.md)
     * [CompoundColumns](components/extensions/CompoundColumns.md)
     * [Pagination](components/extensions/Pagination.md)
+    * [SingleQuery](components/extensions/SingleQuery.md)
     * [DijitRegistry](components/extensions/DijitRegistry.md)
     * [DnD](components/extensions/DnD.md)
 * Utilities
-    * [mouse](components/utilities/mouse.md)
     * [touch](components/utilities/touch.md)
     * [misc](components/utilities/misc.md)
 
@@ -39,7 +37,14 @@ default functionality.
 * [Working with Events](usage/Working-with-Events.md)
 * [Working with Widgets](usage/Working-with-Widgets.md)
 * [Styling dgrid](usage/Styling-dgrid.md)
+* [Customizing Skins](usage/Customizing-Skins.md)
 * [Limitations](usage/Limitations.md)
+
+## Upgrading dgrid
+
+* [0.4 Migration Guide](migrating/0.4-Migration.md)
+* Migrating from 0.4 to 1.0 is generally straightforward;
+  see the [dgrid 1.0 Release Notes](https://github.com/SitePen/dgrid/releases/tag/v1.0.0).
 
 ## Migrating from dojox/grid
 
@@ -48,4 +53,4 @@ default functionality.
 
 ## Tutorials
 
-Various tutorials are available on [dgrid.io](http://dojofoundation.org/packages/dgrid/#tutorials).
+Various tutorials are available on [dgrid.io](http://dgrid.io/#tutorials).

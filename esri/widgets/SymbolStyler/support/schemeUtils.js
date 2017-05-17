@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../../Color"],function(l,c,k){function e(a,b){var h=[];[a.primaryScheme].concat(a.secondarySchemes).forEach(function(a){var c=!!a.colorsForClassBreaks,f;if(0<b)if(c)for(var c=a.colorsForClassBreaks,e=c.length,g=0;g<e;g++){var d=c[g];if(b<d.numClasses)break;f=d.colors}else f=a.colors;else f=a.colors;h.push({colors:f,scheme:a})});return h}function d(a){var b={};return a.filter(function(a){var c=!b[a.toHex()];c&&(b[a.toHex()]=1);return c})}c.getColorRamps=function(a,b){return e(a,
+b).map(function(a){return a.colors})};c.getColorRampsWithSchemes=e;c.getFillColors=function(a){var b=[];[a.primaryScheme].concat(a.secondarySchemes).forEach(function(a){a.colors&&(b=b.concat(a.colors))});return d(b)};c.flipColors=function(a){a.colors&&a.colors.reverse();a.colorsForClassBreaks&&a.colorsForClassBreaks.forEach(function(a){1<a.numClasses&&a.colors.reverse()})};c.getOutlineColors=function(a){var b=[];[a.primaryScheme].concat(a.secondarySchemes).forEach(function(a){a.outline?b.push(a.outline.color):
+a.colors&&(b=b.concat(a.colors))});return d(b)};c.createColors=function(a,b){return a.map(function(a){a=new k(a);null!=b&&(a.a=b);return a})}});

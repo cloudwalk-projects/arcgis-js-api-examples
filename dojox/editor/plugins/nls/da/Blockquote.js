@@ -1,2 +1,2 @@
 //>>built
-define("dojox/editor/plugins/nls/da/Blockquote",{blockquote:"Blokanf\u00f8rselstegn"});
+define({blockquote:"Blokanf\u00f8rselstegn"});

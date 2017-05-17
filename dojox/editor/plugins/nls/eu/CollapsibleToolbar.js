@@ -1,2 +1,2 @@
 //>>built
-define("dojox/editor/plugins/nls/eu/CollapsibleToolbar",{collapse:"Tolestu edizioaren tresna-barra",expand:"Zabaldu edizioaren tresna-barra"});
+define({collapse:"Tolestu edizioaren tresna-barra",expand:"Zabaldu edizioaren tresna-barra"});

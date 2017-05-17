@@ -1,5 +1,5 @@
 // All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.19/esri/copyright.txt for details.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
 var fa;
 (function(ha){function L(c){return t.Pb.HL(c)}function P(c){return null===c?null:void 0!==c.wkt?t.gh.ML(c.wkt):void 0!==c.wkid?t.gh.create(c.wkid):null}function O(c){if(null===c||void 0===c||c.s())return null;switch(c.D()){case t.Wn.Point:var p=c.hasAttribute(t.xf.Z),g=c.hasAttribute(t.xf.M),b={x:c.lk(),y:c.mk()};p&&(b.z=c.mO());g&&(b.m=c.ON());return b;case t.Wn.Polygon:return p=c.hasAttribute(t.xf.Z),g=c.hasAttribute(t.xf.M),{rings:ga(c,p,g),hasZ:p,hasM:g};case t.Wn.Polyline:return p=c.hasAttribute(t.xf.Z),g=
 c.hasAttribute(t.xf.M),{paths:ga(c,p,g),hasZ:p,hasM:g};case t.Wn.MultiPoint:var p=c.hasAttribute(t.xf.Z),g=c.hasAttribute(t.xf.M),a=b=null;p&&(b=c.mc(t.xf.Z));g&&(a=c.mc(t.xf.M));for(var d=new t.b,f=c.F(),e=[],h=0;h<f;h++){c.w(h,d);var l=[d.x,d.y];p&&(l[2]=b.get(h));g&&(p?l[3]=a.get(h):l[2]=a.get(h));e.push(l)}return{points:e,hasZ:p,hasM:g};case t.Wn.Envelope:return p=c.hasAttribute(t.xf.M),g={xmin:c.R.v,ymin:c.R.C,xmax:c.R.B,ymax:c.R.G},c.hasAttribute(t.xf.Z)&&(b=c.zh(t.xf.Z,0),g.oe=b.qa,g.Nf=b.va),

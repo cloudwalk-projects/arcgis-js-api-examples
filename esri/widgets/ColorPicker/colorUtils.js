@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../Color"],function(t,b,c){function k(a){return new c(a)}function l(a){return a&&4===a.length&&r.test(a)}function m(a){return a&&7===a.length&&s.test(a)}function n(a){return 127<=0.299*a.r+0.587*a.g+0.114*a.b}function p(a,d){void 0===d&&(d=1);var b=Math.pow(0.7,d);return new c([Math.round(a.r*b),Math.round(a.g*b),Math.round(a.b*b),a.a])}function q(a,b){void 0===b&&(b=1);var e=Math.pow(0.7,b),f=a.r,g=a.g,h=a.b;30>f&&(f=30);30>g&&(g=30);30>h&&(h=30);return new c([Math.min(255,
+Math.round(f/e)),Math.min(255,Math.round(g/e)),Math.min(255,Math.round(h/e)),a.a])}var r=/^#[0-9A-F]{3}$/i,s=/^#[0-9A-F]{6}$/i;b.equal=function(a,b){return a&&b&&a.r===b.r&&a.g===b.g&&a.b===b.b&&a.a===b.a};b.normalizeHex=function(a){return!a?"":"#"+a.trim().replace(/#/g,"").substr(0,6)};b.normalizeColor=k;b.isValidHex=function(a){return l(a)||m(a)};b.isShorthandHex=l;b.isLonghandHex=m;b.toHex=function(a){return k(a).toHex()};b.getContrastingColor=function(a){return n(a)?p(a):q(a,3)};b.isBright=n;
+b.darker=p;b.brighter=q});

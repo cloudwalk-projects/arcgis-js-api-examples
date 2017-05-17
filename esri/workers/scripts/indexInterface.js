@@ -1,5 +1,5 @@
 // All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.19/esri/copyright.txt for details.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
 /* jshint worker: true */
 /* global importScripts: false */
 
@@ -84,7 +84,7 @@
   mixin(Indexer, /** @lends Indexer.prototype */ {
     /**
      * The indexing system to use. Choices are: "rtree", "quadtree", "kdtree". "kdtree" is only used for points.
-     * @type {String}
+     * @type {string}
      * @default 'rtree'
      */
     system: 'rtree',

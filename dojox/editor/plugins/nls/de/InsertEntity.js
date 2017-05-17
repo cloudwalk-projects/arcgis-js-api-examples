@@ -1,2 +1,2 @@
 //>>built
-define("dojox/editor/plugins/nls/de/InsertEntity",{insertEntity:"Symbol einf\u00fcgen"});
+define({insertEntity:"Symbol einf\u00fcgen"});

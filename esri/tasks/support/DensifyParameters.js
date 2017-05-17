@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["../../core/Accessoire","../../core/declare","../../core/kebabDictionary","../../geometry/support/jsonUtils"],function(b,c,d,e){var f=d({9001:"meters",9002:"feet",9036:"kilometers",9093:"miles",109012:"nautical-miles",109001:"yards"});return c(b,{declaredClass:"esri.tasks.support.DensifyParameters",geometries:null,geodesic:null,lengthUnit:null,maxSegmentLength:null,toJSON:function(){var a={};if(this.geometries&&0<this.geometries.length){var b=this.geometries.map(function(a){return a.toJSON()});
+a.geometries=JSON.stringify({geometryType:e.getJsonType(this.geometries[0]),geometries:b});a.sr=JSON.stringify(this.geometries[0].spatialReference.toJSON())}this.geodesic&&(a.geodesic=this.geodesic);this.lengthUnit&&(a.lengthUnit=f.toJSON(this.lengthUnit));this.maxSegmentLength&&(a.maxSegmentLength=this.maxSegmentLength);return a}})});

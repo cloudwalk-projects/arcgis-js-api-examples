@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define("require exports ../../core/tsSupport/declareExtendsHelper ../../core/tsSupport/decorateHelper ../../core/accessorSupport/decorators ../../core/Accessor dojo/dom dojo/dom-class".split(" "),function(l,m,g,d,b,h,k,e){return function(f){function a(){f.apply(this,arguments);this.widget=null}g(a,f);a.prototype.destroy=function(){this.widget&&this.widget.destroy();this.node=null};Object.defineProperty(a.prototype,"id",{get:function(){return this._get("id")||this.get("node.id")},set:function(a){this._set("id",
+a)},enumerable:!0,configurable:!0});Object.defineProperty(a.prototype,"node",{set:function(a){var b=this._get("node");if(a!==b){var c;a&&a.domNode?(c=a.domNode,this._set("widget",a)):(c=k.byId(a),this._set("widget",null));c&&e.add(c,"esri-component");b&&e.remove(b,"esri-component");this._set("node",c)}},enumerable:!0,configurable:!0});d([b.property()],a.prototype,"id",null);d([b.property()],a.prototype,"node",null);d([b.property({readOnly:!0})],a.prototype,"widget",void 0);return a=d([b.subclass("esri.views.ui.Component")],
+a)}(b.declared(h))});

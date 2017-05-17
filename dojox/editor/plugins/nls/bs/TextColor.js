@@ -1,2 +1,2 @@
 //>>built
-define("dojox/editor/plugins/nls/bs/TextColor",{setButtonText:"Postavi",cancelButtonText:"Odustani"});
+define({setButtonText:"Postavi",cancelButtonText:"Odustani"});

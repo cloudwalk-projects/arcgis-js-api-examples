@@ -1,5 +1,5 @@
 // All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.19/esri/copyright.txt for details.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
 //>>built
-define("esri/renderers/SimpleRenderer","dojo/_base/declare dojo/_base/lang dojo/has ../kernel ../lang ../symbols/jsonUtils ./Renderer".split(" "),function(b,c,d,e,f,g,h){b=b(h,{declaredClass:"esri.renderer.SimpleRenderer",constructor:function(a){if(a&&!a.declaredClass){var b=a;this.symbol=(a=b.symbol)&&(a.declaredClass?a:g.fromJson(a));this.label=b.label;this.description=b.description}else this.symbol=a},getSymbol:function(a){return this.symbol},toJson:function(){var a=c.mixin(this.inherited(arguments),
-{type:"simple",label:this.label,description:this.description,symbol:this.symbol&&this.symbol.toJson()});return f.fixJson(a)}});d("extend-esri")&&c.setObject("renderer.SimpleRenderer",b,e);return b});
+define(["../core/declare","../core/lang","../symbols/support/jsonUtils","./Renderer"],function(b,d,c,e){var a=b(e,{declaredClass:"esri.renderer.SimpleRenderer",properties:{description:{value:null,json:{writable:!0}},label:{value:null,json:{writable:!0}},symbol:{value:null,json:{read:c.read,write:function(a,f,b){f.symbol=c.write(a,{},b)}}},type:"simple"},getSymbol:function(a,b){return this.symbol},clone:function(){return new a({description:this.description,label:this.label,symbol:this.symbol&&this.symbol.clone(),
+visualVariables:d.clone(this.visualVariables)})}});return a});

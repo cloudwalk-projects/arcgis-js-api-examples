@@ -1,9 +1,3 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
 //>>built
-define("dojo/ready",["./_base/kernel","./has","require","./domReady","./_base/lang"],function(a,h,b,c,k){var p=0,f=[],l=0;h=function(){p=1;a._postLoad=a.config.afterOnLoad=!0;g()};var g=function(){if(!l){for(l=1;p&&(!c||0==c._Q.length)&&(b.idle?b.idle():1)&&f.length;){var a=f.shift();try{a()}catch(d){if(d.info=d.message,b.signal)b.signal("error",d);else throw d;}}l=0}};b.on&&b.on("idle",g);c&&(c._onQEmpty=g);var m=a.ready=a.addOnLoad=function(b,d,c){var e=k._toArray(arguments);"number"!=typeof b?
-(c=d,d=b,b=1E3):e.shift();c=c?k.hitch.apply(a,e):function(){d()};c.priority=b;for(e=0;e<f.length&&b>=f[e].priority;e++);f.splice(e,0,c);g()},n=a.config.addOnLoad;if(n)m[k.isArray(n)?"apply":"call"](a,n);a.config.parseOnLoad&&!a.isAsync&&m(99,function(){a.parser||(a.deprecated("Add explicit require(['dojo/parser']);","","2.0"),b(["dojo/parser"]))});c?c(h):h();return m});
+define(["./_base/kernel","./has","require","./has!host-browser?./domReady","./_base/lang"],function(c,h,a,b,k){var n=0,f=[],l=0;h=function(){n=1;c._postLoad=c.config.afterOnLoad=!0;g()};var g=function(){if(!l){for(l=1;n&&(!b||0==b._Q.length)&&(a.idle?a.idle():1)&&f.length;){var c=f.shift();try{c()}catch(d){if(d.info=d.message,a.signal)a.signal("error",d);else throw d;}}l=0}};a.on&&a.on("idle",g);b&&(b._onQEmpty=g);var p=c.ready=c.addOnLoad=function(a,d,b){var e=k._toArray(arguments);"number"!=typeof a?
+(b=d,d=a,a=1E3):e.shift();b=b?k.hitch.apply(c,e):function(){d()};b.priority=a;for(e=0;e<f.length&&a>=f[e].priority;e++);f.splice(e,0,b);g()},m=c.config.addOnLoad;if(m)p[k.isArray(m)?"apply":"call"](c,m);b?b(h):h();return p});

@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define("../../core/declare dojo/_base/array ../../Graphic ../../core/JSONSupporter ../../geometry/SpatialReference ./NAMessage".split(" "),function(d,c,e,f,g,h){return d(f,{declaredClass:"esri.tasks.support.ServiceAreaSolveResult",classMetadata:{reader:{add:["serviceAreaPolygons","serviceAreaPolygons"],exclude:["saPolygons","saPolylines"]}},facilities:null,_facilitiesReader:function(a){return a&&this._graphicsFromJson(a)},messages:null,_messagesReader:function(a){return a&&c.map(a,function(a){return h.fromJSON(a)})},
+pointBarriers:null,_pointBarriersReader:function(a){return a&&this._graphicsFromJson(a)},polylineBarriers:null,_polylineBarriersReader:function(a){return a&&this._graphicsFromJson(a)},polygonBarriers:null,_polygonBarriersReader:function(a){return a&&this._graphicsFromJson(a)},serviceAreaPolylines:null,_serviceAreaPolylinesReader:function(a,b){return this._graphicsFromJson(b.saPolylines)},serviceAreaPolygons:null,_serviceAreaPolygonsReader:function(a,b){return this._graphicsFromJson(b.saPolygons)},
+_graphicsFromJson:function(a){if(!a)return null;var b=g.fromJSON(a.spatialReference);return c.map(a.features,function(a){a=e.fromJSON(a);a.geometry.set("spatialReference",b);return a})}})});

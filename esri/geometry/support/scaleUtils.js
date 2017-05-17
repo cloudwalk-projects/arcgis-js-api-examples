@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["../../config","../../core/lang","./WKIDUnitConversion"],function(k,m,l){var g=20015077/180,f={getUnitValueForSR:function(a){return this.getUnitValue(a)||g},getUnitValue:function(a){var b,d,c;a&&("object"===typeof a?(b=a.wkid,d=a.wkt):"number"===typeof a?b=a:"string"===typeof a&&(d=a));b?c=l.values[l[b]]:d&&-1!==d.search(/^PROJCS/i)&&(a=/UNIT\[([^\]]+)\]\]$/i.exec(d))&&a[1]&&(c=parseFloat(a[1].split(",")[1]));return c},getScale:function(a,b,d){var c,e,h;1<arguments.length&&m.isDefined(b)&&
+!b.declaredClass?(c=a,e=b,b=null,h=f.getUnitValue(d)):(c=b||a.extent,e=a.width,h=f.getUnitValue(c&&c.spatialReference));return c&&e?39.37*(c.width/e*(h||g))*k.screenDPI:0},getExtentForScale:function(a,b){var d=a.extent,c=a.width,e=f.getUnitValue(d.get("spatialReference"));return d.clone().expand(b*c/(39.37*(e||g)*k.screenDPI)/d.get("width"))}};return f});

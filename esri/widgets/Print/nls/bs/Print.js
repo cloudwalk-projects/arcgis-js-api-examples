@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define({title:"Naziv",fileName:"Naziv datoteke",titlePlaceHolder:"Naslov datoteke",fileNamePlaceHolder:"Naziv datoteke",formatDefaultOption:"Odaberite format",fileFormatTitle:"Format datoteke",layoutTitle:"Postavljanje stranice",layoutDefaultOption:"Odaberite postavljane stranice",scale:"Postavite mjerilo",scaleLabel:"mjerilo",reset:"vrati izvorno",author:"Autor",copyright:"Autorsko pravo",legend:"Uklju\u010di legendu",lock:"brava",swap:"zamjena",panelToggle:"Preklopi plo\u010du",advancedOptions:"Napredne opcije",
+width:"\u0160irina",height:"Visina",attribution:"Uklju\u010di atribuciju",layoutTab:"Izgled",mapOnlyTab:"Samo karta",untitled:"bez naslova","export":"Izvezi",exportText:"Izvezene datoteke",exportHint:"Va\u0161e izvezene datoteke prikazat \u0107e se ovdje."});

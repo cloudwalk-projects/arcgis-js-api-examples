@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports"],function(n,g){function l(b,f){if(!b||b.symbol)return null;var a=f.renderer;return b&&a&&a.getObservationRenderer?a.getObservationRenderer(b):a}function m(b,f){if(b.symbol)return b.symbol;var a=l(b,f);return a&&a.getSymbol(b,f)}g.getRenderer=l;g.getSymbol=m;g.getRenderingInfo=function(b,f){var a=l(b,f),e=m(b,f);if(!e)return null;e={renderer:a,symbol:e};if(a){a.colorInfo&&(e.color=a.getColor(b).toRgba());if(a.sizeInfo){var c=a.getSize(b);e.size=[c,c,c]}if(a.visualVariables){for(var a=
+a.getVisualVariableValues(b,f),c=["proportional","proportional","proportional"],g=0;g<a.length;g++){var d=a[g],h=d.variable,k=h.type;"color"===k?e.color=d.value.toRgba():"size"===k?"outline"===h.target?e.outlineSize=d.value:(h=d.variable.axis,d=d.variable.useSymbolValue?"symbolValue":d.value,"width"===h?c[0]=d:"depth"===h?c[1]=d:"height"===h?c[2]=d:c[0]="width-and-depth"===h?c[1]=d:c[1]=c[2]=d):"opacity"===k?e.opacity=d.value:"rotation"===k&&(e.rotationAngle=d.value)}if(isFinite(c[0])||isFinite(c[1])||
+isFinite(c[2]))e.size=c}}return e}});

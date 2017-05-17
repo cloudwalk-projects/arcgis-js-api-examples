@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports"],function(w,x){function s(a,g,d,e,b){void 0===e&&(e=0);void 0===b&&(b=a.length);for(var f=a[e],c=a[b-1],k=0,l=0,h,n=e+1;n<b-1;n++){var p=a[n];h=p[0];var p=p[1],q=f[0],t=f[1],m=c[0],r=c[1];q===m?h=u(h-q):(m=(r-t)/(m-q),h=u(m*h-p+(t-m*q))/v(m*m+1));h>k&&(l=n,k=h)}k>g?(s(a,g,d,e,l+1),s(a,g,d,l,b)):(d(f[0],f[1]),d(c[0],c[1]))}var r=Math.round,u=Math.abs,v=Math.sqrt;return function(){function a(){this._transform=null}a.prototype.update=function(g,d){this._transform=g;this._resolution=
+d};a.prototype.toScreenPoint=function(g,d,a){this.transformPoint(d.x+a*this._resolution,d.y,function(b,a){g.x=b;g.y=a});return g};a.prototype.toScreenPath=function(a,d){var e=this,b=null!=a.paths,f=b?a.paths:a.rings,c="",k=function(a,b){a+=d*e._resolution;e.transformPoint(a,b,function(a,b){!isNaN(a)&&!isNaN(b)&&(c+=a,c+=",",c+=b,c+=" ")})};if(f)for(var l=0,h=f.length;l<h;l++)c+="M ",s(f[l],this._resolution,k),b||(c+="Z ");return c};a.prototype.transformPoint=function(a,d,e){var b=this._transform,
+f=b[1],c=b[3],k=b[5];e(r(b[0]*a+b[2]*d+b[4]),r(f*a+c*d+k))};return a}()});

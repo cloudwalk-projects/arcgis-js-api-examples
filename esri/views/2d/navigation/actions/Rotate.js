@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define("require exports ../../../../core/tsSupport/declareExtendsHelper ../../../../core/tsSupport/decorateHelper ../../../../core/accessorSupport/decorators ../../../../core/Accessor ../../viewpointUtils ../../math/vec2".split(" "),function(m,n,k,c,b,l,g,e){return function(h){function a(a){h.call(this);this.viewpoint=g.create()}k(a,h);a.prototype.begin=function(a,f){this.navigation.begin()};a.prototype.update=function(a,f){var d=e.create(),d=e.set(d,f.currentEvent.x,a.height-f.currentEvent.y),b=
+f.previousEvent,c=e.create();e.set(c,b.x,a.height-b.y);d=g.angleBetween(a.state.paddedScreenCenter,d,c);a.viewpoint=g.rotateBy(this.viewpoint,a.content.viewpoint,d)};a.prototype.end=function(a,b){this.navigation.end()};c([b.property()],a.prototype,"viewpoint",void 0);c([b.property()],a.prototype,"navigation",void 0);return a=c([b.subclass("esri.views.2d.actions.Rotate")],a)}(b.declared(l))});

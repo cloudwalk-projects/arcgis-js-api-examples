@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports"],function(p,d){function m(a,c,b){var e=a.safeWidth,h=a.width,f=a.values,g=a.noDataValue;b=0>a.dy*(a.y1-b)?0:a.dy*(a.y1-b)>e?e:a.dy*(a.y1-b);c=0>a.dx*(c-a.x0)?0:a.dx*(c-a.x0)>e?e:a.dx*(c-a.x0);a=Math.floor(b);var e=Math.floor(c),k=a*h+e,d=k+h,l=f[k],h=f[d],k=f[k+1],f=f[d+1];if(l!==g&&h!==g&&k!==g&&f!==g)return g=c-e,c=l+(k-l)*g,c+(h+(f-h)*g-c)*(b-a)}var n=function(){function a(a,b){this.tile=a;this.update(b)}a.prototype.update=function(a){if(a){var b=this.tile.extent;this.samplerData=
+{values:a.values,width:a.width,height:a.height,safeWidth:0.99999999*(a.width-1),noDataValue:a.noDataValue,dx:(a.width-1)/(b[2]-b[0]),dy:(a.width-1)/(b[3]-b[1]),x0:b[0],y1:b[3]}}else this.samplerData=null};a.prototype.sample=function(a,b){if(this.samplerData)return m(this.samplerData,a,b)};return a}();d.ElevationTile=n;d.sample=m;Object.defineProperty(d,"__esModule",{value:!0});d.default=n});

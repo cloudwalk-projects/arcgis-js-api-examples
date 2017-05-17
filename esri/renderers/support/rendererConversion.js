@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../core/Error","../../symbols/support/symbolConversion"],function(m,h,g,d){function e(a,b){if(!b)return null;var c;c=Array.isArray(b)?b:[b];if(0<c.length){var f=c.map(function(a){return a.details.symbol.type||a.details.symbol.declaredClass}).filter(function(a){return!!a});f.sort();var d=[];f.forEach(function(a,b){(0===b||a!==f[b-1])&&d.push(a)});return new g("renderer-conversion-3d:unsupported-symbols","Renderer contains symbols ("+d.join(", ")+") which are not supported in 3D",
+{renderer:a,symbolErrors:c})}return null}function k(a){var b=a.uniqueValueInfos.map(function(a){return d.to3D(a.symbol).error}).filter(function(a){return!!a}),c=d.to3D(a.defaultSymbol);c.error&&b.unshift(c.error);return e(a,b)}function l(a){var b=a.classBreakInfos.map(function(a){return d.to3D(a.symbol).error}).filter(function(a){return!!a}),c=d.to3D(a.defaultSymbol);c.error&&b.unshift(c.error);return e(a,b)}h.validateTo3D=function(a){return!a?null:"simple"===a.type?e(a,d.to3D(a.symbol).error):"uniqueValue"===
+a.type?k(a):"classBreaks"===a.type?l(a):new g("renderer-conversion-3d:unsupported-renderer","Unsupported renderer of type '"+(a.type||a.declaredClass)+"'",{renderer:a})}});

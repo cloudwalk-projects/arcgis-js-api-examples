@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["./declare","../core/Accessoire","../core/Evented"],function(d,e,f){return d([e,f],{next:function(){var a=this.item||this.first;return this.item=a&&a.next?a.next:null},add:function(a){if(!a)return!1;0===this.count?this.last=a:a.next=this.first;this.item=this.first=a;this.count++;this.emit("add",a);return this},remove:function(a){!a&&null!=this.item&&(a=this.item);for(var b=this.first,c=null;b!=a&&b.next;)c=this.item,b=this.next();b==a&&(b.next?c?c.next=b.next:this.first=b.next:(c.next=null,
+this.last=c),this.item=this.first,this.emit("remove",a));return this},reset:function(){this.item=this.first},empty:function(a){this.reset();for(var b=this.item,c=b.next;null!=b;)b.next=null,a&&(b.destroy&&"function"==typeof b.destroy)&&b.destroy(),b=this.item=c,c=this.next();this.last=this.first=null;return this},first:null,last:null,count:0})});

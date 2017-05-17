@@ -1,4 +1,4 @@
 // All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.19/esri/copyright.txt for details.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
 //>>built
-define("esri/opsdashboard/FeatureActionConfigurationProxy",["dojo/_base/declare","./core/ExtensionConfigurationBase"],function(a,b){return a([b])});
+define("require exports ../core/tsSupport/extendsHelper ../core/tsSupport/decorateHelper ../core/typescript ./core/ExtensionConfigurationBase".split(" "),function(g,h,e,b,c,f){return function(d){function a(){d.apply(this,arguments)}e(a,d);b([c.shared("esri.opsdashboard.FeatureActionConfigurationProxy")],a.prototype,"declaredClass",void 0);return a=b([c.subclass()],a)}(f)});

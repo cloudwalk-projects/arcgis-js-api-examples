@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../../core/tsSupport/extendsHelper","./Container"],function(m,n,g,l){return function(e){function a(){e.apply(this,arguments)}g(a,e);a.prototype.createElement=function(){var b=document.createElement("div");b.setAttribute("class","esri-display-object");return b};a.prototype.setElement=function(b){this.element=b};a.prototype.render=function(b){var c=this.element.style;this.visible?(c.display="block",c.opacity=""+this.opacity,e.prototype.render.call(this,b)):c.display=
+"none"};a.prototype.prepareChildrenRenderParameters=function(b){return b};a.prototype.attachChild=function(b,c){var a=b.element;a||(a=b.createElement(),b.setElement(a));return b.attach(c)};a.prototype.detachChild=function(b,a){b.detach(a);this.element.removeChild(b.element);b.setElement(null)};a.prototype.renderChildren=function(b){for(var a=this.children,h=this.element.childNodes,d=0,f=0,g=a.length;f<g;f++)if(a[f].attached){var k=a[f].element;h[d]!==k&&(null!=h[d+1]?this.element.insertBefore(k,h[d]):
+this.element.appendChild(k));d+=1}e.prototype.renderChildren.call(this,b)};a.prototype.renderChild=function(b,a){return b.render(a)};return a}(l)});

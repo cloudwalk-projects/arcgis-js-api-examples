@@ -1,2 +1,2 @@
 //>>built
-define("dojox/sql",["./sql/_base"],function(){});
+define(["./sql/_base"],function(){});

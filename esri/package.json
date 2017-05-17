@@ -1,6 +1,6 @@
 {
   "name":    "esri",
-  "version": "3.19",
+  "version": "4.2.0",
   "author":  "Esri Inc",
   "directories": {
     "lib": "."

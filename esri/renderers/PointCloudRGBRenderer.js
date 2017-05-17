@@ -1,0 +1,4 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport/decorateHelper ../core/accessorSupport/decorators ./PointCloudRenderer".split(" "),function(g,h,e,c,b,f){return function(d){function a(a){d.call(this);this.type="pointCloudRGBRenderer";this.field=null}e(a,d);c([b.property()],a.prototype,"type",void 0);c([b.property({json:{writable:!0},type:String})],a.prototype,"field",void 0);return a=c([b.subclass("esri.renderer.PointCloudRGBRenderer")],a)}(b.declared(f))});

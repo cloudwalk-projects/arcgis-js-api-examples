@@ -1,2 +1,2 @@
 //>>built
-define("dojox/gfx/attach",["dojox/gfx"],function(){});
+define(["dojox/gfx"],function(){});

@@ -1,2 +1,2 @@
 //>>built
-define("dojox/widget/nls/hr/Wizard",{next:"Sljede\u0107e",previous:"Prethodno",done:"Gotovo"});
+define({next:"Sljede\u0107e",previous:"Prethodno",done:"Gotovo"});

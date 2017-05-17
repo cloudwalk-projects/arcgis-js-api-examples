@@ -1,2 +1,2 @@
 //>>built
-define("dojox/widget/nls/eu/Wizard",{next:"Hurrengoa",previous:"Aurrekoa",done:"Eginda"});
+define({next:"Hurrengoa",previous:"Aurrekoa",done:"Eginda"});

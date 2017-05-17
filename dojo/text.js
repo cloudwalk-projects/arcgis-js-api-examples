@@ -1,10 +1,4 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
 //>>built
-define("dojo/text",["./_base/kernel","require","./has","./request"],function(r,s,u,t){var k;k=function(a,c,b){t(a,{sync:!!c,headers:{"X-Requested-With":null}}).then(b)};var e={},l=function(a){if(a){a=a.replace(/^\s*<\?xml(\s)+version=[\'\"](\d)*.(\d)*[\'\"](\s)*\?>/im,"");var c=a.match(/<body[^>]*>\s*([\s\S]+)\s*<\/body>/im);c&&(a=c[1])}else a="";return a},p={},h={};r.cache=function(a,c,b){var d;"string"==typeof a?/\//.test(a)?(d=a,b=c):d=s.toUrl(a.replace(/\./g,"/")+(c?"/"+c:"")):(d=a+"",b=c);a=
-void 0!=b&&"string"!=typeof b?b.value:b;b=b&&b.sanitize;if("string"==typeof a)return e[d]=a,b?l(a):a;if(null===a)return delete e[d],null;d in e||k(d,!0,function(a){e[d]=a});return b?l(e[d]):e[d]};return{dynamic:!0,normalize:function(a,c){var b=a.split("!"),d=b[0];return(/^\./.test(d)?c(d):d)+(b[1]?"!"+b[1]:"")},load:function(a,c,b){a=a.split("!");var d=1<a.length,m=a[0],f=c.toUrl(a[0]);a="url:"+f;var g=p,n=function(a){b(d?l(a):a)};m in e?g=e[m]:c.cache&&a in c.cache?g=c.cache[a]:f in e&&(g=e[f]);
-if(g===p)if(h[f])h[f].push(n);else{var q=h[f]=[n];k(f,!c.async,function(a){e[m]=e[f]=a;for(var b=0;b<q.length;)q[b++](a);delete h[f]})}else n(g)}}});
+define(["./_base/kernel","require","./has","./has!host-browser?./request"],function(r,g,s,t){var k;s("host-browser")?k=function(a,c,b){t(a,{sync:!!c,headers:{"X-Requested-With":null}}).then(b)}:g.getText?k=g.getText:console.error("dojo/text plugin failed to load because loader does not support getText");var e={},m=function(a){if(a){a=a.replace(/^\s*<\?xml(\s)+version=[\'\"](\d)*.(\d)*[\'\"](\s)*\?>/im,"");var c=a.match(/<body[^>]*>\s*([\s\S]+)\s*<\/body>/im);c&&(a=c[1])}else a="";return a},p={},l=
+{};r.cache=function(a,c,b){var d;"string"==typeof a?/\//.test(a)?(d=a,b=c):d=g.toUrl(a.replace(/\./g,"/")+(c?"/"+c:"")):(d=a+"",b=c);a=void 0!=b&&"string"!=typeof b?b.value:b;b=b&&b.sanitize;if("string"==typeof a)return e[d]=a,b?m(a):a;if(null===a)return delete e[d],null;d in e||k(d,!0,function(a){e[d]=a});return b?m(e[d]):e[d]};return{dynamic:!0,normalize:function(a,c){var b=a.split("!"),d=b[0];return(/^\./.test(d)?c(d):d)+(b[1]?"!"+b[1]:"")},load:function(a,c,b){a=a.split("!");var d=1<a.length,
+g=a[0],f=c.toUrl(a[0]);a="url:"+f;var h=p,n=function(a){b(d?m(a):a)};g in e?h=e[g]:c.cache&&a in c.cache?h=c.cache[a]:f in e&&(h=e[f]);if(h===p)if(l[f])l[f].push(n);else{var q=l[f]=[n];k(f,!c.async,function(a){e[g]=e[f]=a;for(var b=0;b<q.length;)q[b++](a);delete l[f]})}else n(h)}}});

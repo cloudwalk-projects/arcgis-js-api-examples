@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define("require exports ../../core/tsSupport/declareExtendsHelper ../../core/tsSupport/decorateHelper ../../core/urlUtils ../../core/JSONSupport ../../core/kebabDictionary ../../core/accessorSupport/decorators".split(" "),function(d,e,h,b,f,k,l,c){var g=l({invertedCone:"inverted-cone"});d=function(d){function a(){d.apply(this,arguments)}h(a,d);a.prototype.readHref=function(a,c,b){return f.read(a,b)};a.prototype.writeHref=function(a,b,c){a&&(b.href=f.write(a,c))};a.prototype.readPrimitive=function(a){return g.fromJSON(a)};
+a.prototype.writePrimitive=function(a,b){b.primitive=g.toJSON(a)};a.prototype.clone=function(){return new a({href:this.href,primitive:this.primitive})};b([c.property({json:{writable:!0}})],a.prototype,"href",void 0);b([c.read("href")],a.prototype,"readHref",null);b([c.write("href")],a.prototype,"writeHref",null);b([c.property({json:{writable:!0}})],a.prototype,"primitive",void 0);b([c.read("primitive")],a.prototype,"readPrimitive",null);b([c.write("primitive")],a.prototype,"writePrimitive",null);
+return a=b([c.subclass("esri.symbols.support.Symbol3DResource")],a)}(c.declared(k));e.Symbol3DResource=d;Object.defineProperty(e,"__esModule",{value:!0});e.default=d});

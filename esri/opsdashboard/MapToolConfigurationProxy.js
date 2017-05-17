@@ -1,4 +1,5 @@
 // All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.19/esri/copyright.txt for details.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
 //>>built
-define("esri/opsdashboard/MapToolConfigurationProxy",["dojo/_base/declare","dojo/_base/lang","./core/ExtensionConfigurationBase"],function(a,b,c){return a([c],{_initializeResponseReceived:function(a){this.inherited(arguments).then(b.hitch(this,function(){return this.getMapWidgetProxy(this.config.mapWidgetId).then(function(a){this.mapWidgetProxy=a})}))}})});
+define("require exports ../core/tsSupport/extendsHelper ../core/tsSupport/decorateHelper ../core/typescript ./core/ExtensionConfigurationBase".split(" "),function(g,h,e,b,c,f){return function(d){function a(){d.apply(this,arguments)}e(a,d);a.prototype._initializeResponseReceived=function(a){var b=this;this.inherited(arguments).then(function(){return b.getMapWidgetProxy(b.config.mapWidgetId).then(function(a){this.mapWidgetProxy=a})})};b([c.shared("esri.opsdashboard.MapToolConfigurationProxy")],a.prototype,
+"declaredClass",void 0);return a=b([c.subclass()],a)}(f)});

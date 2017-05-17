@@ -1,0 +1,4 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../../../core/tsSupport/extendsHelper","../../../input/InputHandler"],function(a,c,d,e){a=function(a){function b(b,c){var d=this;a.call(this,"esri.views.3d.input.handlers.PointerDownCancelAnimation",!0);this.view=b;this.registerIncoming("pointer-down",c,function(a){return d._handlePointerDown(a)})}d(b,a);b.prototype._handlePointerDown=function(a){this.view.navigation.stop()};return b}(e.InputHandler);c.PointerDownCancelAnimation=a});

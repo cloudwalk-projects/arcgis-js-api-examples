@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport/decorateHelper dojo/_base/lang ./Layer ../core/promiseUtils ../core/Error ../core/MultiOriginJSONSupport ./mixins/PortalLayer ../core/accessorSupport/decorators".split(" "),function(p,q,f,b,g,h,k,l,m,n,c){return function(e){function a(d){e.call(this);this.resourceInfo=null;this.type="unsupported"}f(a,e);a.prototype.initialize=function(){var d=this.resourceInfo&&(this.resourceInfo.layerType||this.resourceInfo.type),a=
+"Unsupported layer type";d&&(a+=" "+d);this.addResolvingPromise(k.reject(new l("layer:unsupported-layer-type",a,{layerType:d})))};a.prototype.read=function(a,c){var b={resourceInfo:a};null!=a.id&&(b.id=a.id);null!=a.title&&(b.title=a.title);this.inherited(arguments,[b,c]);return this};a.prototype.write=function(a,b){return g.mixin(a||{},this.resourceInfo,{id:this.id})};b([c.shared("esri.layers.UnsupportedLayer")],a.prototype,"declaredClass",void 0);b([c.property({readOnly:!0})],a.prototype,"resourceInfo",
+void 0);b([c.property({json:{readable:!1}})],a.prototype,"type",void 0);return a=b([c.subclass()],a)}(c.declared(h,m,n))});

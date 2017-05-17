@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports"],function(m,e){function h(a){return null!=a.__accessorMetadata__}function l(a){return h(a)&&null!=f(a).properties}function f(a){a.__accessorMetadata__||Object.defineProperty(a,"__accessorMetadata__",{value:{},enumerable:!0,configurable:!0,writable:!0});return a.__accessorMetadata__}function g(a){a=f(a);var b=a.properties;b||(b=a.properties={});return b}function k(a,b){var c=f(a),d=c.parameters;d||(d=c.parameters={});c=d[b];c||(c=[],d[b]=c);return c}e.hasMetadata=h;e.hasPropertiesMetadata=
+l;e.hasPropertyMetadata=function(a,b){return l(a)&&null!=g(a)[b]};e.hasParametersMetadata=function(a,b){return h(a)&&null!=f(a).parameters&&null!=f(a).parameters[b]};e.getMetadata=f;e.getPropertiesMetadata=g;e.getPropertyMetadata=function(a,b){var c=g(a),d=c[b];d||(d=c[b]={});return d};e.setPropertyMetadata=function(a,b,c){g(a)[b]=c};e.getParametersMetadata=k;e.getParameterMetadata=function(a,b,c){var d=k(a,b)[c];d||(k(a,b)[c]=d={index:c});return d}});

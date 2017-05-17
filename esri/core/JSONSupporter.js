@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["dojo/has","dojo/_base/lang","./declare","./Accessoire","./accessoireSupport/introspect"],function(g,e,c,l,m){Function.prototype.bind.call(console.error,console);g=c(l,{declaredClass:"esri.core.JSONSupporter",read:function(b){var a=m(this).classMetadata,f=this._accessorProps,k=a.properties,d=(a=a.reader)&&a.add,e=a&&a.exclude,c,h,a=Object.getOwnPropertyNames(b);e&&(a=a.filter(function(a){return-1===e.indexOf(a)}));d&&(a=a.concat(d));for(var g=0;d=a[g];g++)c=b[d],h=k[d]&&k[d].reader,f.setDefault(d,
+h?h.call(this,c,b):c);return this}});var n=function(b){if(!b)return null;if(b.declaredClass)throw Error("JSON object is already hydrated");var a=new this;a.read(b);return a};c.after(function(b){if(c.hasMixin(b,"esri.core.JSONSupporter")){b.fromJSON=n.bind(b);b=e.getObject("_esriMeta.classMetadata",!1,b);var a=b.properties,f=e.getObject("reader.add",!1,b);e.getObject("reader.exclude",!1,b);f&&a&&f.slice().filter(function(b){return!a[b]||!a[b].reader}).forEach(function(a){f.splice(f.indexOf(a),1)},
+this)}});return g});

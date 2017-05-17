@@ -1,2 +1,2 @@
 //>>built
-define("dojox/uuid",["dojox/uuid/_base"],function(a){return a});
+define(["dojox/uuid/_base"],function(a){return a});

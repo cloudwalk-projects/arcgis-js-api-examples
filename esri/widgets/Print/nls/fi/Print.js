@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define({title:"Otsikko",fileName:"Tiedoston nimi",titlePlaceHolder:"Tiedoston otsikko",fileNamePlaceHolder:"Tiedostonimi",formatDefaultOption:"Valitse muoto",fileFormatTitle:"Tiedostomuoto",layoutTitle:"Sivun asettelu",layoutDefaultOption:"Valitse sivun asettelu",scale:"M\u00e4\u00e4rit\u00e4 mittakaava",scaleLabel:"mittakaava",reset:"palauta",author:"Tekij\u00e4",copyright:"Copyright",legend:"Sis\u00e4llyt\u00e4 selite",lock:"lukitse",swap:"vaihda",panelToggle:"Paneelin vaihto",advancedOptions:"Lis\u00e4asetukset",
+width:"Leveys",height:"Korkeus",attribution:"Lis\u00e4\u00e4 ominaisuustieto",layoutTab:"Asettelu",mapOnlyTab:"Vain kartta",untitled:"nimet\u00f6n","export":"Vie",exportText:"Viedyt tiedostot",exportHint:"Viedyt tiedostot n\u00e4kyv\u00e4t t\u00e4ss\u00e4."});

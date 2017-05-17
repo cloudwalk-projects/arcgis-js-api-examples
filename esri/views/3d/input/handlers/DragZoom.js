@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../../../core/tsSupport/extendsHelper","../../../input/InputHandler","./support"],function(b,f,g,h,k){b=function(b){function e(l,c,a){var d=this;b.call(this,"esri.views.3d.input.handlers.DragZoom"+c,!0);this.view=l;this.pointerType=c;this.registerIncoming("drag",a,function(a){return d._handleDrag(a)})}g(e,b);e.prototype._handleDrag=function(b){var c=b.data;if(!(1<c.pointers.length)){var a=c.pointers[0];if(k.eventMatchesPointerType(a.startEvent.native,this.pointerType)){var a=
+[a.currentEvent.x,this.view.height-a.currentEvent.y],d=this.view.navigation.zoom;switch(c.action){case "start":d.begin(a);break;case "update":d.update(a);break;case "end":d.end(a)}b.stopPropagation()}}};return e}(h.InputHandler);f.DragZoom=b});

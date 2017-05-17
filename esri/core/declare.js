@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports","dojo/_base/declare"],function(m,n,k){function l(a,c){if(a&&!(Array.isArray(a)||"function"===typeof a))c=a,a=null;a=a||[];c=c||{};return f([this].concat(a),c)}function f(a,c){if(a&&!(Array.isArray(a)||"function"===typeof a))c=a,a=null;"function"===typeof a?a=[a]:a||(a=[]);c=c||{};var b,d;b=0;for(d=g.length;b<d;b++)g[b](a,c);var e=k(a,c);e.createSubclass=l;b=0;for(d=h.length;b<d;b++)h[b](e);return e}var g=[],h=[];(function(a){a.hasMixin=function(a,b){var d;d=Array.isArray(a)?
+a.reduce(function(a,c){return c._meta?a.concat(c._meta.bases):a},[]):a._meta?a._meta.bases:a;if(!d)return!1;if("string"===typeof b)for(var e=d.length-1;0<=e;e--)if(d[e].prototype.declaredClass===b)return!0;return-1!==d.indexOf(b)};a.safeMixin=function(a,b){return k.safeMixin(a,b)};a.before=function(a){g.push(a)};a.after=function(a){h.push(a)}})(f||(f={}));return f});

@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["../../core/Accessor","../../core/Evented"],function(b,c){return b.createSubclass([c],{properties:{state:{dependsOn:["view.ready"],readOnly:!0},view:{},viewpoint:{dependsOn:["state"]}},declaredClass:"esri.widgets.Home.HomeViewModel",constructor:function(){this.go=this.go.bind(this)},state:"disabled",_stateGetter:function(){return!this.get("view.ready")?"disabled":this._goingHome?"going-home":"ready"},view:null,_viewSetter:function(a){this._initialViewpoint=null;a&&a.then(function(){this._initialViewpoint=
+a.viewpoint.clone();this.notifyChange("viewpoint")}.bind(this));this._set("view",a)},viewpoint:null,_viewpointGetter:function(){return this._get("viewpoint")||this._initialViewpoint},_initialViewpoint:null,_goingHome:null,go:function(){if(this.get("view.ready")){this._goingHome&&(this._goingHome.cancel(),this._goingHome=null);this.emit("go");var a=this.view.goTo(this.viewpoint).always(function(){this.notifyChange("state");this._goingHome=null}.bind(this));this._goingHome=a;this.notifyChange("state");
+return a}}})});

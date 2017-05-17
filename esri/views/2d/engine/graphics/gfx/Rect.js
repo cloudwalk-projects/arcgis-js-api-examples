@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../../../../core/tsSupport/extendsHelper","dojox/gfx/_base","./Shape"],function(c,e,g,f,h){c=function(c){function d(a){c.call(this);this.shape=f.getDefault("Rect");this.rawNode=a}g(d,c);d.prototype.getBoundingBox=function(){return this.shape};d.prototype.setShape=function(a){this.shape=f.makeParameters(this.shape,a);this.bbox=null;for(var b in this.shape)if("type"!==b&&"r"!==b){a=this.shape[b];if("width"===b||"height"===b)a=0>a?0:a;this.rawNode.setAttribute(b,a)}null!=
+this.shape.r&&(this.rawNode.setAttribute("ry",this.shape.r),this.rawNode.setAttribute("rx",this.shape.r));return this};d.nodeType="rect";return d}(h.default);Object.defineProperty(e,"__esModule",{value:!0});e.default=c});

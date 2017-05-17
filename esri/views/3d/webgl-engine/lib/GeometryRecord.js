@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports","./IdGen"],function(h,k,d){return function(){function b(a,c,d,e,f,g){this.id=b._idGen.gen(a.getId());this.geometry=a;this.materials=c;this.transformation=d;this.instanceParameters=e;this.origin=f;this.customTransformation=g}b.prototype.getId=function(){return this.id};b.prototype.getStaticTransformation=function(){return this.transformation};b.prototype.getShaderTransformation=function(){return this.customTransformation?this.customTransformation(this.transformation):this.transformation};
+b.replaceGeometry=function(a,c){return new b(c,a.materials,a.transformation,a.instanceParameters,a.origin,a.customTransformation)};b.replaceMaterials=function(a,c){return new b(a.geometry,c.slice(0),a.transformation,a.instanceParameters,a.origin,a.customTransformation)};b._idGen=new d;return b}()});

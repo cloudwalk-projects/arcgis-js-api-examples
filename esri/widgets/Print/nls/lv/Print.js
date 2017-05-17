@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define({title:"Virsraksts",fileName:"Faila nosaukums",titlePlaceHolder:"Faila virsraksts",fileNamePlaceHolder:"Faila nosaukums",formatDefaultOption:"Atlas\u012bt form\u0101tu",fileFormatTitle:"Faila form\u0101ts:",layoutTitle:"Lapas iestat\u012bjumi",layoutDefaultOption:"Atlas\u012bt lapas iestat\u012bjumus",scale:"Iestat\u012bt m\u0113rogu",scaleLabel:"m\u0113rogs",reset:"atiestat\u012bt",author:"Autors",copyright:"Autorties\u012bbas",legend:"Iek\u013caut apz\u012bm\u0113jumus",lock:"Sl\u0113dzene",
+swap:"p\u0101rnese",panelToggle:"Pane\u013ca p\u0101rsl\u0113g\u0161ana",advancedOptions:"Papildu opcijas",width:"Platums",height:"Augstums",attribution:"Iek\u013caut attiecin\u0101jumu",layoutTab:"Izk\u0101rtojums",mapOnlyTab:"Tikai karte",untitled:"bez nosaukuma","export":"Eksport\u0113t",exportText:"Eksport\u0113tie faili",exportHint:"Eksport\u0113tie faili tiks r\u0101d\u012bti \u0161eit."});

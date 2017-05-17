@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["../../core/Accessoire","../../core/declare","../../core/kebabDictionary","dojo/_base/array"],function(c,d,e,f){var g=e({preserveShape:"preserve-shape"});return d(c,{declaredClass:"esri.tasks.support.LengthsParameters",calculationType:null,geodesic:null,lengthUnit:null,polylines:null,toJSON:function(){var b=f.map(this.polylines,function(a){return a.toJSON()}),a={};a.polylines=JSON.stringify(b);b=this.polylines[0].spatialReference;a.sr=b.wkid?b.wkid:JSON.stringify(b.toJSON());this.lengthUnit&&
+(a.lengthUnit=this.lengthUnit);this.geodesic&&(a.geodesic=this.geodesic);this.calculationType&&(a.calculationType=g.toJSON(this.calculationType));return a}})});

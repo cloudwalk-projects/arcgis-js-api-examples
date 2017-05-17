@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["../../core/Accessor","../../core/Evented","../../support/basemapUtils","dojo/_base/lang"],function(c,d,a,e){return c.createSubclass([d],{properties:{activeBasemap:{dependsOn:["view.map.basemap"],readOnly:!0},nextBasemap:{},state:{dependsOn:["view.ready"],readOnly:!0},view:{}},declaredClass:"esri.widgets.BasemapToggle.BasemapToggleViewModel",constructor:function(){this.toggle=this.toggle.bind(this);this._basemapCache={}},getDefaults:function(b){return e.mixin(this.inherited(arguments),{nextBasemap:"hybrid"})},
+_basemapCache:null,activeBasemap:null,_activeBasemapGetter:function(){return a.ensureType(this.get("view.map.basemap")||"topo",this._basemapCache)},nextBasemap:null,_nextBasemapSetter:function(b){this._set("nextBasemap",a.ensureType(b,this._basemapCache))},state:"disabled",_stateGetter:function(){return this.get("view.ready")?"ready":"disabled"},view:null,toggle:function(){if("disabled"!==this.state){var b=this.activeBasemap,a=this.nextBasemap;this.view.map.basemap=a;this.nextBasemap=b;this.emit("toggle",
+{previous:b,current:a})}}})});

@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../../../../core/tsSupport/extendsHelper","dojox/gfx/_base","./Shape"],function(e,k,l,g,m){e=function(e){function d(b){e.call(this);this.shape=g.getDefault("Polyline");this.rawNode=b}l(d,e);d.prototype.setShape=function(b,d){Array.isArray(b)?(this.shape=g.makeParameters(this.shape,{points:b}),d&&this.shape.points.length&&this.shape.points.push(this.shape.points[0])):this.shape=g.makeParameters(this.shape,b);this.bbox=null;this._normalizePoints();for(var a=[],c=this.shape.points,
+f=0;f<c.length;++f)a.push(c[f].x.toFixed(8),c[f].y.toFixed(8));this.rawNode.setAttribute("points",a.join(" "));return this};d.prototype.getBoundingBox=function(){if(!this.bbox&&this.shape.points.length){for(var b=this.shape.points,d=b.length,a=b[0],c=a.x,f=a.y,e=a.x,g=a.y,h=1;h<d;++h)a=b[h],c>a.x&&(c=a.x),e<a.x&&(e=a.x),f>a.y&&(f=a.y),g<a.y&&(g=a.y);this.bbox={x:c,y:f,width:e-c,height:g-f}}return this.bbox};d.prototype._normalizePoints=function(){var b=this.shape.points,d=b&&b.length;if(d&&"number"===
+typeof b[0]){for(var a=[],c=0;c<d;c+=2)a.push({x:b[c],y:b[c+1]});this.shape.points=a}};d.nodeType="polyline";return d}(m.default);k.Polyline=e});

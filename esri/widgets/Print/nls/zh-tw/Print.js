@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define({title:"\u6a19\u984c",fileName:"\u6a94\u6848\u540d\u7a31",titlePlaceHolder:"\u6a94\u6848\u6a19\u984c",fileNamePlaceHolder:"\u6a94\u6848\u540d\u7a31",formatDefaultOption:"\u9078\u64c7\u683c\u5f0f",fileFormatTitle:"\u6a94\u6848\u683c\u5f0f",layoutTitle:"\u9801\u9762\u8a2d\u5b9a",layoutDefaultOption:"\u9078\u64c7\u9801\u9762\u8a2d\u5b9a",scale:"\u8a2d\u5b9a\u6bd4\u4f8b",scaleLabel:"\u6bd4\u4f8b",reset:"\u91cd\u8a2d",author:"\u4f5c\u8005",copyright:"\u7248\u6b0a",legend:"\u5305\u62ec\u5716\u4f8b",
+lock:"\u9396\u5b9a",swap:"\u4ea4\u63db",panelToggle:"\u9762\u677f\u5207\u63db",advancedOptions:"\u9032\u968e\u9078\u9805",width:"\u5bec\u5ea6",height:"\u9ad8\u5ea6",attribution:"\u5305\u542b\u5c6c\u6027",layoutTab:"\u7248\u9762\u914d\u7f6e",mapOnlyTab:"\u50c5\u9650\u5730\u5716",untitled:"\u7121\u6a19\u984c","export":"\u532f\u51fa",exportText:"\u532f\u51fa\u7684\u6a94\u6848",exportHint:"\u60a8\u532f\u51fa\u7684\u6a94\u6848\u6703\u51fa\u73fe\u5728\u9019\u88e1\u3002"});

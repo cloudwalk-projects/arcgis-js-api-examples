@@ -9,27 +9,37 @@ individual columns, respectively.
 
 ```js
 require([
-    "dojo/_base/declare", "dgrid/OnDemandGrid", "dgrid/extensions/ColumnHider"
-], function(declare, OnDemandGrid, ColumnHider){
-    var grid = new (declare([OnDemandGrid, ColumnHider]))({
+    'dojo/_base/declare',
+    'dgrid/OnDemandGrid',
+    'dgrid/extensions/ColumnHider'
+], function (declare, OnDemandGrid, ColumnHider) {
+    var grid = new (declare([ OnDemandGrid, ColumnHider ]))({
         columns: {
             col1: {
-                label: "Column 1",
+                label: 'Column 1',
                 hidden: true
             },
             col2: {
-                label: "Column 2",
+                label: 'Column 2',
                 unhidable: true
             },
-            col3: "Column 3"
+            col3: 'Column 3'
         }
-    }, "grid");
+    }, 'grid');
     // ...
 });
 ```
 
 **Note:** This extension is only fully supported for cases of simple, single-row
-column layouts.
+column layouts.  It can also be used with the [CompoundColumns](./CompoundColumns.md) extension.
+
+## API
+
+### Method Summary
+
+Method | Description
+------ | -----------
+`toggleColumnHiddenState(id, hidden)` | Toggles or sets the hidden state of the column with the specified `id`.  Hides the column if `hidden` is `true`, shows it if `false`, and toggles the current state if unspecified.
 
 ## Additional Column Definition Properties
 

@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../core/urlUtils"],function(k,b,g){function e(a){var d=g.urlToObject(a).path.match(b.match);if(!d)return null;a=d[1];var c=d[2],h=d[3],d=d[4],e=c.indexOf("/");-1!==e&&(c=c.slice(e+1));return{title:f(c),serverType:h,sublayer:null!=d&&""!==d?parseInt(d,10):null,url:{path:a}}}function f(a){a=a.replace(/\s*[/_]+\s*/g," ");return a[0].toUpperCase()+a.slice(1)}b.serverTypes="MapServer ImageServer FeatureServer SceneServer StreamServer VectorTileServer".split(" ");b.match=
+RegExp("^((?:https?:)?\\/\\/\\S+?\\/rest\\/services\\/(.+?)\\/("+b.serverTypes.join("|")+"))(?:\\/(?:layers\\/)?(\\d+))?","i");b.test=function(a){return!!b.match.test(a)};b.parse=e;b.cleanTitle=f;b.titleFromUrlAndName=function(a,d){var c=[];if(a){var b=e(a);b&&b.title&&c.push(b.title)}d&&(b=f(d),c.push(b));if(2===c.length){if(-1!==c[0].toLowerCase().indexOf(c[1].toLowerCase()))return c[0];if(-1!==c[1].toLowerCase().indexOf(c[0].toLowerCase()))return c[1]}return c.join(" - ")};b.isHostedAgolService=
+function(a){if(!a)return!1;a=a.toLowerCase();var b=-1!==a.indexOf(".arcgis.com/");a=-1!==a.indexOf("//services")||-1!==a.indexOf("//tiles")||-1!==a.indexOf("//features");return b&&a}});

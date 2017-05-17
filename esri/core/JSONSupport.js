@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define("require exports ./tsSupport/declareExtendsHelper ./tsSupport/decorateHelper ./Accessor ./declare ./accessorSupport/read ./accessorSupport/write ./accessorSupport/decorators".split(" "),function(p,q,g,h,k,d,l,m,e){function n(a,b){if(!a)return null;if(a.declaredClass)throw Error("JSON object is already hydrated");var f=new this;f.read(a,b);return f}var c=function(a){function b(){a.apply(this,arguments)}g(b,a);b.prototype.read=function(a,b){l.default(this,a,b);return this};b.prototype.write=
+function(a,b){return m.default(this,a||{},b)};b.prototype.toJSON=function(a){return this.write(null,a)};return b=h([e.subclass("esri.core.JSONSupport")],b)}(e.declared(k));c.prototype.toJSON.isDefaultToJSON=!0;d.after(function(a){d.hasMixin(a,c)&&(a.fromJSON=n.bind(a))});return c});

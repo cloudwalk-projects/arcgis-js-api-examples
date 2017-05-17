@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["dojo/has","../accessorSupport/watch"],function(m,c){c=c.default;var h=function(a,b){this.dependencyPath=a;this.chain=a.split(".");this.dependents=b};h.prototype={install:function(a){return new k(this,a)}};var k=function(a,b){this.binding=a;this.obj=b;this._installs=[];this._props=b._accessorProps;this._install(b,0);this._notify()},l=function(a,b,d){return a.dirties?c(a,b,d,!0):a.bind(b,d)};k.prototype={remove:function(){this._installs.forEach(function(a){a.remove()});this._installs=this._props=
+this.binding=this.obj=null},_install:function(a,b){var d=this.binding.chain,e=this._installs,g;b<e.length&&(e.splice(b).forEach(function(a){a.remove()}),this._notify());if(b!==d.length&&a&&(g=a&&(a.__accessor__||a._accessorProps))){for(var c,f=b;(c=d[f])&&a&&(g=a&&(a.__accessor__||a._accessorProps));)e[f]=l(g,c,this._callback.bind(this,f)),a=a[d[f++]];this._notify()}},_callback:function(a,b){1!==arguments.length&&this._install(b,a+1);this._notify()},_notify:function(){for(var a=this.binding.dependencyPath,
+b=this.binding.dependents,d=this._props,e=0,c=b.length;e<c;e++)d.propertyDependencyMayChange(b[e],a)}};return h});

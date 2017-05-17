@@ -1,2 +1,2 @@
 //>>built
-define("dojox/editor/plugins/nls/fr/Preview",{preview:"Aper\u00e7u"});
+define({preview:"Aper\u00e7u"});

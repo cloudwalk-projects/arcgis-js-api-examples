@@ -1,2 +1,2 @@
 //>>built
-define("dijit/nls/bs/common",{buttonOk:"OK",buttonCancel:"Odustani",buttonSave:"Spremi",itemClose:"Zatvori"});
+define({buttonOk:"OK",buttonCancel:"Odustani",buttonSave:"Spremi",itemClose:"Zatvori"});

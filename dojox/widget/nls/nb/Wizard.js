@@ -1,2 +1,2 @@
 //>>built
-define("dojox/widget/nls/nb/Wizard",{next:"Neste",previous:"Forrige",done:"Ferdig"});
+define({next:"Neste",previous:"Forrige",done:"Ferdig"});

@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define("dojo/_base/array ../../Graphic ../../core/JSONSupporter ../../geometry/SpatialReference ./DirectionsFeatureSet ./NAMessage".split(" "),function(c,d,b,e,f,g){return b.createSubclass({declaredClass:"esri.tasks.support.ClosestFacilitySolveResult",directions:null,_directionsReader:function(a){return a.map(function(a){return f.fromJSON(a)})},facilities:null,_facilitiesReader:function(a){return a&&this._graphicsFromJson(a)},incidents:null,_incidentsReader:function(a){return a&&this._graphicsFromJson(a)},
+messages:null,_messagesReader:function(a){return a&&c.map(a,function(a){return g.fromJSON(a)})},pointBarriers:null,_pointBarriersReader:function(a){return a&&this._graphicsFromJson(a)},polylineBarriers:null,_polylineBarriersReader:function(a){return a&&this._graphicsFromJson(a)},polygonBarriers:null,_polygonBarriersReader:function(a){return a&&this._graphicsFromJson(a)},routes:null,_routesReader:function(a){return a&&this._graphicsFromJson(a)},_graphicsFromJson:function(a){var b=e.fromJSON(a.spatialReference);
+return c.map(a.features,function(a){a=d.fromJSON(a);a.geometry.set("spatialReference",b);return a})}})});

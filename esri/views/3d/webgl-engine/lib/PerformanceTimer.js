@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports","./Util"],function(d,e,c){return function(){function a(b){this._filterSampleIndex=0;this._lastTime=NaN;this._numMeasurements=this._totalTime=0;this._filterSamples=Array(b);this.reset();this._filterSize=b}a.prototype.reset=function(){for(var b=this._filterSampleIndex=0;b<this._filterSize;b++)this._filterSamples[b]=NaN};a.prototype.start=function(){this._tsStart=c.performance.now()};a.prototype.stop=function(){this._lastTime=c.performance.now()-this._tsStart;this._totalTime+=
+this._lastTime;this._numMeasurements++;this._filterSize&&(this._filterSamples[this._filterSampleIndex]=this._lastTime,this._filterSampleIndex=(this._filterSampleIndex+1)%this._filterSize);return this._lastTime};a.prototype.getLast=function(){return this._lastTime};a.prototype.getLastFiltered=function(){for(var b=0,a=0;a<this._filterSamples.length;a++)b+=this._filterSamples[a];return b/this._filterSamples.length};a.prototype.getAverage=function(){return this._totalTime/this._numMeasurements};a.prototype.getTotal=
+function(){return this._totalTime};a.prototype.getNumMeasurements=function(){return this._numMeasurements};return a}()});

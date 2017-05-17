@@ -1,2 +1,2 @@
 //>>built
-define("dojox/editor/plugins/nls/kk/Blockquote",{blockquote:"Blockquote"});
+define({blockquote:"Blockquote"});

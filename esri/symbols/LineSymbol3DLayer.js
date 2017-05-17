@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport/decorateHelper ../core/screenUtils ./Symbol3DLayer ../core/accessorSupport/decorators".split(" "),function(h,k,e,c,f,g,b){return function(d){function a(a){d.call(this);this.material=null;this.type="Line";this.size=1}e(a,d);a.prototype.clone=function(){return new a({enabled:this.enabled,material:this.material&&this.material.clone(),size:this.size})};c([b.property()],a.prototype,"material",void 0);c([b.property()],a.prototype,
+"type",void 0);c([b.property({json:{writable:!0}}),b.cast(f.toPt)],a.prototype,"size",void 0);return a=c([b.subclass("esri.symbols.LineSymbol3DLayer")],a)}(b.declared(g))});

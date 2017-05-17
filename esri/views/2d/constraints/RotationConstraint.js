@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define("require exports ../../../core/tsSupport/declareExtendsHelper ../../../core/tsSupport/decorateHelper ../../../core/accessorSupport/decorators ../../../core/Accessor".split(" "),function(g,h,e,c,b,f){return function(d){function a(){d.apply(this,arguments);this.rotationEnabled=this.enabled=!0}e(a,d);a.prototype.constrain=function(a,b){if(!this.enabled)return a;this.rotationEnabled||(a.rotation=0);return a};a.prototype.clone=function(){return new a({enabled:this.enabled,rotationEnabled:this.rotationEnabled})};
+c([b.property()],a.prototype,"enabled",void 0);c([b.property()],a.prototype,"rotationEnabled",void 0);return a=c([b.subclass("esri.views.2d.constraints.RotationConstraint")],a)}(b.declared(f))});

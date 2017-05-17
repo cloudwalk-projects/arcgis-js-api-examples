@@ -1,2 +1,2 @@
 //>>built
-define("dojox/form/nls/ca/Uploader",{label:"Selecciona fitxers..."});
+define({label:"Selecciona fitxers..."});

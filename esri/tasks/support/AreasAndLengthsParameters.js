@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["../../core/Accessoire","../../core/declare","../../core/kebabDictionary"],function(d,e,c){var f=c({preserveShape:"preserve-shape"}),g=c({esriAcres:"acres",esriHectares:"hectares",esriSquareMiles:"square-miles",esriSquareKilometers:"square-kilometers",esriSquareMeters:"square-meters",esriSquareFeet:"square-feet",esriSquareYards:"square-yards",esriAres:"ares"}),h=c({9001:"meters",9002:"feet",9036:"kilometers",9093:"miles",109012:"nautical-miles",109001:"yards"});return e(d,{declaredClass:"esri.tasks.support.AreasAndLengthsParameters",
+areaUnit:null,calculationType:null,lengthUnit:null,polygons:null,toJSON:function(){var b={};if(this.polygons&&0<this.polygons.length){var a=this.polygons.map(function(a){return a.toJSON()});b.polygons=JSON.stringify(a);a=this.polygons[0].spatialReference;b.sr=a.wkid?a.wkid:JSON.stringify(a.toJSON())}this.lengthUnit&&(b.lengthUnit=h.toJSON(this.lengthUnit));this.areaUnit&&(a=g.toJSON(this.areaUnit),b.areaUnit="string"==typeof a?JSON.stringify({areaUnit:a}):a);this.calculationType&&(b.calculationType=
+f.toJSON(this.calculationType));return b}})});

@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define(["require","exports"],function(w,v){v.manhattanDistance=function(a,b){return Math.abs(b.x-a.x)+Math.abs(b.y-a.y)};v.fitCircleLSQ=function(a,b){b?(b.radius=0,b.center.x=0,b.center.y=0):b={radius:0,center:{x:0,y:0}};if(0===a.length)return b;if(1===a.length)return b.center.x=a[0].x,b.center.y=a[0].y,b;if(2===a.length){var f=a[0],g=a[1],c=[g.x-f.x,g.y-f.y],d=c[0],c=c[1];b.radius=Math.sqrt(d*d+c*c)/2;b.center.x=(f.x+g.x)/2;b.center.y=(f.y+g.y)/2;return b}for(var k=0,l=0,e=0;e<a.length;e++)k+=a[e].x,
+l+=a[e].y;for(var k=k/a.length,l=l/a.length,n=a.map(function(a){return a.x-k}),s=a.map(function(a){return a.y-l}),p=g=f=0,m=0,h=d=0,e=c=0;e<n.length;e++)var q=n[e],r=s[e],t=q*q,u=r*r,f=f+t,g=g+u,p=p+q*r,m=m+t*q,d=d+u*r,h=h+q*u,c=c+r*t;e=f;n=p;s=g;m=0.5*(m+h);d=0.5*(d+c);c=e*s-p*n;h=(m*s-d*n)/c;d=(e*d-p*m)/c;c={x:h+k,y:d+l};return{radius:Math.sqrt(h*h+d*d+(f+g)/a.length),center:c}}});

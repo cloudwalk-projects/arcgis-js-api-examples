@@ -1,2 +1,2 @@
 //>>built
-define("dojox/editor/plugins/nls/sr/InsertEntity",{insertEntity:"Umetni simbol"});
+define({insertEntity:"Umetni simbol"});

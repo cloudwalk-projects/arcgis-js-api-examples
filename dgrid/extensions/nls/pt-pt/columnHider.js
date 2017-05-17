@@ -1,2 +1,2 @@
 //>>built
-define("dgrid/extensions/nls/pt-pt/columnHider",{popupLabel:"Exibir ou esconder colunas"});
+define({popupLabel:"Exibir ou esconder colunas"});

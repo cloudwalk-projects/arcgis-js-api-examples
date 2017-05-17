@@ -1,5 +1,5 @@
 // All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.19/esri/copyright.txt for details.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
 //>>built
 var RTree=function(a){var c=3,s=6;isNaN(a)||(c=Math.floor(a/2),s=a);this.min_width=c;this.max_width=s;var p={x:0,y:0,w:0,h:0,id:"root",nodes:[]};(function(){var a={};return function(g){var b=0;g in a?b=a[g]++:a[g]=0;return g+"_"+b}})();var u=function(a,g,b){var f=[],q=[],d=[];if(!a||!RTree.Rectangle.overlap_rectangle(a,b))return d;a={x:a.x,y:a.y,w:a.w,h:a.h,target:g};q.push(b.nodes.length);f.push(b);do if(b=f.pop(),g=q.pop()-1,"target"in a)for(;0<=g;){var e=b.nodes[g];if(RTree.Rectangle.overlap_rectangle(a,
 e))if(a.target&&"leaf"in e&&e.leaf===a.target||!a.target&&("leaf"in e||RTree.Rectangle.contains_rectangle(e,a))){"nodes"in e?(d=t(e,!0,[],e),b.nodes.splice(g,1)):d=b.nodes.splice(g,1);RTree.Rectangle.make_MBR(b.nodes,b);delete a.target;b.nodes.length<c&&(a.nodes=t(b,!0,[],b));break}else"nodes"in e&&(q.push(g),f.push(b),b=e,g=e.nodes.length);g-=1}else if("nodes"in a){b.nodes.splice(g+1,1);0<b.nodes.length&&RTree.Rectangle.make_MBR(b.nodes,b);for(g=0;g<a.nodes.length;g++)v(a.nodes[g],b);a.nodes.length=

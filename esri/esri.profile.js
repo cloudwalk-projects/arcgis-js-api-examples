@@ -5,27 +5,29 @@ var profile = (function(){
     onlineFolderRe = /^esri\/arcgisonline\//i,
     mobileFolderRe = /^esri\/mobile\//i,
     discoveryFolderRe = /^esri\/discovery\//i,
+    metadataFolderRe = /^esri\/widgets\/metadata\//i,
 
     copyOnly = function(filename, mid){
-      if (mid.indexOf("/worker-init") > -1) {
-        return true;
-      }
-
-      var list = {
+      var mids = {
         "esri/package.json":          1,
         "esri/esri.profile":          1,
         "esri/esri.js":               1,
+        "esri/core/workers/worker":   1,
         "esri/geometry/geometryenginewebworker": 1,
+        "esri/geometry/pe":           1,
+        "esri/geometry/support/pe":   1,
+        "esri/plugins/pe":            1,
         "esri/workers/requestWorker": 1,
         "esri/workers/mutableWorker": 1,
         "esri/workers/indexWorker":   1,
         "esri/workers/scripts/indexInterface": 1,
-        "esri/arcgisonline/config":   1,
-        "esri/mobile/config":         1,
-        "esri/layers/vectorTiles/core/workers/worker": 1
+        "esri/views/2d/layers/vector-tile": 1
       };
       
-      return (mid in list);
+      return (
+        metadataFolderRe.test(mid) || 
+        (mid in mids)
+      );
     },
     
     legacyModules = {
@@ -34,8 +36,7 @@ var profile = (function(){
       "esri/gallery": 1,
       "esri/mobile": 1,
       "esri/arcgismanager": 1,
-      "esri/themes/calcite/icons/ie7/ie7": 1,
-      "esri/themes/calcite/icons/demo-files/demo": 1
+      "esri/themes/base/icons/demo-files/demo": 1
     };
 
   return {

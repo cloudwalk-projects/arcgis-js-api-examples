@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See http://js.arcgis.com/4.2/esri/copyright.txt for details.
+//>>built
+define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport/decorateHelper ./Symbol3DLayer ./support/Symbol3DOutline ../core/accessorSupport/decorators".split(" "),function(h,k,e,c,f,g,b){return function(d){function a(a){d.call(this);this.type="Fill";this.outline=this.material=null}e(a,d);a.prototype.clone=function(){return new a({enabled:this.enabled,material:this.material&&this.material.clone(),outline:this.outline&&this.outline.clone()})};c([b.property()],a.prototype,"type",
+void 0);c([b.property()],a.prototype,"material",void 0);c([b.property({type:g.default,json:{writable:!0}})],a.prototype,"outline",void 0);return a=c([b.subclass("esri.symbols.FillSymbol3DLayer")],a)}(b.declared(f))});
