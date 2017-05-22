@@ -76,8 +76,9 @@
         var featureLayer = markers.initLayer({
           // 显示地图的容器标识
           map: map,
+          markerType: 'camera'
           // 摄像头信息
-          featureUrl: "http://192.168.10.35:6080/arcgis/rest/services/qz/QZFeatureService/FeatureServer/0"
+          // featureUrl: "http://192.168.10.35:6080/arcgis/rest/services/qz/QZFeatureService/FeatureServer/0"
         });
 
         featureLayer.on("update-end", function (evt) {

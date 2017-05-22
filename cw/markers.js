@@ -89,20 +89,30 @@ define(["x", "cw/config", "cw/symbols", "cw/util",
         var layer = map.getLayer(layerId);
 
         if (layer == null) {
-          if (featureUrl) {
+          if (markers) {
+            layer = new FeatureLayer(featureCollection, { id: layerId });
+          }
+          else {
+            featureUrl = featureUrl || config.featureServers[markerType + 'Server'];
+
             layer = new FeatureLayer(featureUrl, { mode: FeatureLayer.MODE_SNAPSHOT, outFields: ["*"] });
 
             layer.on("update-end", function (evt) {
-              var data = [];
-              array.forEach(featureLayer.graphics, function (node, index) {
-                data.push(node.attributes);
-              });
-              self.initMarkers({ layer: layer, markers: markers });
-            });
+              array.forEach(layer.graphics, function (graphic, index) {
+                var node = graphic.attributes;
 
-          }
-          else {
-            layer = new FeatureLayer(featureCollection, { id: layerId });
+                // 同步图标设置
+                var symbolName = node.TYPE + '-' + node.STATUS;
+
+                if (symbols[symbolName]) {
+                  graphic.setSymbol(symbols[symbolName]);
+                } else {
+                  // 默认图标
+                  graphic.setSymbol(symbols[defaults.symbol.defaultName]);
+                }
+              });
+              // self.initMarkers({ layer: layer, markers: markers });
+            });
           }
 
           map.on("layer-add-result", function (results) {
