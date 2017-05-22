@@ -108,6 +108,20 @@
       "iframe": true
     },
     {
+      "id": "exampleapi_heatmap_init",
+      "name": "初始化热力图",
+      "parent": "examples",
+      "href": "cw/examples/sandbox/sandbox.html?example=api_heatmap_init",
+      "iframe": true
+    },
+    {
+      "id": "exampleapi_clustermap_init",
+      "name": "初始化聚合图",
+      "parent": "examples",
+      "href": "cw/examples/sandbox/sandbox.html?example=api_clustermap_init",
+      "iframe": true
+    },
+    {
       "id": "arcgis",
       "name": "ArcGIS 示例",
       "parent": "root"
@@ -150,20 +164,6 @@
       "name": "地图类型控件",
       "parent": "quanzhou",
       "href": "cw/examples/cw-quanzhou-map-type.html",
-      "iframe": true
-    },
-    {
-      "id": "quanzhou-5",
-      "name": "热力图",
-      "parent": "quanzhou",
-      "href": "cw/examples/cw-quanzhou-heatmap.html",
-      "iframe": true
-    },
-    {
-      "id": "quanzhou-6",
-      "name": "聚合图",
-      "parent": "quanzhou",
-      "href": "cw/examples/cw-quanzhou-clustermap.html",
       "iframe": true
     }
   ]
