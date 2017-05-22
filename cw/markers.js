@@ -81,19 +81,37 @@ define(["x", "cw/config", "cw/symbols", "cw/util",
         var markerType = options.markerType || defaults.markerType;
         // 标记数据
         var markers = options.markers;
+        // 特征数据地址
+        var featureUrl = options.featureUrl;
 
         var layerId = x.string.format(defaults.layerId, markerType);
 
         var layer = map.getLayer(layerId);
 
         if (layer == null) {
-          layer = new FeatureLayer(featureCollection, { id: layerId });
+          if (featureUrl) {
+            layer = new FeatureLayer(featureUrl, { mode: FeatureLayer.MODE_SNAPSHOT, outFields: ["*"] });
+
+            layer.on("update-end", function (evt) {
+              var data = [];
+              array.forEach(featureLayer.graphics, function (node, index) {
+                data.push(node.attributes);
+              });
+              self.initMarkers({ layer: layer, markers: markers });
+            });
+
+          }
+          else {
+            layer = new FeatureLayer(featureCollection, { id: layerId });
+          }
 
           map.on("layer-add-result", function (results) {
             if (!initialized && results.layer.id == layerId) {
               initialized = true;
               console.log('init markers(' + markerType + '):layer-add-result');
-              self.initMarkers({ layer: layer, markers: markers });
+              if (markers) {
+                self.initMarkers({ layer: layer, markers: markers });
+              }
             }
           });
 
@@ -101,7 +119,9 @@ define(["x", "cw/config", "cw/symbols", "cw/util",
         }
         else {
           console.log('init markers(' + markerType + '):initialized');
-          self.initMarkers({ layer: layer, markers: markers });
+          if (markers) {
+            self.initMarkers({ layer: layer, markers: markers });
+          }
         }
 
         return layer;
