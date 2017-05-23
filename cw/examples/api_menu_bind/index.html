@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <title>basemap.edit</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <link rel="stylesheet" href="http://map.x3platform.com/dijit/themes/flat/flat.css">
+  <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
+  <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
+  <script>
+    require(["cw/basemap", "cw/markers", "cw/menu", "dojo/request/xhr", "dojo/domReady!"], function (basemap, markers, menu, xhr) {
+      var map = basemap.create({ divId: "map" });
+
+      xhr('../data/cameras.json', { handleAs: "json" }).then(function (response) {
+       layer = markers.initLayer({
+          // 显示地图的容器标识
+          map: map,
+          // 摄像头信息
+          markers: response.data
+        });
+
+        menu.bind({
+          target: map,
+          items: [
+            {
+              label: "菜单 Map 1", onClick: function () {
+                console.log("菜单 Map 1");
+              }
+            }]
+        });
+
+        menu.bind({
+          target: layer,
+          items: [
+            {
+              label: "菜单 1", onClick: function () {
+                console.log("菜单 1");
+              }
+            },
+            {
+              label: "菜单 2", onClick: function () {
+                console.log("菜单 2");
+              }
+            },
+            {
+              label: "菜单 3", onClick: function () {
+                console.log("菜单 3");
+              }
+            }]
+        });
+      }, function (err) {
+        // 错误信息处理
+        console.log(err);
+      });
+    });
+  </script>
+</head>
+
+<body class="flat" >
+  <div id="map" class="map"></div>
+</body>
+
+</html>

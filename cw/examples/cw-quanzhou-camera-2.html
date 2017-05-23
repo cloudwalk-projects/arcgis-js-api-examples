@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+  <title>摄像头信息</title>
+  <link rel="stylesheet" href="http://map.x3platform.com/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
+  <script src="http://ditu.fuwu.io:7020/arcgis/quanzhou/init.js"></script>
+  <script>
+    var map,
+      draw,
+      editToolbar,
+      ctxMenuForGraphics,
+      ctxMenuForMap,
+      current,
+      currentLocation,
+      selected;
+
+
+    require([
+      "cw/basemap",
+      "cw/markers",
+      "esri/map",
+      "esri/Color",
+      "esri/graphic",
+      "esri/geometry/Point",
+      "esri/geometry/Polygon",
+      "esri/toolbars/draw",
+      "esri/toolbars/edit",
+      "esri/layers/FeatureLayer",
+      "esri/layers/ArcGISTiledMapServiceLayer",
+      "esri/layers/ArcGISDynamicMapServiceLayer",
+      "esri/symbols/SimpleMarkerSymbol",
+      "esri/symbols/SimpleLineSymbol",
+      "esri/symbols/SimpleFillSymbol",
+      "esri/symbols/PictureMarkerSymbol",
+      "esri/geometry/jsonUtils",
+      "dojo/_base/array",
+      "dojo/parser",
+      "dijit/Menu",
+      "dijit/MenuItem",
+      "dijit/MenuSeparator",
+      "dijit/form/Button",
+      "dijit/layout/BorderContainer",
+      "dijit/layout/ContentPane",
+      "dojo/domReady!"
+    ], function (
+      basemap,
+      markers,
+      Map,
+      Color,
+      Graphic,
+      Point,
+      Polygon,
+      Draw,
+      Edit,
+      FeatureLayer,
+      ArcGISTiledMapServiceLayer,
+      ArcGISDynamicMapServiceLayer,
+      SimpleMarkerSymbol,
+      SimpleLineSymbol,
+      SimpleFillSymbol,
+      PictureMarkerSymbol,
+      geometryJsonUtils,
+      array,
+      parser,
+      Menu,
+      MenuItem,
+      MenuSeparator
+    ) {
+
+        var map = basemap.create({ divId: "map" });
+
+        var featureLayer = markers.initLayer({
+          // 显示地图的容器标识
+          map: map,
+          markerType: 'camera'
+          // 摄像头信息
+          // featureUrl: "http://192.168.10.35:6080/arcgis/rest/services/qz/QZFeatureService/FeatureServer/0"
+        });
+
+        featureLayer.on("update-end", function (evt) {
+
+          array.forEach(featureLayer.graphics, function (node, index) {
+            console.log(node);
+            /*
+                // 设置图片符号
+                var symbol = new PictureMarkerSymbol({
+                    "angle": 0,
+                    "xoffset": 0,
+                    "yoffset": 0,
+                    "type": "esriPMS",
+                    // "url": 'images/location.png',
+                    "url": 'images/ico_video_red.png',
+                    "contentType": "image/png",
+                    "width": 13,
+                    "height": 21
+                });
+
+            node.setSymbol(symbol);
+          */
+          });
+        });
+
+        // 图片加载的事件
+        map.on("load", function () {
+
+          // Create and setup editing tools
+          editToolbar = new Edit(map);
+
+          // 创建地图上下文菜单
+          // createMapMenu();
+
+          // 创建图形的上下文菜单
+          createGraphicsMenu();
+        });
+
+        function createGraphicsMenu() {
+          // Creates right-click context menu for GRAPHICS
+          ctxMenuForGraphics = new Menu({});
+
+          var menuItems = [];
+
+          ctxMenuForGraphics.addChild(new MenuItem({
+            label: "编辑",
+            onClick: function () {
+              if (this.label == '编辑') {
+                selected = current;
+                if (selected.geometry.type !== "point") {
+                  editToolbar.activate(Edit.EDIT_VERTICES, selected);
+                }
+                this.setLabel('保存');
+              }
+              else if (this.label == '保存') {
+                editToolbar.deactivate();
+                this.setLabel('编辑');
+                console.log(selected.geometry.rings);
+                featureLayer.applyEdits(null, [selected], null);
+              }
+            }
+          }));
+
+          ctxMenuForGraphics.addChild(new MenuItem({
+            label: "移动",
+            onClick: function () {
+              var menu = this.getParent().getChildren()[0];
+
+              if (menu.label != '保存') {
+                selected = current;
+                editToolbar.activate(Edit.MOVE, selected);
+                menu.setLabel('保存');
+              }
+            }
+          }));
+
+          ctxMenuForGraphics.addChild(new MenuSeparator());
+          ctxMenuForGraphics.addChild(new MenuItem({
+            label: "删除",
+            onClick: function () {
+              map.graphics.remove(current);
+            }
+          }));
+
+          ctxMenuForGraphics.startup();
+
+          featureLayer.on("mouse-over", function (evt) {
+            // 设置当前元素信息
+            current = evt.graphic;
+
+            ctxMenuForGraphics.bindDomNode(evt.graphic.getDojoShape().getNode());
+          });
+
+          featureLayer.on("mouse-out", function (evt) {
+            ctxMenuForGraphics.unBindDomNode(evt.graphic.getDojoShape().getNode());
+          });
+        }
+      });
+  </script>
+</head>
+
+<body class="claro" style="font-size: 0.75em;">
+  <div id="map"></div>
+</body>
+
+</html>

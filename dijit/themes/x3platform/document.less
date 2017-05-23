@@ -1,0 +1,45 @@
+/* ======= Styling for the document itself (overriding dojo.css) ======== */
+
+@import "variables";
+@import url("../../../dojo/resources/dojo.css");
+
+.x3platform {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: .688em;
+  color: @document-text-color;
+}
+
+/* Headings */
+.x3platform h1 {
+	font-size: 1.545em; 
+	margin-bottom:0.727em;
+}
+.x3platform h2 { 
+	font-size: 1.364em; 
+	line-height: 1.455em; 
+	margin-top:1em; 
+	margin-bottom:0.60em;
+	font-weight: normal;
+}
+.x3platform h3, .x3platform h4, .x3platform h5, .x3platform h6 {
+	font-size:1.091em; 
+	font-weight: normal; 
+}
+
+/* paragraphs, quotes and lists */
+.x3platform p { 
+	line-height: 1.3em;
+}
+
+/* pre and code */
+.x3platform pre, .x3platform code { 
+	font-family:inherit; 
+	background-color: @document-shadedsection-background-color; 
+	border: 1px solid @document-border-color;
+}
+
+/* tables */
+.x3platform table.dojoTabular thead, .x3platform table.dojoTabular tfoot { 
+	background-color: @document-shadedsection-background-color; 
+	border: 1px solid @document-border-color; 
+}

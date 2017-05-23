@@ -1,0 +1,88 @@
+{
+    "data": [
+        {
+            "id": "0001",
+            "name": "测试数据",
+            "description": "",
+            "ip": "192.168.0.1",
+            "x": "106.55097271762801",
+            "y": "29.563900672574004",
+            "src":"http://localhost/arcgis/examples/cw/examples/photo/1.jpg"
+        },
+        {
+            "id": "0002",
+            "name": "公司60.150",
+            "description": "",
+            "ip": "192.168.0.2",
+            "x": "106.54717470966243",
+            "y": "29.560709076232932",
+            "src":"http://map.x3platform.com/cw/examples/photo/2.jpg"
+        },
+        {
+            "id": "10015",
+            "name": "公司60.153",
+            "description": "",
+            "y": "29.55518420328796",
+            "x": "106.55477072559333",
+            "src":"http://map.x3platform.com/cw/examples/photo/3.jpg"
+        },
+        {
+            "id": "10014",
+            "y": "29.557946677526328",
+            "x": "106.54429938159782",
+            "name": "公司60.152",
+            "description": "",
+            "src":"http://map.x3platform.com/cw/examples/photo/4.jpg"
+        },
+        {
+            "id": "10013",
+            "y": "29.564647230264114",
+            "x": "106.55796791873965",
+            "name": "公司60.240",
+            "description": "",
+            "src":"http://map.x3platform.com/cw/examples/photo/5.jpg"
+        },
+        {
+            "id": "10012",
+            "y": "29.631215",
+            "x": "106.481520",
+            "name": "公司10.100",
+            "description": "",
+            "src":"http://map.x3platform.com/cw/examples/photo/6.jpg"
+        },
+        {
+            "id": "10011",
+            "x": "106.487551",
+            "y": "29.633218",
+            "name": "公司60.219",
+            "description": "add",
+            "src":"http://map.x3platform.com/cw/examples/photo/7.jpg"
+        },
+        {
+            "id": "10010",
+            "x": "106.573009",
+            "y": "29.559439",
+            "name": "公司60.154",
+            "description": "",
+            "src":"http://map.x3platform.com/cw/examples/photo/8.jpg"
+        },
+        {
+            "id": "10034",
+            "name": "xj10034",
+            "ip": "192.168.0.32",
+            "description": "",
+            "y": "29.550517",
+            "x": "106.548977",
+            "src":"http://map.x3platform.com/cw/examples/photo/9.jpg"
+        },
+        {
+            "id": "10032",
+            "name": "xj10032",
+            "ip": "192.168.0.32",
+            "description": "",
+            "x": "106.565971",
+            "y": "29.563247",
+            "src":"http://map.x3platform.com/cw/examples/photo/10.jpg"
+        }
+    ]
+}

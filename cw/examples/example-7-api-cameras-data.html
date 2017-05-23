@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>获取地图坐标</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
+  <style>
+    html,
+    body,
+    #map {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad: true"></script>
+  <script>
+    require(["x", "cw/basemap", "cw/cameras", "cw/util", "cw/dialogs/AlarmDialog",
+      "dojo/dom", "dojo/dom-construct", "dojo/request/xhr", "dojo/domReady!"],
+      function (x, basemap, cameras, util, AlarmDialog,
+        dom, domConstruct, xhr) {
+
+        // 创建自定义消息窗口  
+        var dialog = new AlarmDialog({ divId: 'map' });
+
+        var map = basemap.create({
+          divId: "map",
+          map: { infoWindow: dialog }
+        });
+
+        xhr('data/cameras.json', { handleAs: "json" }).then(function (respone) {
+          var layer = cameras.initLayer({
+            // 显示地图的容器标识
+            map: map,
+            // 摄像头信息
+            cameras: respone.data
+          });
+
+          // 模拟实时收到的数据
+          var count = 0;
+
+          // 设置一个定时器
+          var timer = x.newTimer(2, function () {
+            cameras.data({
+              map: map,
+              cameraId: respone.data[0].id,
+              data: x.ext(respone.data[0], { count: count++ })
+            });
+            console.log(count);
+          });
+
+          // 启动定时器
+          timer.start();
+
+          // 坐标提示框事件绑定
+          layer.on("mouse-over", function (evt) {
+            var graphic = evt.graphic;
+
+            if (!!graphic) { 
+              dialog.show(graphic.geometry, graphic);
+            }
+          });
+
+        }, function (err) {
+          // Handle the error condition
+          console.error(err);
+        }, function (evt) {
+          // Handle a progress event from the request if the
+          // browser supports XHR2
+        });
+      });
+  </script>
+</head>
+
+<body>
+  <div id="map"></div>
+  <!--
+  <a href="https://github.com/yoshow/arcgis-js-api-examples/blob/master/cw/examples/example-7-api-cameras-data.html" target="_blank">源码</a>
+  -->
+</body>
+
+</html>

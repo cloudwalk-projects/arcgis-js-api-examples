@@ -1,0 +1,2 @@
+/* 将以下代码添加到 esri/css/esri.css 文件 */
+html, body, .map { height: 100%; margin: 0; padding: 0; }

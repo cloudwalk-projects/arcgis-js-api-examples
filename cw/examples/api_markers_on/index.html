@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>消息提示</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
+  <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
+  <script>
+    require([
+      "cw/basemap", "cw/markers", "cw/util", "cw/dialogs/InfoWindow",
+      "dojo/_base/array", "dojo/query", "dojo/on", "dojo/request/xhr", "dojo/domReady!"
+    ], function (
+      basemap, markers, util, InfoWindow,
+      array, query, on, xhr) {
+
+        // 创建自定义消息窗口
+        var dialog = new InfoWindow({
+          divId: 'map',
+          xoffset: 0,
+          yoffset: -30
+        });
+
+        var map = basemap.create({
+          divId: "map",
+          map: { infoWindow: dialog }
+        });
+
+        xhr('../data/points.json', { handleAs: "json" }).then(function (respone) {
+          var layer = markers.initLayer({
+            // 显示地图的容器标识
+            map: map,
+            // 摄像头信息
+            markers: respone.data
+          });
+
+          // 事件绑定
+          markers.on({
+            map: map,
+            event: "mouse-over",
+            handler: function (evt) {
+              var graphic = evt.graphic;
+
+              if (!!graphic) {
+
+                var outString = '';
+
+                outString += '<div style="background:#fff; padding:4px; border-radius:4px;"><img src="' + graphic.attributes.src + '" style="height:200px; width:162.5px;" /></div>';
+
+                dialog.setContent(outString);
+
+                dialog.show(graphic.geometry);
+              }
+            }
+          });
+        }, function (err) {
+          // 处理错误消息
+          console.error(err);
+        });
+      });
+  </script>
+</head>
+
+<body>
+  <div id="windowLonlatContainer" style="display: block; position: absolute; z-index: 10; background: #fff; padding: 8px; border-radius: 4px; top: 10px;left: 10px;">
+    <div id="results" style="margin:10px 0 0 0;">点击摄像头符号，查看图片信息。</div>
+  </div>
+  <div id="map"></div>
+</body>
+
+</html>
