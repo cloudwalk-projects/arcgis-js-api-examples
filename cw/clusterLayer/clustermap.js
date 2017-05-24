@@ -1,4 +1,5 @@
 define([
+  "cw/config",
   "cw/clusterLayer/clusterLayer",
   "dojo/_base/array",
   "esri/symbols/SimpleMarkerSymbol",
@@ -11,6 +12,7 @@ define([
   "esri/dijit/PopupTemplate",
   "esri/layers/GraphicsLayer"
 ], function (
+  config,
   ClusterLayer,
   array,
   SimpleMarkerSymbol, SimpleFillSymbol, PictureMarkerSymbol, ClassBreaksRenderer,
@@ -76,7 +78,7 @@ define([
       });
       var defaultSym = new SimpleMarkerSymbol().setSize(4);
       var renderer = new ClassBreaksRenderer(defaultSym, "clusterCount");
-      var picBaseUrl = "https://static.arcgis.com/images/Symbols/Shapes/";
+      var picBaseUrl = config.staticFileServer ;
       var blue = new PictureMarkerSymbol(picBaseUrl + "BluePin1LargeB.png", 32, 32).setOffset(0, 15);
       var green = new PictureMarkerSymbol(picBaseUrl + "GreenPin1LargeB.png", 64, 64).setOffset(0, 15);
       var red = new PictureMarkerSymbol(picBaseUrl + "RedPin1LargeB.png", 72, 72).setOffset(0, 15);
