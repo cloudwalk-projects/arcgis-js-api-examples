@@ -318,7 +318,9 @@ define(["cw/config",
         });
 
         //初始化效果渲染
-        array.forEach(layer.graphics, function (node, index) {
+        //array.forEach(layer.graphics, function (node, index) {
+        for(var i = 0 ;i < layer.graphics.length; i++){
+          var node = layer.graphics[i];
           var overlay = findOverlay(overlays,node.attributes.ID);
 
           if(typeof(overlay) != "undefined"){
@@ -358,6 +360,8 @@ define(["cw/config",
           }
           else{
             node.hide();
+            layer.graphics.splice(i,1);
+            //layer.redraw();
           }
           // 样式
           array.forEach(layer.graphics, function (node, index) {
@@ -371,7 +375,7 @@ define(["cw/config",
 
           });
           layer.redraw();
-        });
+        };
 
         if(updateEndHandler != null){
           updateEndHandler();
@@ -384,14 +388,14 @@ define(["cw/config",
         var n = domConstruct.create("div", { id: "cPicker",class: "dojoxColorPicker" },document.body);
       }
 
-      // 初始化编辑失效事件
+// 初始化编辑失效事件
       editToolbar.on("deactivate", function (evt) {
         if(typeof(evt.graphic.attributes) != "undefined")
         {
           layer.applyEdits(null, [evt.graphic], null);
         }
       });
-      // 初始化画图完成事件
+// 初始化画图完成事件
       if(typeof(drawToolbar.onDrawEnd.target) == "undefined"){
         drawToolbar.on("draw-end", function (evt) {
           drawToolbar.deactivate();
@@ -433,7 +437,7 @@ define(["cw/config",
       }
     },
 
-    // 添加覆盖物
+// 添加覆盖物
     add: function (options) {
       var layer = options.layer;
       defaults.id = options.id;
@@ -459,7 +463,7 @@ define(["cw/config",
       });
     },
 
-    // 编辑覆盖物
+// 编辑覆盖物
     edit: function (options) {
       var layer = options.layer;
       defaults.id = options.id;
@@ -505,7 +509,7 @@ define(["cw/config",
 
     },
 
-    // 删除覆盖物
+// 删除覆盖物
     del: function (options) {
       var layer = options.layer;
       defaults.id = options.id;
@@ -517,7 +521,7 @@ define(["cw/config",
       }
     },
 
-    // 绑定事件
+// 绑定事件
     on: function (options) {
       var layer = options.layer;
       var event = options.event;
