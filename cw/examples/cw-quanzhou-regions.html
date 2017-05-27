@@ -17,8 +17,6 @@
       current,
       currentLocation,
       selected;
-
-
     require([
       "esri/map",
       "esri/Color",
@@ -80,9 +78,9 @@
         });
 
         // 加载地图服务
-        var tiledMapServiceLayer = new ArcGISTiledMapServiceLayer('http://192.168.10.35:6080/arcgis/rest/services/qz/QZMapService/MapServer');
+        //var tiledMapServiceLayer = new ArcGISTiledMapServiceLayer('http://192.168.10.35:6080/arcgis/rest/services/qz/QZMapService/MapServer');
 
-        map.addLayer(tiledMapServiceLayer);
+        //map.addLayer(tiledMapServiceLayer);
 
         // Carbon storage of trees in Warren Wilson College.
         var featureLayer = new FeatureLayer("http://192.168.10.35:6080/arcgis/rest/services/qz/QZPolygonService/FeatureServer/0", {

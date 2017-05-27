@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
     <title>direction</title>
     <link rel="stylesheet" href="http://map.x3platform.com/dijit/themes/claro/claro.css">
@@ -13,6 +12,7 @@
     <script src="http://ditu.fuwu.io:7020/arcgis/quanzhou/init.js"></script>
     <script>
         require([
+            "cw/basemap","cw/markers",
             "esri/urlUtils",
             "esri/config",
             "esri/map",
@@ -35,6 +35,7 @@
             "dijit/form/HorizontalSlider",
             "dijit/form/HorizontalRuleLabels"
         ], function (
+            basemap, markers,
             urlUtils, esriConfig, Map,ArcGISImageServiceLayer, Graphic, RouteTask, RouteParameters,
             FeatureSet, SimpleMarkerSymbol, SimpleLineSymbol, PictureMarkerSymbol,  PictureFillSymbol,
             Color, array, on, dom, registry
@@ -77,30 +78,30 @@
 
             //初始化路网图1
             function MapInit1(){
-                map = new Map("map", {
-                    //basemap: "streets",
-                    center: [118.58855009079, 24.8973949072038],
-                    //center: [131.325766,73.065327], //yckj1f2
-                    zoom: 18
+//                map = new Map("map", {
+//                    //basemap: "streets",
+//                    center: [118.58855009079, 24.8973949072038],
+//                    zoom: 18
+//                });
+//                var arcGISMapServiceLayer = new esri.layers.ArcGISTiledMapServiceLayer("http://192.168.10.35:6080/arcgis/rest/services/qz/QZ_RSService/MapServer");
+//                // 添加到地图中
+//                map.addLayer(arcGISMapServiceLayer);
+
+              var map = basemap.create({ divId: "map" });
+
+              var featureLayer = markers.initLayer({
+                // 显示地图的容器标识
+                map: map,
+                markerType: 'camera'
+                // 摄像头信息
+                // featureUrl: "http://192.168.10.35:6080/arcgis/rest/services/qz/QZFeatureService/FeatureServer/0"
+              });
+
+              featureLayer.on("update-end", function (evt) {
+                array.forEach(featureLayer.graphics, function (node, index) {
+                  console.log(node);
                 });
-                //var arcGISMapServiceLayer = new esri.layers.ArcGISTiledMapServiceLayer("http://192.168.10.35:6080/arcgis/rest/services/qz/QZMapService/MapServer");
-                var arcGISMapServiceLayer = new esri.layers.ArcGISTiledMapServiceLayer("http://192.168.10.35:6080/arcgis/rest/services/qz/QZ_RSService/MapServer");
-                // 添加到地图中
-                map.addLayer(arcGISMapServiceLayer);
-
-                //var arcGISMapServiceLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://192.168.10.35:6080/arcgis/rest/services/yckj1f2/MapServer");
-                //var arcGISNetworkServiceLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://192.168.10.35:6080/arcgis/rest/services/qz/QZNetworkService/MapServer");
-                // 添加到地图中
-                //arcGISNetworkServiceLayer.setVisibleLayers(arcGISMapServiceLayer);
-                //map.addLayer(arcGISNetworkServiceLayer);
-
-                var featureLayer = new esri.layers.FeatureLayer("http://192.168.10.35:6080/arcgis/rest/services/qz/QZFeatureService/FeatureServer/0", {
-                    mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
-                    outFields: ["TITLE", "TITLE1", "LINK"]
-                    //infoTemplate: popupTemplate
-                });
-
-                map.addLayer(featureLayer);
+              });
 
                 //routeTask = new RouteTask("http://192.168.10.35:6080/arcgis/rest/services/yckj1f2/NAServer/%E8%B7%AF%E5%BE%84");
                 //routeTask = new RouteTask("http://192.168.10.35:6080/arcgis/rest/services/NetworkService_Test/NAServer/%E8%B7%AF%E5%BE%84");
@@ -113,44 +114,44 @@
                 routeTask.on("solve-complete", showRoute);
                 routeTask.on("error", errorHandler);
 
-                on.once(map, "load", function () {
-                    //要素事件注册
-                    featureLayer.on("update-end", function () {
-                        //渲染要素
-                        for (var i = 0; i < featureLayer.graphics.length; i++) {
-                            if (typeof(featureLayer.graphics[i].symbol) == 'undefined') {
-                                //自定义数据，在每个面要素中添加nico属性
-                                //featureLayer.graphics[i].attributes["nico"]=i;
-                                featureLayer.graphics[i].setSymbol(symbols["video-blue"]);
-                                featureLayer.graphics[i].draw();
-                            }
-                        }
-                    });
-                });
+//                on.once(map, "load", function () {
+//                    //要素事件注册
+//                    featureLayer.on("update-end", function () {
+//                        //渲染要素
+//                        for (var i = 0; i < featureLayer.graphics.length; i++) {
+//                            if (typeof(featureLayer.graphics[i].symbol) == 'undefined') {
+//                                //自定义数据，在每个面要素中添加nico属性
+//                                //featureLayer.graphics[i].attributes["nico"]=i;
+//                                featureLayer.graphics[i].setSymbol(symbols["video-blue"]);
+//                                featureLayer.graphics[i].draw();
+//                            }
+//                        }
+//                    });
+//                });
             }
             //初始化路网图2
-            function MapInit2(){
-                map = new Map("map", {
-                    //basemap: "streets",
-                    center: [112.08299,31.685806], //NetworkServiceTest
-                    //center: [131.325766,73.065327], //yckj1f2
-                    zoom: 10
-                });
-                //var arcGISMapServiceLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://192.168.10.35:6080/arcgis/rest/services/yckj1f2/MapServer");
-                var arcGISMapServiceLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://192.168.10.35:6080/arcgis/rest/services/NetworkService_Test/MapServer");
-                // 添加到地图中
-                map.addLayer(arcGISMapServiceLayer);
-
-                //routeTask = new RouteTask("http://192.168.10.35:6080/arcgis/rest/services/yckj1f2/NAServer/%E8%B7%AF%E5%BE%84");
-                routeTask = new RouteTask("http://192.168.10.35:6080/arcgis/rest/services/NetworkService_Test/NAServer/%E8%B7%AF%E5%BE%84");
-                routeParams = new RouteParameters();
-                routeParams.stops = new FeatureSet();
-                routeParams.barriers = new FeatureSet();
-                routeParams.outSpatialReference = {"wkid":102100};
-
-                routeTask.on("solve-complete", showRoute);
-                routeTask.on("error", errorHandler);
-            }
+//            function MapInit2(){
+//                map = new Map("map", {
+//                    //basemap: "streets",
+//                    center: [112.08299,31.685806], //NetworkServiceTest
+//                    //center: [131.325766,73.065327], //yckj1f2
+//                    zoom: 10
+//                });
+//                //var arcGISMapServiceLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://192.168.10.35:6080/arcgis/rest/services/yckj1f2/MapServer");
+//                var arcGISMapServiceLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://192.168.10.35:6080/arcgis/rest/services/NetworkService_Test/MapServer");
+//                // 添加到地图中
+//                map.addLayer(arcGISMapServiceLayer);
+//
+//                //routeTask = new RouteTask("http://192.168.10.35:6080/arcgis/rest/services/yckj1f2/NAServer/%E8%B7%AF%E5%BE%84");
+//                routeTask = new RouteTask("http://192.168.10.35:6080/arcgis/rest/services/NetworkService_Test/NAServer/%E8%B7%AF%E5%BE%84");
+//                routeParams = new RouteParameters();
+//                routeParams.stops = new FeatureSet();
+//                routeParams.barriers = new FeatureSet();
+//                routeParams.outSpatialReference = {"wkid":102100};
+//
+//                routeTask.on("solve-complete", showRoute);
+//                routeTask.on("error", errorHandler);
+//            }
 
             MapInit1();
 
