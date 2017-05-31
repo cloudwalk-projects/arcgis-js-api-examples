@@ -31,6 +31,13 @@
       "iframe": true
     },
     {
+      "id": "example_api_markers_multi_layer_init",
+      "name": "初始化多层标记",
+      "parent": "examples",
+      "href": "cw/examples/sandbox/sandbox.html?example=api_markers_multi_layer_init",
+      "iframe": true
+    },
+    {
       "id": "example_api_markers_on",
       "name": "绑定标记事件",
       "parent": "examples",

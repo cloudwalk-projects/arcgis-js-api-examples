@@ -65,9 +65,6 @@ define(["x", "cw/config", "cw/symbols", "cw/util",
 
     var draw = null;
 
-    // 由于 layer-add-result 事件会执行多次，所以设置标识符号只加载一次
-    var initialized = false;
-
     var layers = {};
 
     var self = {
@@ -102,7 +99,7 @@ define(["x", "cw/config", "cw/symbols", "cw/util",
                 var node = graphic.attributes;
 
                 // 同步图标设置
-                var symbolName = node.TYPE + '-' + node.STATUS;
+                var symbolName = (node.markerType || node.MARKER_TYPE) + '-' + (node.markerStatus || node.MARKER_STATUS);
 
                 if (symbols[symbolName]) {
                   graphic.setSymbol(symbols[symbolName]);
@@ -115,12 +112,17 @@ define(["x", "cw/config", "cw/symbols", "cw/util",
             });
           }
 
+          // 由于 layer-add-result 事件会执行多次，所以设置标识符号只加载一次
+          layer.initialized = false;
+          layer.markerType = markerType;
+          layer.markers = markers;
+
           map.on("layer-add-result", function (results) {
-            if (!initialized && results.layer.id == layerId) {
-              initialized = true;
+            if (!results.layer.initialized && results.layer.id == layerId) {
+              results.layer.initialized = true;
               console.log('init markers(' + markerType + '):layer-add-result');
-              if (markers) {
-                self.initMarkers({ layer: layer, markers: markers });
+              if (results.layer.markers) {
+                self.initMarkers({ layer: results.layer, markerType: results.layer.markerType, markers: results.layer.markers });
               }
             }
           });
@@ -130,7 +132,7 @@ define(["x", "cw/config", "cw/symbols", "cw/util",
         else {
           console.log('init markers(' + markerType + '):initialized');
           if (markers) {
-            self.initMarkers({ layer: layer, markers: markers });
+            self.initMarkers({ layer: layer, markerType: markerType, markers: markers });
           }
         }
 
@@ -142,6 +144,7 @@ define(["x", "cw/config", "cw/symbols", "cw/util",
        */
       initMarkers: function (options) {
         var layer = options.layer;
+        var markerType = options.markerType || defaults.markerType;
         var markers = options.markers;
 
         var graphics = [];
@@ -157,11 +160,11 @@ define(["x", "cw/config", "cw/symbols", "cw/util",
           }));
 
           graphic.setAttributes(util.ext(node, {
-            'status': node.status || defaults.markerStatus
+            'markerStatus': node.markerStatus || defaults.markerStatus
           }));
 
           // 同步图标设置
-          var symbolName = node.type + '-' + node.status;
+          var symbolName = (node.markerType || markerType) + '-' + node.markerStatus;
 
           if (symbols[symbolName]) {
             graphic.setSymbol(symbols[symbolName]);
@@ -280,7 +283,7 @@ define(["x", "cw/config", "cw/symbols", "cw/util",
               graphic.setAttributes(util.ext(graphic.attributes, data));
 
               // 同步图标设置
-              var symbolName = data.type + '-' + data.status;
+              var symbolName = data.markerType + '-' + data.markerStatus;
 
               if (symbols[symbolName]) {
                 graphic.setSymbol(symbols[symbolName]);

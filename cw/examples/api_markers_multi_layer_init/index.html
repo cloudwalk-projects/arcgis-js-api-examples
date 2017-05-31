@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>初始化标记数据</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <link rel="stylesheet" href="http://ditu.fuwu.io:7020/arcgis/3.19/esri/css/esri.css">
+  <script src="http://ditu.fuwu.io:7020/arcgis/3.19/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
+  <script>
+    require(["x", "cw/basemap", "cw/markers", "cw/util", "dojo/request/xhr", "dojo/dom", "dojo/on", "dojo/domReady!"],
+      function (x, basemap, markers, util, xhr, dom, on) {
+
+        var map = basemap.create({ divId: "map" });
+
+        var markerLayers = {};
+
+        xhr('../data/cameras.json', { handleAs: "json" }).then(function (respone) {
+          console.log('/data/cameras.json end.');
+
+          var layer = markers.initLayer({
+            // 显示地图的容器标识
+            map: map,
+            // 标记类型
+            markerType: 'camera',
+            // 摄像头信息
+            markers: respone.data
+          });
+
+          markerLayers['camera'] = layer;
+
+        }, function (err) {
+          // 错误信息处理
+          console.log(err);
+        });
+
+        xhr('../data/mosques.json', { handleAs: "json" }).then(function (respone) {
+          console.log('/data/mosques.json end.');
+          var layer = markers.initLayer({
+            // 显示地图的容器标识
+            map: map,
+            // 标记类型
+            markerType: 'mosque',
+            // 摄像头信息
+            markers: respone.data
+          });
+          markerLayers['mosque'] = layer;
+        }, function (err) {
+          // 错误信息处理
+          console.log(err);
+        });
+
+        on(dom.byId("btnMarker"), 'click', function (evt) {
+          x.each(markerLayers['camera'].graphics, function (index, node) {
+            console.log(node);
+            if (node.visible) {
+              node.hide();
+            }
+            else {
+              node.show();
+            }
+          });
+
+          x.each(markerLayers['mosque'].graphics, function (index, node) {
+            console.log(node);
+            if (node.visible) {
+              node.hide();
+            }
+            else {
+              node.show();
+            }
+          });
+        });
+
+        on(dom.byId("btnMarker1"), 'click', function (evt) {
+          x.each(markerLayers['camera'].graphics, function (index, node) {
+            console.log(node);
+            if (node.visible) {
+              node.hide();
+            }
+            else {
+              node.show();
+            }
+          });
+        });
+
+        on(dom.byId("btnMarker2"), 'click', function (evt) {
+          x.each(markerLayers['mosque'].graphics, function (index, node) {
+            console.log(node);
+            if (node.visible) {
+              node.hide();
+            }
+            else {
+              node.show();
+            }
+          });
+        });
+      });
+  </script>
+</head>
+
+<body>
+  <div id="windowLonlatContainer" style="display: block; position: absolute; z-index: 10; background: #fff; padding: 8px; border-radius: 4px; top: 10px;left: 10px;">
+    <button id="btnMarker" data-value="f">全部图标</button>
+    <button id="btnMarker1">图标1</button>
+    <button id="btnMarker2">图标2</button>
+  </div>
+  <div id="map"></div>
+</body>
+
+</html>
