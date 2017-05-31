@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+  <title>热力图</title>
+
+  <link rel="stylesheet" href="http://ditu.fuwu.io:7020/arcgis/quanzhou/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="http://ditu.fuwu.io:7020/arcgis/quanzhou/esri/css/esri.css">
+  <style>
+    html,
+    body,
+    #heatmap,
+    #map {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow: hidden;
+    }
+  </style>
+
+  <script src="http://ditu.fuwu.io:7020/arcgis/quanzhou/init.js"></script>
+  <script type="text/javascript" src="http://ditu.fuwu.io:7020/arcgis/quanzhou/cw/heatmap/heatmap.js"></script>
+  <script>
+    var map,
+      draw,
+      editToolbar,
+      ctxMenuForGraphics,
+      ctxMenuForMap,
+      current,
+      currentLocation,
+      selected,
+      heatLayer;
+
+    require([
+      "cw/basemap", "cw/overlay", "cw/util","x","cw/HeatmapLayer",
+      "esri/layers/FeatureLayer","esri/tasks/query",
+      "dojo/on","dojo/query",  "dojo/domReady!"
+    ], function (
+
+
+      basemap, overlays, util,x,HeatmapLayer,
+      FeatureLayer,Query,
+      on,query
+    ) {
+      //初始化地图
+      var map = basemap.create({ divId: "map" });
+
+
+
+
+      // 热力图图层
+      heatLayer = new HeatmapLayer({
+        config: {
+          "useLocalMaximum": false,
+          "radius": 40,
+          "gradient": {
+            0.45: "rgb(000,000,255)",
+            0.55: "rgb(000,255,255)",
+            0.65: "rgb(000,255,000)",
+            0.95: "rgb(255,255,000)",
+            1.00: "rgb(255,000,000)"
+          }
+        },
+        "map": map,
+        "opacity": 0.85
+      }, "heatLayer");
+      map.addLayer(heatLayer);
+
+      // 加载相机要素服务
+      var featureLayer = new FeatureLayer("http://192.168.10.35:6080/arcgis/rest/services/qz/QZFeatureService/FeatureServer/0", {
+        mode: FeatureLayer.MODE_SNAPSHOT,
+        outFields: ["*"]
+      });
+
+      // 热力图刷新
+      map.on("extent-change",getFeatures);
+
+      function getFeatures() {
+        var q = new Query();
+        q.geometry = map.extent;
+        q.where = "1=1";
+        q.outSpatialReference = map.spatialReference;
+
+        featureLayer.queryFeatures(q, function (featureSet) {
+          var data = [];
+          if (featureSet && featureSet.features && featureSet.features.length) {
+            data = featureSet.features;
+          }
+          heatLayer.setData(data);
+        });
+      }
+    });
+  </script>
+</head>
+
+<body class="claro" >
+<div id="heatmap">
+  <div id="heatLayer"></div>
+  <div id="map"></div>
+</div>
+</body>
+
+</html>

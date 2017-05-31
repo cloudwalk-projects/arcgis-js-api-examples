@@ -17,8 +17,6 @@
       current,
       currentLocation,
       selected;
-
-
     require([
       "esri/map",
       "esri/Color",
@@ -69,7 +67,7 @@
         parser.parse();
 
         map = new Map("map", {
-          basemap: "streets", //显示的地图样式 此处为地图，basemap: "satellite", //实景图
+          //basemap: "streets", //显示的地图样式 此处为地图，basemap: "satellite", //实景图
           // 泉州 坐标
           center: [118.596703, 24.900576], //地图加载后，初始位置
           zoom: 16,        //放大级别，值越大放大的比例就越大

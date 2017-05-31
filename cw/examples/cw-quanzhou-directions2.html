@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+  <title>Directions Widget</title>
+  <link rel="stylesheet" href="http://map.x3platform.com/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
+  <style>
+    html, body, #map {
+      height:100%;
+      width:100%;
+      margin:0;
+      padding:0;
+    }
+    body {
+      background-color:#FFF;
+      overflow:hidden;
+      font-family:"Trebuchet MS";
+    }
+  </style>
+
+  <script src="http://ditu.fuwu.io:7020/arcgis/quanzhou/init.js"></script>
+  <script>
+    require([
+      "cw/basemap", "cw/markers",
+      "esri/basemaps","esri/urlUtils", "esri/map", "esri/dijit/Directions",
+      "dojo/parser",
+      "dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dojo/domReady!"
+    ], function(
+      basemap, markers,
+      esriBasemaps,urlUtils, Map, Directions,
+      parser
+    ) {
+      parser.parse();
+
+      //var map = basemap.create({ divId: "map" });
+
+      var map = basemap.create({ divId: "map" });
+
+      var featureLayer = markers.initLayer({
+        // 显示地图的容器标识
+        map: map,
+        markerType: 'camera'
+        // 摄像头信息
+        // featureUrl: "http://192.168.10.35:6080/arcgis/rest/services/qz/QZFeatureService/FeatureServer/0"
+      });
+
+      var directions = new Directions({
+        map: map,
+        routeTaskUrl: "http://192.168.10.35:6080/arcgis/rest/services/qz/QZNetworkService/NAServer/%E8%B7%AF%E5%BE%84",
+        showClearButton: true,
+        mapClickActive: true,
+        showActivateButton: true,
+        showBarriersButton: true,
+        showMilesKilometersOption: true,
+        showSaveButton: true,
+        showTravelModesOption: true,
+      }, "dir");
+
+      // 坐标为mocato
+      var stop1 = {
+        "name": "1",
+        "feature": {
+          "geometry": {
+            "x": 13201462.236750875,
+            "y": 2862695.6344548212
+          },
+          "attributes": {
+            "Score": 100,
+            "Addr_Type": "PointAddress"
+          }
+        }
+      }
+      var stop2 = {
+        "name": "2",
+        "feature": {
+          "geometry": {
+            "x": 13201402.803274749,
+            "y": 2862671.463242627
+          },
+          "attributes": {
+            "Score": 100,
+            "Addr_Type": "PointAddress"
+          }
+        }
+      }
+
+      directions.startup();
+      directions.addStop(stop1);
+      directions.addStop(stop2);
+      directions.setDirectionsLanguage("zh-CN");
+      directions.setDirectionsLengthUnits("esriMeters");
+      directions.getDirections();
+
+    });
+  </script>
+</head>
+<body class="claro">
+<div data-dojo-type="dijit/layout/BorderContainer"
+     data-dojo-props="design:'headline', gutters:false"
+     style="width:100%;height:100%;">
+  <div data-dojo-type="dijit/layout/ContentPane"
+       data-dojo-props="region:'right'"
+       style="width:250px;">
+
+    <div id="dir"></div>
+  </div>
+  <div id="map"
+       data-dojo-type="dijit/layout/ContentPane"
+       data-dojo-props="region:'center'">
+  </div>
+</div>
+</body>
+</html>

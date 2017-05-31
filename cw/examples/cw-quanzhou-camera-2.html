@@ -71,117 +71,154 @@
       MenuSeparator
     ) {
 
-        var map = basemap.create({ divId: "map" });
+      var map = basemap.create({ divId: "map" });
 
-        var featureLayer = markers.initLayer({
-          // 显示地图的容器标识
-          map: map,
-          markerType: 'camera'
-          // 摄像头信息
-          // featureUrl: "http://192.168.10.35:6080/arcgis/rest/services/qz/QZFeatureService/FeatureServer/0"
+      var featureLayer = markers.initLayer({
+        // 显示地图的容器标识
+        map: map,
+        markerType: 'camera'
+        // 摄像头信息
+        // featureUrl: "http://192.168.10.35:6080/arcgis/rest/services/qz/QZFeatureService/FeatureServer/0"
+      });
+
+      featureLayer.on("update-end", function (evt) {
+
+        array.forEach(featureLayer.graphics, function (node, index) {
+          console.log(node);
+          /*
+           // 设置图片符号
+           var symbol = new PictureMarkerSymbol({
+           "angle": 0,
+           "xoffset": 0,
+           "yoffset": 0,
+           "type": "esriPMS",
+           // "url": 'images/location.png',
+           "url": 'images/ico_video_red.png',
+           "contentType": "image/png",
+           "width": 13,
+           "height": 21
+           });
+
+           node.setSymbol(symbol);
+           */
         });
+      });
 
-        featureLayer.on("update-end", function (evt) {
+      // 图片加载的事件
+      map.on("load", function () {
 
-          array.forEach(featureLayer.graphics, function (node, index) {
-            console.log(node);
-            /*
-                // 设置图片符号
-                var symbol = new PictureMarkerSymbol({
-                    "angle": 0,
-                    "xoffset": 0,
-                    "yoffset": 0,
-                    "type": "esriPMS",
-                    // "url": 'images/location.png',
-                    "url": 'images/ico_video_red.png',
-                    "contentType": "image/png",
-                    "width": 13,
-                    "height": 21
-                });
+        // Create and setup editing tools
+        editToolbar = new Edit(map);
 
-            node.setSymbol(symbol);
-          */
-          });
-        });
+        // 创建地图上下文菜单
+        // createMapMenu();
 
-        // 图片加载的事件
-        map.on("load", function () {
+        // 创建图形的上下文菜单
+        createGraphicsMenu();
+      });
 
-          // Create and setup editing tools
-          editToolbar = new Edit(map);
+      // 相机点击事件绑定
+      markers.on({
+        map: map,
+        event: "mouse-over",
+        handler: function (evt) {
+          var graphic = evt.graphic;
 
-          // 创建地图上下文菜单
-          // createMapMenu();
+          if (!!graphic) {
 
-          // 创建图形的上下文菜单
-          createGraphicsMenu();
-        });
+            var outString = '';
 
-        function createGraphicsMenu() {
-          // Creates right-click context menu for GRAPHICS
-          ctxMenuForGraphics = new Menu({});
+            var data = markers.data({
+              map: map,
+              markerId: graphic.attributes.id
+            });
 
-          var menuItems = [];
+            markers.data({
+              map: map,
+              markerId: graphic.attributes.id,
+              data: x.ext(data, {
+                type: 'marker',
+                status: (data.status == 'active') ? 'deactive' : 'active',
+                modifiedDate: x.date.now("yyyy-MM-dd HH:mm:ss") })
+            });
 
-          ctxMenuForGraphics.addChild(new MenuItem({
-            label: "编辑",
-            onClick: function () {
-              if (this.label == '编辑') {
-                selected = current;
-                if (selected.geometry.type !== "point") {
-                  editToolbar.activate(Edit.EDIT_VERTICES, selected);
-                }
-                this.setLabel('保存');
-              }
-              else if (this.label == '保存') {
-                editToolbar.deactivate();
-                this.setLabel('编辑');
-                console.log(selected.geometry.rings);
-                featureLayer.applyEdits(null, [selected], null);
-              }
-            }
-          }));
-
-          ctxMenuForGraphics.addChild(new MenuItem({
-            label: "移动",
-            onClick: function () {
-              var menu = this.getParent().getChildren()[0];
-
-              if (menu.label != '保存') {
-                selected = current;
-                editToolbar.activate(Edit.MOVE, selected);
-                menu.setLabel('保存');
-              }
-            }
-          }));
-
-          ctxMenuForGraphics.addChild(new MenuSeparator());
-          ctxMenuForGraphics.addChild(new MenuItem({
-            label: "删除",
-            onClick: function () {
-              map.graphics.remove(current);
-            }
-          }));
-
-          ctxMenuForGraphics.startup();
-
-          featureLayer.on("mouse-over", function (evt) {
-            // 设置当前元素信息
-            current = evt.graphic;
-
-            ctxMenuForGraphics.bindDomNode(evt.graphic.getDojoShape().getNode());
-          });
-
-          featureLayer.on("mouse-out", function (evt) {
-            ctxMenuForGraphics.unBindDomNode(evt.graphic.getDojoShape().getNode());
-          });
+            query('#windowLonlatContainer')[0].innerHTML = JSON.stringify(data);
+          }
         }
       });
+    }, function (err) {
+      // 处理错误消息
+      console.error(err);
+    });
+
+
+      function createGraphicsMenu() {
+        // Creates right-click context menu for GRAPHICS
+        ctxMenuForGraphics = new Menu({});
+
+        var menuItems = [];
+
+        ctxMenuForGraphics.addChild(new MenuItem({
+          label: "编辑",
+          onClick: function () {
+            if (this.label == '编辑') {
+              selected = current;
+              if (selected.geometry.type !== "point") {
+                editToolbar.activate(Edit.EDIT_VERTICES, selected);
+              }
+              this.setLabel('保存');
+            }
+            else if (this.label == '保存') {
+              editToolbar.deactivate();
+              this.setLabel('编辑');
+              console.log(selected.geometry.rings);
+              featureLayer.applyEdits(null, [selected], null);
+            }
+          }
+        }));
+
+        ctxMenuForGraphics.addChild(new MenuItem({
+          label: "移动",
+          onClick: function () {
+            var menu = this.getParent().getChildren()[0];
+
+            if (menu.label != '保存') {
+              selected = current;
+              editToolbar.activate(Edit.MOVE, selected);
+              menu.setLabel('保存');
+            }
+          }
+        }));
+
+        ctxMenuForGraphics.addChild(new MenuSeparator());
+        ctxMenuForGraphics.addChild(new MenuItem({
+          label: "删除",
+          onClick: function () {
+            map.graphics.remove(current);
+          }
+        }));
+
+        ctxMenuForGraphics.startup();
+
+        featureLayer.on("mouse-over", function (evt) {
+          // 设置当前元素信息
+          current = evt.graphic;
+
+          ctxMenuForGraphics.bindDomNode(evt.graphic.getDojoShape().getNode());
+        });
+
+        featureLayer.on("mouse-out", function (evt) {
+          ctxMenuForGraphics.unBindDomNode(evt.graphic.getDojoShape().getNode());
+        });
+
+
+      }
+    });
   </script>
 </head>
 
 <body class="claro" style="font-size: 0.75em;">
-  <div id="map"></div>
+<div id="map"></div>
 </body>
 
 </html>

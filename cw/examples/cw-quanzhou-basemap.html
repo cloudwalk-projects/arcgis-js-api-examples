@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+  <title>BaseMap</title>
+  <link rel="stylesheet" href="http://map.x3platform.com/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
+
+  <script src="http://ditu.fuwu.io:7020/arcgis/quanzhou/init.js"></script>
+  <script>
+
+    require([
+      "esri/basemaps",
+      "esri/map",
+      "esri/geometry/Extent",
+      "dojo/on",
+      "dojo/query",
+      "dojo/domReady!"
+    ], function (
+        esriBasemaps, Map,Extent,
+        on,query
+
+    ){
+      var initialExtent = new Extent({ "xmin": 110, "ymin": 24, "xmax": 125, "ymax": 27.5, "spatialReference": { "wkid": 102100} });
+
+      esriBasemaps.qzstreat = {
+        baseMapLayers: [{url: "http://192.168.10.35:6080/arcgis/rest/services/qz/QZMapService/MapServer"}
+        ],
+        thumbnailUrl: "https://www.example.com/images/thumbnail_2014-11-25_61051.png",
+        title: "QzStreat"
+      };
+
+      esriBasemaps.qzsatelite = {
+        baseMapLayers: [{url: "http://192.168.10.35:6080/arcgis/rest/services/qz/QzSatellite1Service/MapServer"}
+        ],
+        thumbnailUrl: "https://www.example.com/images/thumbnail_2014-11-25_61051.png",
+        title: "QzSatelite"
+      };
+
+      var map = new Map("map", {
+        basemap: "qzstreat",
+        center: [118.588764667511, 24.892762515909], // long, lat
+        zoom: 13,
+        extent:initialExtent,
+        slider: false
+        //sliderStyle: "small"
+      });
+
+
+      on(query("#btnSwitch"), "click", function (evt) {
+        map.setBasemap("qzsatelite");
+      });
+    });
+  </script>
+</head>
+
+<body>
+<div id="map"></div>
+<div id="windowLonlatContainer" style="display: block; position: absolute; z-index: 10; background: #fff; padding: 8px; border-radius: 4px; top: 10px;left: 10px;">
+  <button id="btnSwitch">切换</button>
+  <div id="description" style="margin:10px 0 0 0;">点击【切换】按钮</div>
+  <div id="results" style="margin:10px 0 0 0;"></div>
+</div>
+</body>
+</html>
+
