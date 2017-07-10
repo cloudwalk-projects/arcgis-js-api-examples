@@ -8,13 +8,15 @@
   <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
   <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
   <script>
-    require(["x", "cw/basemap", "cw/markers", "cw/util", "cw/widgets/SelectToolbarWidget", "dojo/request/xhr", "dojo/domReady!"],
-      function (x, basemap, markers, util, SelectToolbarWidget, xhr) {
+    require(["x", "cw/symbols", "cw/basemap", "cw/markers", "cw/util", "cw/widgets/SelectToolbarWidget", "dojo/request/xhr", "dojo/domReady!"],
+      function (x, symbols, basemap, markers, util, SelectToolbarWidget, xhr) {
 
         var map = basemap.create({ divId: "map" });
 
+        var markerLayer = null;
+
         xhr('../data/cameras.json', { handleAs: "json" }).then(function (respone) {
-          markers.initLayer({
+          markerLayer = markers.initLayer({
             // 显示地图的容器标识
             map: map,
             // 摄像头信息
@@ -30,9 +32,16 @@
           map: map,
           callback: function (results) {
             var outString = '';
-
             x.each(results, function (index, node) {
               outString += '[' + index + '] ' + node.name + ' 经纬度 - x:' + node.x + ', y:' + node.y + '<br />';
+
+              for (var i = 0; i < markerLayer.graphics.length; i++) {
+                if (node.ObjectID == markerLayer.graphics[i].attributes.ObjectID) {
+                  markerLayer.graphics[i].setSymbol(symbols['marker-active']);
+                }
+
+                // console.log(node.ObjectID + ' - ' + markerLayer.graphics[i].attributes.ObjectID);
+              }
             });
 
             dojo.byId('windowLonlatContainer').innerHTML = outString;
