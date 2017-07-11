@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>初始化标记数据</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
+  <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
+  <script>
+    require(["cw/basemap", "cw/markers", "cw/util",
+      "dojo/query", "dojo/on", "dojo/request/xhr", "dojo/domReady!"], function (basemap, markers, util, query, on, xhr) {
+
+        var map = basemap.create({ divId: "map" });
+        var layer = null;
+
+        var loadMarkers = function () {
+          xhr('../data/cameras.json', { handleAs: "json" }).then(function (respone) {
+            layer = markers.initLayer({
+              // 显示地图的容器标识
+              map: map,
+              // 摄像头信息
+              markers: respone.data
+            });
+          }, function (err) {
+            // 错误信息处理
+            console.log(err);
+          });
+        }
+        loadMarkers();
+
+        on(query("#btnClear"), "click", function (evt) {
+          console.log('btnClear - click');
+          map.removeLayer(layer);
+        });
+
+        on(query("#btnReload"), "click", function (evt) {
+          console.log('btnReload - click');
+          loadMarkers();
+        });
+      });
+  </script>
+</head>
+
+<body>
+  <div id="windowLonlatContainer" style="display: block; position: absolute; z-index: 10; background: #fff; padding: 8px; border-radius: 4px; top: 10px;left: 10px;">
+    <button id="btnClear">清除</button>
+    <button id="btnReload">重新初始化</button>
+  </div>
+  <div id="map"></div>
+</body>
+
+</html>
