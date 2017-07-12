@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <title>编辑地图中心点和放大缩小</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
+  <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
+  <script>
+    require(["x", "cw/config", "cw/symbols", "cw/basemap", "cw/util", "dojo/query", "dojo/on",
+      "esri/graphic", "esri/geometry/Point", "esri/toolbars/edit", "dojo/domReady!"],
+      function (x, config, symbols, basemap, util, query, on, Graphic, Point, Edit) {
+        var map = basemap.create({ divId: "map" });
+
+        basemap.edit({
+          map: map,
+          center: [106.54917027, 29.56358338],
+          zoom: 14
+        });
+
+        $inputLng = query("#input-lng")[0], $inputLat = query("#input-lat")[0];
+
+        editToolbar = new Edit(map);
+
+        map.on('load', function (evt) {
+          if ($inputLat.value != '' && $inputLng.value != '') {
+            createMark($inputLng.value, $inputLat.value);
+          }
+        });
+
+        createMark = function (lng, lat) {
+          if (lng != '' && lat != '') {
+            map.graphics.clear();
+
+            var graphic = new Graphic(new Point({
+              'x': lng,
+              'y': lat,
+              'spatialReference': {
+                "wkid": config.wkid
+              }
+            }));
+
+            graphic.setSymbol(symbols['camera-default']);
+            graphic.draw();
+            map.graphics.add(graphic);
+            editToolbar.activate(Edit.MOVE, graphic);
+          }
+        };
+
+        map.on('mouse-drag-end', function (evt) {
+          console.log(evt.graphic);
+          if (evt.graphic) {
+            $inputLng.value = evt.graphic.geometry.x;
+            $inputLat.value = evt.graphic.geometry.y;
+          }
+        });
+
+        editToolbar.on('graphic-move-stop', function (evt) {
+          var graphic = evt.graphic;
+          if (graphic) {
+            // 这里处理坐标信息
+            $inputLng.value = graphic.geometry.x;
+            $inputLat.value = graphic.geometry.y;
+          }
+        });
+      });
+  </script>
+</head>
+
+<body>
+  <div id="windowLonlatContainer" style="display: block; position: absolute; z-index: 10; background: #fff; padding: 8px; border-radius: 4px; top: 10px;left: 10px;">
+    <input id="input-lng" type="text" value="106.54917027" />
+    <input id="input-lat" type="text" value="29.56358338" />
+  </div>
+  <div id="map" class="map"></div>
+</body>
+
+</html>
