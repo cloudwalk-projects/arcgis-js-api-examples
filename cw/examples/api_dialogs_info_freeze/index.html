@@ -22,6 +22,7 @@
           divId: "map"
         });
 
+        // 设置字体的大小和颜色
         var font = new Font('12px');
         var fontColor = new Color([255, 255, 255]);
         // var fontColor = new Color([0, 0, 0]);
@@ -61,7 +62,7 @@
                 "wkid": config.wkid
               }
             });
-
+            // 设置背景
             var graphic = new Graphic(geometry);
 
             // graphic.setAttributes(attributes);
@@ -69,6 +70,7 @@
 
             tooltipLayer.add(graphic);
 
+            // 设置图片
             graphic = new Graphic(geometry);
 
             var pictureSymbol = new PictureMarkerSymbol({
@@ -86,7 +88,7 @@
 
             tooltipLayer.add(graphic);
 
-            // 设置时间
+            // 日期
             graphic = new Graphic(geometry);
 
             // 自定义数据
