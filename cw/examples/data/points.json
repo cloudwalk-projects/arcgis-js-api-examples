@@ -7,7 +7,9 @@
             "ip": "192.168.0.1",
             "x": "106.55097271762801",
             "y": "29.563900672574004",
-            "src":"http://localhost/arcgis/examples/cw/examples/photo/1.jpg"
+            "src":"http://localhost/arcgis/examples/cw/examples/photo/1.jpg",
+            "createdDate":"2017-07-14",
+            "createdTime":"00:00:00"
         },
         {
             "id": "0002",
@@ -16,7 +18,9 @@
             "ip": "192.168.0.2",
             "x": "106.54717470966243",
             "y": "29.560709076232932",
-            "src":"http://map.x3platform.com/cw/examples/photo/2.jpg"
+            "src":"http://map.x3platform.com/cw/examples/photo/2.jpg",
+            "createdDate":"2017-07-14",
+            "createdTime":"00:00:00"
         },
         {
             "id": "10015",

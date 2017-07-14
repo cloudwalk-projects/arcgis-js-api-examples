@@ -214,7 +214,7 @@
 				/**
 				 * 将摄像头数据绑定到内容上
 				 */
-        binding() {
+        binding: function () {
           if (this.markerId) {
             var that = this;
             var layer = markers.getLayer({ map: this.map, markerType: 'camera' });

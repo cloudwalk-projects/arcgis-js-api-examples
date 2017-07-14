@@ -79,6 +79,52 @@ define([
       "width": 15,
       "height": 21
     }),
+    // 摄像头-闪(红)
+    'camera-falsh': new PictureMarkerSymbol({
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": -10,
+      "type": "esriPMS",
+      "url": config.staticFileServer + 'images/video_map_red_flash.gif',
+      "contentType": "image/gif",
+      "width": 15,
+      "height": 21
+    }),
+    // 地图标记(默认)
+    'rz-default': new PictureMarkerSymbol({
+      //"angle": 0,
+      //"xoffset": 0,
+      "yoffset": -10,
+      "type": "esriPMS",
+      "url": config.staticFileServer + 'images/ico_marker_blue.png',
+      "contentType": "image/png",
+      // 图片原始大小为 20x28
+      "width": 15,
+      "height": 21
+    }),
+    // 地图标记(蓝)
+    'rz-deactive': new PictureMarkerSymbol({
+      //"angle": 0,
+      //"xoffset": 0,
+      "yoffset": -10,
+      "type": "esriPMS",
+      "url": config.staticFileServer + 'images/ico_marker_blue.png',
+      "contentType": "image/png",
+      // 图片原始大小为 20x28
+      "width": 15,
+      "height": 21
+    }),
+    // 地图标记(红)
+    'rz-active': new PictureMarkerSymbol({
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": -10,
+      "type": "esriPMS",
+      "url": config.staticFileServer + 'images/ico_marker_red.png',
+      "contentType": "image/png",
+      "width": 15,
+      "height": 21
+    }),
     // 酒店(默认)
     'hotel-default': new PictureMarkerSymbol({
       //"angle": 0,

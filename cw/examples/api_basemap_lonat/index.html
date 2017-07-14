@@ -59,7 +59,7 @@
         editToolbar.on('graphic-move-stop', function (evt) {
           var graphic = evt.graphic;
           if (graphic) {
-            // 这里处理坐标信息
+            // 处理坐标信息
             $inputLng.value = graphic.geometry.x;
             $inputLat.value = graphic.geometry.y;
           }
