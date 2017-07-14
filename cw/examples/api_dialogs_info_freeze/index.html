@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>消息提示</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
+  <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
+  <script>
+    require([
+      "cw/config", "cw/basemap", "cw/markers", "cw/util", "cw/dialogs/InfoWindow",
+      "esri/Color", "esri/graphic", "esri/geometry/Point", "esri/layers/GraphicsLayer", "esri/symbols/Font",
+      "esri/symbols/PictureMarkerSymbol", "esri/symbols/TextSymbol", "esri/symbols/PictureMarkerSymbol",
+      "dojo/_base/array", "dojo/query", "dojo/on", "dojo/request/xhr", "dojo/domReady!"
+    ], function (
+      config, basemap, markers, util, InfoWindow,
+      Color, Graphic, Point, GraphicsLayer, Font, PictureMarkerSymbol, TextSymbol, PictureMarkerSymbol,
+      array, query, on, xhr) {
+
+        var map = basemap.create({
+          divId: "map"
+        });
+
+        var font = new Font('12px');
+        var fontColor = new Color([255, 255, 255]);
+        // var fontColor = new Color([0, 0, 0]);
+
+        var backgroundSymbol = new PictureMarkerSymbol({
+          "angle": 0,
+          "xoffset": 0,
+          "yoffset": 68,
+          "type": "esriPMS",
+          "url": config.staticFileServer + 'images/tooltip_75x100.png',
+          "contentType": "image/png",
+          "width": 80,
+          "height": 130,
+        });
+
+        tooltipLayer = new GraphicsLayer({ id: 'my-marker-tooltip' });
+
+        map.addLayer(tooltipLayer);
+
+        xhr('../data/points.json', { handleAs: "json" }).then(function (respone) {
+          var layer = markers.initLayer({
+            // 显示地图的容器标识
+            map: map,
+            type: 'camera',
+            // 摄像头信息
+            markers: respone.data
+          });
+
+          var graphics = [];
+
+          array.forEach(respone.data, function (node, index) {
+            console.log(node);
+            var geometry = new Point({
+              'x': node.x,
+              'y': node.y,
+              'spatialReference': {
+                "wkid": config.wkid
+              }
+            });
+
+            var graphic = new Graphic(geometry);
+
+            // graphic.setAttributes(attributes);
+            graphic.setSymbol(backgroundSymbol);
+
+            tooltipLayer.add(graphic);
+
+            graphic = new Graphic(geometry);
+
+            var pictureSymbol = new PictureMarkerSymbol({
+              "angle": 0,
+              "xoffset": 0,
+              "yoffset": 80,
+              "type": "esriPMS",
+              "url": node.src,
+              "contentType": "image/png",
+              "width": 75,
+              "height": 100,
+            });
+            // graphic.setAttributes(attributes);
+            graphic.setSymbol(pictureSymbol);
+
+            tooltipLayer.add(graphic);
+
+            // 设置时间
+            graphic = new Graphic(geometry);
+
+            // 自定义数据
+            var textSymbol = new TextSymbol({
+              "text": '2010-01-01',
+              "align": TextSymbol.ALIGN_START,
+              "font": font,
+              "xoffset": -35,
+              "yoffset": 20
+            });
+
+            textSymbol.setFont(font);
+            textSymbol.setColor(fontColor);
+
+            // textgraphic.setAttributes(attributes);
+            graphic.setSymbol(textSymbol);
+
+            // graphics.push(graphic);
+            tooltipLayer.add(graphic);
+
+            // 设置时间
+            graphic = new Graphic(geometry);
+
+            // 自定义数据
+            var textSymbol = new TextSymbol({
+              "text": '00:00:00',
+              "align": TextSymbol.ALIGN_START,
+              "font": font,
+              "xoffset": -35,
+              "yoffset": 10
+            });
+
+            textSymbol.setFont(font);
+            textSymbol.setColor(fontColor);
+
+            // textgraphic.setAttributes(attributes);
+            graphic.setSymbol(textSymbol);
+
+            // graphics.push(graphic);
+            tooltipLayer.add(graphic);
+          });
+
+          // tooltipLayer.applyEdits(graphics, null, null);
+
+          tooltipLayer.on('click', function (evt) {
+            if (evt.graphic) {
+              console.log(evt.graphic);
+            }
+          });
+        }, function (err) {
+          // 处理错误消息
+          console.error(err);
+        });
+      });
+  </script>
+</head>
+
+<body>
+  <div id="windowLonlatContainer" style="display: block; position: absolute; z-index: 10; background: #fff; padding: 8px; border-radius: 4px; top: 10px;left: 10px;">
+    <div id="results" style="margin:10px 0 0 0;">点击摄像头符号，查看图片信息。</div>
+  </div>
+  <div id="map"></div>
+</body>
+
+</html>
