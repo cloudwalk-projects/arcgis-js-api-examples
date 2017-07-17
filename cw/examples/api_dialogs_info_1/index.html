@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>消息提示</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
+  <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
+  <script>
+    require([
+      "cw/config", "cw/basemap", "cw/_dialogs1", "cw/markers", "cw/util", "cw/dialogs/InfoWindow",
+      "esri/Color", "esri/graphic", "esri/geometry/Point", "esri/layers/GraphicsLayer", "esri/symbols/Font",
+      "esri/symbols/PictureMarkerSymbol", "esri/symbols/TextSymbol", "esri/symbols/PictureMarkerSymbol",
+      "dojo/_base/array", "dojo/query", "dojo/on", "dojo/request/xhr", "dojo/domReady!"
+    ], function (
+      config, basemap, dialogs1, markers, util, InfoWindow,
+      Color, Graphic, Point, GraphicsLayer, Font, PictureMarkerSymbol, TextSymbol, PictureMarkerSymbol,
+      array, query, on, xhr) {
+
+        var map = basemap.create({
+          divId: "map"
+        });
+
+        xhr('../data/points.json', { handleAs: "json" }).then(function (respone) {
+          var layer = markers.initLayer({
+            // 显示地图的容器标识
+            map: map,
+            type: 'camera',
+            // 摄像头信息
+            markers: respone.data
+          });
+
+          var dialogLayer = dialogs1.initLayer({ map: map, data: respone.data });
+        }, function (err) {
+          // 处理错误消息
+          console.error(err);
+        });
+      });
+  </script>
+</head>
+
+<body>
+  <div id="windowLonlatContainer" style="display: block; position: absolute; z-index: 10; background: #fff; padding: 8px; border-radius: 4px; top: 10px;left: 10px;">
+    <div id="results" style="margin:10px 0 0 0;">点击摄像头符号，查看图片信息。</div>
+  </div>
+  <div id="map"></div>
+</body>
+
+</html>
