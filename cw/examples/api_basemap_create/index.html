@@ -8,13 +8,11 @@
   <link rel="stylesheet" href="http://map.x3platform.com/esri/css/esri.css">
   <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
   <script>
-    require(["cw/basemap", "dojo/domReady!"], function (basemap) {
+    require(["../../basemap.js", "dojo/domReady!"], function (basemap) {
       var map = basemap.create({
         divId: "map",
         map: {
-          zoom: 13,
-          minZoom:10,
-          maxZoom:17
+
         }
       });
     });

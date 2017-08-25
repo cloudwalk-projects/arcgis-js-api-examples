@@ -24,16 +24,17 @@ define([], function () {
     },
     // 默认的 WKID
     wkid: 4326,
-    // 静态资源服务器  
+    // 静态资源服务器
     staticFileServer: 'http://ditu.fuwu.io:7020/arcgis/',
-    // 瓦片地图显示类型 tiled | dynamic
-    tiledMapType: 'tiled',
+    // 瓦片地图显示类型 tiled(切片地图服务) | dynamic(动态地图服务) | tianditu(天地图切片服务) | arctiled(Arcggis格式瓦片包)
+    tiledMapType: 'arctiled',
     // 瓦片地图服务器
     // 中国彩色地图服务器
-    // 重庆地图 'http://192.168.10.35:6080/arcgis/rest/services/重庆地图/MapServer'    
+    // 重庆地图 'http://192.168.10.35:6080/arcgis/rest/services/重庆地图/MapServer'
     // 重庆地图 'http://192.168.10.35:6080/arcgis/rest/services/Baidu_ChongQing/MapServer'
     // 泉州地图 'http://192.168.10.35:6080/arcgis/rest/services/qz/QZMapService/MapServer'
-    tiledMapServer: 'http://192.168.10.35:6080/arcgis/rest/services/MapService_jb/MapServer',
+    //tiledMapServer: 'http://192.168.10.35:6080/arcgis/rest/services/MapService_jb/MapServer',
+    tiledMapServer: 'http://192.168.10.217:8008',
     // 路径
     // 重庆地图 'http://192.168.10.35:6080/arcgis/rest/services/重庆地图/NAServer/路径'
     naServer: 'http://192.168.10.35:6080/arcgis/rest/services/重庆地图/NAServer/路径',
@@ -47,7 +48,17 @@ define([], function () {
       pathServer: 'http://192.168.10.35:6080/arcgis/rest/services/重庆地图/NaServer',
       // 覆盖物
       // 泉州http://192.168.10.35:6080/arcgis/rest/services/cq/CQPolygonService/FeatureServer/0
-      polygonServer:'http://192.168.10.35:6080/arcgis/rest/services/qz/QZPolygonService/MapServer/0'
+      polygonServer: 'http://192.168.10.35:6080/arcgis/rest/services/qz/QZPolygonService/MapServer/0'
+    },
+    //天地图WMTS服务请求参数
+    tiandituWMTSServer: {
+      //服务地址
+      url: 'http://172.0.1.30:9010',
+      version: '1.0.0',
+      layerIdentifier: 'SX_DLG_MUL_2K',
+      styleIdentifier: 'default',
+      matrixSet: 'Matrix_3',
+      format: 'image/tile'
     }
   };
 });

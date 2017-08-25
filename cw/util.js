@@ -1,4 +1,4 @@
-/**
+  /**
  * 定义默认符号信息
  */
 define([], function () {
@@ -50,7 +50,7 @@ define([], function () {
         },
 
         /**
-        * 经纬度转墨卡托 
+        * 经纬度转墨卡托
         */
         lonlat2mercator: function (lonlat) {
             // wkid=102100 投影坐标系

@@ -1,7 +1,7 @@
 ﻿/**
  * 地图操作工具辅助类
  */
-define(["cw/config", "cw/basemap", "cw/markers", "cw/util", "cw/dialogs/InfoWindow",
+define(["../../config.js", "../../basemap.js", "../../markers.js", "../../util.js", "../../dialogs/InfoWindow.js",
   "esri/Color", "esri/graphic", "esri/geometry/Point", "esri/layers/GraphicsLayer", "esri/symbols/Font",
   "esri/symbols/PictureMarkerSymbol", "esri/symbols/TextSymbol", "esri/symbols/PictureMarkerSymbol",
   "dojo/_base/array", "dojo/query", "dojo/on", "dojo/request/xhr"

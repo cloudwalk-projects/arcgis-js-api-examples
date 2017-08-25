@@ -1,8 +1,8 @@
 /**
  * 覆盖物操作类
  */
-define(["cw/config",
-  "cw/util",
+define(["../../config.js",
+  "../../util.js",
   "esri/graphic",
   "esri/geometry/Point",
   "esri/layers/FeatureLayer",

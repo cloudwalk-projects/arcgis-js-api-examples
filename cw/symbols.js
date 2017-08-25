@@ -2,7 +2,7 @@
  * 定义默认符号信息
  */
 define([
-  "cw/config", "esri/Color", "esri/symbols/PictureMarkerSymbol", "esri/symbols/PictureFillSymbol", "esri/symbols/SimpleLineSymbol"
+  "../../config.js", "esri/Color", "esri/symbols/PictureMarkerSymbol", "esri/symbols/PictureFillSymbol", "esri/symbols/SimpleLineSymbol"
 ], function (config, Color, PictureMarkerSymbol, PictureFillSymbol, SimpleLineSymbol) {
   // 图像符号设置
   return {

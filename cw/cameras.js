@@ -1,7 +1,7 @@
 /**
  * 地图操作工具辅助类
  */
-define(["cw/config", "cw/symbols", "cw/util",
+define(["../../config.js", "../../symbols.js", "../../util.js",
   "esri/graphic", "esri/geometry/Point",
   "esri/layers/FeatureLayer",
   "esri/symbols/PictureMarkerSymbol",

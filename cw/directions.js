@@ -1,8 +1,8 @@
 /**
  * 地图操作工具辅助类
  */
-define(["cw/config",
-  "cw/util",
+define(["../../config.js",
+  "../../util.js",
   "esri/Color",
   "esri/graphic",
   "esri/geometry/Point",

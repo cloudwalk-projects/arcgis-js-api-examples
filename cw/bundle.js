@@ -1,11 +1,11 @@
 /**
  * 统一加载包
  */
-define(["cw/config",
-    "cw/basemap",
-    "cw/cameras",
-    "cw/directions",
-    "cw/util"
+define(["../../config.js",
+    "../../basemap.js",
+    "../../cameras.js",
+    "../../directions.js",
+    "../../util.js"
 ], function (
     config,
     basemap,

@@ -3,12 +3,15 @@
  */
 define(["cw/config",
   "cw/util",
+  "cw/mapLayer/TDTLayer",
+  "cw/mapLayer/TDTAnnoLayer",
+  "cw/mapLayer/ArcTiledLayer",
   "esri/map",
   "esri/geometry/Point",
   "esri/layers/ArcGISTiledMapServiceLayer",
   "esri/layers/ArcGISDynamicMapServiceLayer"
 ], function (
-  config, util,
+  config, util,TDTLayer,TDTAnnoLayer,ArcTiledLayer,
   Map, Point,
   ArcGISTiledMapServiceLayer, ArcGISDynamicMapServiceLayer) {
 
@@ -18,7 +21,7 @@ define(["cw/config",
        */
       create: function (options) {
 
-        options = self.util.ext({ tiledMapServer: config.tiledMapServer }, options);
+        options = self.util.ext({tiledMapServer: config.tiledMapServer}, options);
 
         options.map = self.util.ext(config.map, options.map);
 
@@ -28,13 +31,23 @@ define(["cw/config",
         var layer = null;
 
         if (config.tiledMapType == 'tiled') {
-          layer = new ArcGISTiledMapServiceLayer(options.tiledMapServer, { id: 'basemap-layer' });
+          layer = new ArcGISTiledMapServiceLayer(options.tiledMapServer, {id: 'basemap-layer'});
+          map.addLayer(layer);
         }
-        else {
-          layer = new ArcGISDynamicMapServiceLayer(options.tiledMapServer, { id: 'basemap-layer' });
+        else if (config.tiledMapType == 'dynamic') {
+          layer = new ArcGISDynamicMapServiceLayer(options.tiledMapServer, {id: 'basemap-layer'});
+          map.addLayer(layer);
+        }//天地图WMTS服务加载
+        else if (config.tiledMapType == 'tianditu') {
+          var basemap = new TDTLayer(config.tiandituWMTSServer);
+          map.addLayer(basemap);
+          var annolayer = new TDTAnnoLayer(config.tiandituWMTSServer);
+          map.addLayer(annolayer);
+        }//ArcGIS瓦片包
+        else if (config.tiledMapType == 'arctiled') {
+          var basemap = new ArcTiledLayer(config.tiledMapServer);
+          map.addLayer(basemap);
         }
-
-        map.addLayer(layer);
 
         return map;
       },
