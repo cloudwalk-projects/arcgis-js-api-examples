@@ -18,8 +18,8 @@
         // 创建自定义消息窗口
         var dialog = new InfoWindow({
           divId: 'map',
-          xoffset: 0,
-          yoffset: -30
+          xoffset: 3,
+          yoffset: -10
         });
 
         var map = basemap.create({
@@ -43,7 +43,7 @@
 
               var outString = '';
 
-              outString += '<div style="background:#fff; padding:4px; border-radius:4px;"><img src="' + graphic.attributes.src + '" style="height:200px; width:162.5px;" /></div>';
+              outString += '<div style="background:#fff; padding:4px; border-radius:4px;">公司门口电梯相机5-2</div>';
 
               dialog.setContent(outString);
 

@@ -70,8 +70,8 @@ define(["../../config.js",
         new Color([0, 255, 0, 0.25])),
       'line': new SimpleLineSymbol(
         SimpleLineSymbol.STYLE_SOLID,
-        new Color([0, 200, 255, 0.5]),
-        8),
+        new Color([255, 0, 0, 0.8]),
+        3),
       'tooltip': new PictureMarkerSymbol({
         "angle": 0,
         "xoffset": 0,
