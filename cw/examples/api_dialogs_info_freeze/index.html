@@ -9,7 +9,7 @@
   <script src="http://map.x3platform.com/init.js" data-dojo-config="parseOnLoad:true, locale:'zh-cn'"></script>
   <script>
     require([
-      "cw/config", "cw/basemap", "cw/dialogInfo", "cw/markers", "cw/util", "cw/dialogs/InfoWindow",
+      "cw/config", "cw/basemap", "cw/dialogs", "cw/markers", "cw/util", "cw/dialogs/InfoWindow",
       "esri/Color", "esri/graphic", "esri/geometry/Point", "esri/layers/GraphicsLayer", "esri/symbols/Font",
       "esri/symbols/PictureMarkerSymbol", "esri/symbols/TextSymbol", "esri/symbols/PictureMarkerSymbol",
       "dojo/_base/array", "dojo/query", "dojo/on", "dojo/request/xhr", "dojo/domReady!"
@@ -32,16 +32,24 @@
           });
 
           var dialogLayer = dialogs.initLayer({ map: map, data: respone.data });
+
+          on(query("#btnDel"), "click", function (evt) {
+             dialogs.delLayer();
+          });
+
         }, function (err) {
           // 处理错误消息
           console.error(err);
         });
+
+
       });
   </script>
 </head>
 
 <body>
   <div id="windowLonlatContainer" style="display: block; position: absolute; z-index: 10; background: #fff; padding: 8px; border-radius: 4px; top: 10px;left: 10px;">
+    <button id="btnDel">删除弹框</button>
     <div id="results" style="margin:10px 0 0 0;">点击摄像头符号，查看图片信息。</div>
   </div>
   <div id="map"></div>

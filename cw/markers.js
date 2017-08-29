@@ -120,7 +120,7 @@ define(["x", "../../config.js", "../../symbols.js", "../../util.js",
         map.on("layer-add-result", function (results) {
           if (!results.layer.initialized && results.layer.id == layerId) {
             results.layer.initialized = true;
-            console.log('init markers(' + markerType + '):layer-add-result');
+            //console.log('init markers(' + markerType + '):layer-add-result');
             if (results.layer.markers) {
               self.initMarkers({ layer: results.layer, markerType: results.layer.markerType, markers: results.layer.markers });
             }
@@ -130,11 +130,17 @@ define(["x", "../../config.js", "../../symbols.js", "../../util.js",
         map.addLayer(layer, defaults.layerIndex++);
       }
       else {
-        console.log('init markers(' + markerType + '):initialized');
+        //console.log('init markers(' + markerType + '):initialized');
         if (markers) {
           self.initMarkers({ layer: layer, markerType: markerType, markers: markers });
         }
       }
+      layer.on("mouse-over",function(evt){
+        map.setMapCursor("pointer");
+      });
+      layer.on("mouse-out",function(evt){
+        map.setMapCursor("default");
+      });
 
       return layer;
     },
